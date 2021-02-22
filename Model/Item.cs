@@ -22,9 +22,7 @@ namespace Model
         private string estado;
         private int cantidad;
         private string visibilidad;
-
-       
-
+        private double total;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -40,6 +38,13 @@ namespace Model
 
 
         #region get set
+        public double Total
+        {
+            get { return cantidad * precio; }
+            set { total = cantidad*precio;
+                OnPropertyChanged("Total");
+            }
+        }
         public string Visibilidad
         {
             get { return visibilidad; }
@@ -57,6 +62,8 @@ namespace Model
             get { return cantidad; }
             set { cantidad = value;
                 OnPropertyChanged("Cantidad");
+                OnPropertyChanged("Total");
+
             }
         }
 
