@@ -1,0 +1,103 @@
+﻿<Window x:Class="food_service.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:food_service"
+        mc:Ignorable="d"
+        Title="food service 2" Height="1000" Width="1200"
+        WindowStartupLocation="CenterScreen" WindowState="Maximized"
+        Name="vntPrincipal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Grid >
+            <TabControl x:Name="tabControl">
+                <TabControl.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#7F9FADC7" Offset="0"/>
+                        <GradientStop Color="#FF7989A6" Offset="1"/>
+                    </LinearGradientBrush>
+                </TabControl.Background>
+                <TabItem Header="Archivo">
+                    
+                </TabItem>
+                <TabItem Header="Cliente" IsSelected="True">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="80" Background="#ffe089">Snack</Button>
+                        <Button Width="80" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click">
+                            <TextBlock Text="Comedor" VerticalAlignment="Bottom" Margin="0 10" HorizontalAlignment="Center"/>
+                        </Button>
+                        <Button Width="80" Background="#ffe089">Asistencia</Button>
+                    </StackPanel>
+                </TabItem>
+                <TabItem Header="Configuracion">
+                   
+                </TabItem>
+                <TabItem Header="Reportes">
+                    
+                </TabItem>
+            </TabControl>
+        </Grid>
+        <Grid Grid.Row="1" Background="#FFA9B5C8" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="0.8*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="Black" BorderThickness="1" Margin="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="80"/>
+                    </Grid.RowDefinitions>
+                    <ListBox Name="lbItemsVenta">
+                        
+                    </ListBox>
+                    <StackPanel Grid.Row="1">
+                        <Grid>
+                            <Label HorizontalAlignment="Left">TOTAL =</Label>
+                            <Label HorizontalAlignment="Right">0,00 Bs.</Label>
+                        </Grid>
+                        <Button Height="50">
+                            FINALIZAR
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+            <Grid x:Name="gridItems" Grid.Column="1" >
+                <ListBox x:Name="lbItems" Background="Transparent" SelectionChanged="lbItems_SelectionChanged" >
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Width="900"></WrapPanel></ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                                <Border x:Name="bordeItem" Width="130" Height="180" Margin="5" Background="#7a8aa7" CornerRadius="10" Padding="5">
+                                    <StackPanel Orientation="Vertical">
+                                        <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="#7a8aa7" >
+                                            <Grid>
+                                                <Image  Source="{Binding Imagen}" Stretch="Fill" Margin="2"></Image>
+                                                <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding Visibilidad}">
+                                                    <Button Name="btnAumentarCantidad" Content="" Width="50" Height="55" Margin="0 0 0 3" Background="#ffe089" Click="btnAumentarCantidad_Click"/>
+                                                    <Button Name="btnQuitarCantidad" Content="" Width="50" Height="55" Background="#ffe089" Click="btnQuitarCantidad_Click"/>
+                                                </StackPanel>
+                                            <Border VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="{Binding Visibilidad}">
+                                                <TextBlock  FontWeight="Bold" FontSize="15" Text="{Binding Path=Cantidad,Mode=OneWay}" Background="White" TextAlignment="Center"/>
+                                                </Border>
+                                                <TextBlock Text="{Binding Precio}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15"></TextBlock>
+                                            </Grid>
+                                        </Border>
+                                        <TextBlock FontSize="13" FontWeight="Bold" Text="{Binding Nombre}" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
+                                    </StackPanel>
+                                </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </Grid>
+    </Grid>
+
+</Window>
