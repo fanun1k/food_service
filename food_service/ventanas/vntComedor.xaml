@@ -23,7 +23,7 @@
                 </Grid.ColumnDefinitions>
                 <Border Background="Goldenrod" BorderBrush="DimGray" BorderThickness="0 0 2 0" Margin="0 5 0 0">
                     <Grid Name="gridImg">
-                        <Image x:Name="imgFotografia" Source="/food_service;component/appData/imgDefecto.png"></Image>
+                        <Image x:Name="imgFotografia" Source="/food_service;component/appData/imgDefecto.png" Stretch="Fill"></Image>
                     </Grid>
                    
                 </Border>

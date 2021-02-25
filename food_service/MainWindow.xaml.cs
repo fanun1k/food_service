@@ -26,6 +26,8 @@ namespace food_service
         ItemImpl itemImpl;
         List<Item> items;
         List<Item> itemsVenta;
+        Item item = null;
+        bool itemExiste = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,9 +36,10 @@ namespace food_service
             itemsVenta = new List<Item>();
             lbItems.ItemsSource = items;
             lbItemsVenta.ItemsSource = itemsVenta;
+            DataContext = itemsVenta;
             DataContext = items;
         }
-     
+
         private void btnComedor_Click(object sender, RoutedEventArgs e)
         {
             ventanas.vntComedor vc = new ventanas.vntComedor();
@@ -72,33 +75,70 @@ namespace food_service
                     Precio = double.Parse(dataRow["precio"].ToString()),
                     Imagen = bmi,
                     Visibilidad = "Hidden"
-                }); ; ;
+                });
             }
 
-        }
-        private void lbItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if ((lbItems.SelectedItem as Item).Cantidad > 0)
-            {
-                (lbItems.SelectedItem as Item).Cantidad = 0;
-                (lbItems.SelectedItem as Item).Visibilidad = "Hidden";
-                
-            }
-            else
-            {
-                (lbItems.SelectedItem as Item).Cantidad = 1;
-                (lbItems.SelectedItem as Item).Visibilidad = "Visible";
-            }
         }
 
         private void btnAumentarCantidad_Click(object sender, RoutedEventArgs e)
         {
             (lbItems.SelectedItem as Item).Cantidad = (lbItems.SelectedItem as Item).Cantidad + 1;
+
         }
 
         private void btnQuitarCantidad_Click(object sender, RoutedEventArgs e)
         {
-            (lbItems.SelectedItem as Item).Cantidad = (lbItems.SelectedItem as Item).Cantidad - 1;
+            if ((lbItems.SelectedItem as Item).Cantidad > 1)
+            {
+                (lbItems.SelectedItem as Item).Cantidad = (lbItems.SelectedItem as Item).Cantidad - 1;
+            }
         }
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if (item != null && item.IsSelected)
+            {
+                if (itemExiste == false)
+                {
+                    itemExiste = true;
+                }
+            }
+            else
+            {
+                itemExiste = false;
+            }
+        }
+        private void Image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (itemExiste)
+            {
+                if ((lbItems.SelectedItem as Item).Cantidad > 0)
+                {
+                    (lbItems.SelectedItem as Item).Cantidad = 0;
+                    (lbItems.SelectedItem as Item).Visibilidad = "Hidden";
+                    itemExiste = false;
+
+                }
+                else
+                {
+
+                    (lbItems.SelectedItem as Item).Cantidad = 1;
+                    (lbItems.SelectedItem as Item).Visibilidad = "Visible";
+
+
+                    item = new Item()
+                    {
+                        Id = (lbItems.SelectedItem as Item).Id,
+                        Cantidad = 1,
+                        Nombre = (lbItems.SelectedItem as Item).Nombre,
+                        Precio = (lbItems.SelectedItem as Item).Precio,
+                    };
+                    itemsVenta.Add(item);
+
+                }
+            }
+        }
+
     }
 }
