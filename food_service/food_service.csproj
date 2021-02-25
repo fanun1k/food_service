@@ -104,6 +104,12 @@
       <DependentUpon>TicketsComedor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tickets\TicketSnack.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketSnack.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ventanas\vntComedor.xaml.cs">
       <DependentUpon>vntComedor.xaml</DependentUpon>
     </Compile>
@@ -149,6 +155,10 @@
     <EmbeddedResource Include="Tickets\TicketsComedor.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TicketsComedor.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Tickets\TicketSnack.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TicketSnack.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="food_serviceDataSet.xsc">
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
