@@ -140,5 +140,10 @@ namespace food_service
             }
         }
 
+        private void btnAsistencia_Click(object sender, RoutedEventArgs e)
+        {
+            ventanas.VntAsistencia vntAsistencia = new ventanas.VntAsistencia();
+            vntAsistencia.Show();
+        }
     }
 }

@@ -113,6 +113,9 @@
       <DependentUpon>TicketSnack.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="ventanas\VntAsistencia.xaml.cs">
+      <DependentUpon>VntAsistencia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\vntComedor.xaml.cs">
       <DependentUpon>vntComedor.xaml</DependentUpon>
     </Compile>
@@ -128,6 +131,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ventanas\VntAsistencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ventanas\vntComedor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
