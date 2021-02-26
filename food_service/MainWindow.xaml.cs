@@ -47,35 +47,44 @@ namespace food_service
         }
         private void cargarItemsBDDALista()
         {
-            byte[] fotografia = new byte[0];
-            itemImpl = new ItemImpl();
-            DataTable dt = itemImpl.Select();
-            BitmapImage bmi;
-            foreach (DataRow dataRow in dt.Rows)
+            try
             {
-                if (dataRow["imagen"] != null && dataRow["imagen"].ToString().Length > 0)
+                byte[] fotografia = new byte[0];
+                itemImpl = new ItemImpl();
+                DataTable dt = itemImpl.Select();
+                BitmapImage bmi;
+                foreach (DataRow dataRow in dt.Rows)
                 {
-                    bmi = new BitmapImage();
-                    fotografia = (byte[])dataRow["imagen"];
-                    System.IO.MemoryStream ms = new System.IO.MemoryStream(fotografia);
-                    ms.Seek(0, System.IO.SeekOrigin.Begin);
-                    bmi.BeginInit();
-                    bmi.StreamSource = ms;
-                    bmi.EndInit();
+                    if (dataRow["imagen"] != null && dataRow["imagen"].ToString().Length > 0)
+                    {
+                        bmi = new BitmapImage();
+                        fotografia = (byte[])dataRow["imagen"];
+                        System.IO.MemoryStream ms = new System.IO.MemoryStream(fotografia);
+                        ms.Seek(0, System.IO.SeekOrigin.Begin);
+                        bmi.BeginInit();
+                        bmi.StreamSource = ms;
+                        bmi.EndInit();
+                    }
+                    else
+                    {
+                        Uri uri = new Uri("/food_service;component/appData/itemPorDefecto.png", UriKind.Relative);
+                        bmi = new BitmapImage(uri);
+                    }
+                    items.Add(new Item()
+                    {
+                        Id = int.Parse(dataRow["id"].ToString()),
+                        Nombre = dataRow["nombre"].ToString(),
+                        Precio = double.Parse(dataRow["precio"].ToString()),
+                        Imagen = bmi,
+                        Visibilidad = "Hidden"
+                    });
                 }
-                else
-                {
-                    Uri uri = new Uri("/food_service;component/appData/itemPorDefecto.png", UriKind.Relative);
-                    bmi = new BitmapImage(uri);
-                }
-                items.Add(new Item()
-                {
-                    Id = int.Parse(dataRow["id"].ToString()),
-                    Nombre = dataRow["nombre"].ToString(),
-                    Precio = double.Parse(dataRow["precio"].ToString()),
-                    Imagen = bmi,
-                    Visibilidad = "Hidden"
-                });
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+               
             }
 
         }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsistenciaImpl.cs" />
     <Compile Include="ClienteImpl.cs" />
     <Compile Include="DBImplementation.cs" />
     <Compile Include="ItemImpl.cs" />
@@ -48,6 +49,7 @@
     <Compile Include="RegistroImpl.cs" />
     <Compile Include="ServerImpl.cs" />
     <Compile Include="SnackImpl.cs" />
+    <Compile Include="UsuarioImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">

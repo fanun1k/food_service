@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using Implementation;
+using Model;
 namespace food_service.ventanas
 {
     /// <summary>
@@ -20,12 +22,17 @@ namespace food_service.ventanas
     public partial class VntAsistencia : Window
     {
         public string numeroFicha = "";
+        UsuarioImpl usuarioImpl;
+        DataTable dt;
+        Usuario usuario = null;
+        AsistenciaImpl asistenciaImpl;
 
-        
+
 
         public VntAsistencia()
         {
             InitializeComponent();
+            btnEnter.IsEnabled = false;
            
         }
 
@@ -82,6 +89,7 @@ namespace food_service.ventanas
         {
             if (numeroFicha.Length>0)
             {
+                btnEnter.IsEnabled = false;
                 numeroFicha = numeroFicha.Substring(0,numeroFicha.Length-1);
                 tbCodigo.Text = numeroFicha;
             }
@@ -98,7 +106,21 @@ namespace food_service.ventanas
         }
         private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                if (usuario!=null)
+                {
+                    asistenciaImpl = new AsistenciaImpl();
+                    btnEnter.IsEnabled = false;
+                    tbNombreComensal.Text=asistenciaImpl.RegistrarAsistencia(usuario.Id);
+                    numeroFicha = "";                  
+                }
+            }
+            catch (Exception ex)
+            {
 
+                MessageBox.Show(ex.Message);
+            }
         }
         private void btnCerrarComedor_Click(object sender, RoutedEventArgs e)
         {
@@ -133,7 +155,34 @@ namespace food_service.ventanas
 
         private void ImprimirDatosCliente(int v)
         {
-            
+            try
+            {
+                usuarioImpl = new UsuarioImpl();
+                dt = new DataTable();
+                dt = usuarioImpl.SelectUsuario(v);
+                if (dt.Rows.Count>0)
+                {
+                    usuario = new Usuario()
+                    {
+                        Id = int.Parse(dt.Rows[0][0].ToString()),
+                        Nombre =dt.Rows[0][3].ToString(),
+                        Paterno = dt.Rows[0][1].ToString(),
+                        Materno = dt.Rows[0][2].ToString()
+                    };
+
+                    tbNombreComensal.Text = usuario.Paterno+" "+usuario.Materno+" "+usuario.Nombre;
+                }
+                else
+                {
+                    tbNombreComensal.Text = "EL USUARIO NO EXISTE";
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void LimpiarPantalla()
@@ -141,6 +190,7 @@ namespace food_service.ventanas
             numeroFicha = "";
             tbCodigo.Text = "";
             tbNombreComensal.Text = "INGRESESU NUMERO DE FICHA";
+            btnEnter.IsEnabled = false;
 
         }
     }
