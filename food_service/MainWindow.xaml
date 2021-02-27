@@ -27,14 +27,18 @@
                 </TabItem>
                 <TabItem Header="Cliente" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="80" Background="#ffe089">Snack</Button>
-                        <Button Width="80" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click">
+                        <Button Width="80" Background="#ffe089" Margin="2">Snack</Button>
+                        <Button Width="80" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click" Margin="2">
                             <TextBlock Text="Comedor" VerticalAlignment="Bottom" Margin="0 10" HorizontalAlignment="Center"/>
                         </Button>
-                        <Button Name="btnAsistencia" Width="80" Background="#ffe089" Click="btnAsistencia_Click">
+                        <Button Name="btnAsistencia" Width="80" Background="#ffe089" Click="btnAsistencia_Click" Margin="2" BorderBrush="#cd9528">
                             <Grid>
-                                <fa:ImageAwesome Icon="Calendar" Foreground="Blue" Margin="15" Opacity="0.5" ></fa:ImageAwesome>
-                                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri">Asistencia</TextBlock>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <fa:ImageAwesome Icon="Calendar" Foreground="#74dbfc" ></fa:ImageAwesome>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri">Asistencia</TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>
