@@ -22,9 +22,6 @@
                         <GradientStop Color="#FF7989A6" Offset="1"/>
                     </LinearGradientBrush>
                 </TabControl.Background>
-                <TabItem Header="Archivo">
-                    
-                </TabItem>
                 <TabItem Header="Cliente" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
                         <Button Width="80" Background="#ffe089" Margin="2">Snack</Button>
