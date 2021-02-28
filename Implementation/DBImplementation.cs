@@ -11,7 +11,7 @@ namespace Implementation
     public class DBImplementation
     {
         //public static string connectionString = "Data Source = 192.168.1.5,1433; Initial Catalog = food_service;User Id=user1;Password=user1";
-        public static string connectionString = "data source = localhost; initial catalog = food_service; Integrated Security = True";
+        public static string connectionString = "data source = localhost\\SQLEXPRESS; initial catalog = food_service; Integrated Security = True";
 
         public static SqlCommand CreateBasicCommand()
         {

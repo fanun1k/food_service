@@ -234,7 +234,6 @@ namespace food_service
                 total = total + (item.Precio * item.Cantidad);
             }
             return total;
-
         }
 
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
