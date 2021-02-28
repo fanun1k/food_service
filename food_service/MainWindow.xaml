@@ -59,15 +59,15 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="80"/>
                     </Grid.RowDefinitions>
-                    <ListBox Name="lbItemsVenta">
+                    <ListBox Name="lbItemsVenta" ItemsSource="{Binding listaItemsPedido, Mode=OneWay}" >
                         
                     </ListBox>
                     <StackPanel Grid.Row="1">
                         <Grid>
                             <Label HorizontalAlignment="Left">TOTAL =</Label>
-                            <Label HorizontalAlignment="Right">0,00 Bs.</Label>
+                            <Label HorizontalAlignment="Right" Name="lblTotal" Content="{Binding total}"></Label>
                         </Grid>
-                        <Button Height="50">
+                        <Button Height="50" Name="btnFinalizar" Click="btnFinalizar_Click" >
                             FINALIZAR
                         </Button>
                     </StackPanel>

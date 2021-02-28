@@ -98,5 +98,11 @@ namespace Model
             this.usuario = usuario;
             this.estado = estado;
         }
+
+        public Orden(double monto, int cliente)
+        {       
+            this.monto = monto;         
+            this.cliente = cliente;
+        }
     }
 }

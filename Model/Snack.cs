@@ -136,5 +136,15 @@ namespace Model
             this.order = order;
             this.contado = contado;
         }
+
+        public Snack( int cliente, int item, double precio, int cantidad, double total)
+        {
+         
+            this.cliente = cliente;
+            this.item = item;           
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.total = total;
+        }
     }
 }

@@ -119,6 +119,9 @@
     <Compile Include="ventanas\vntComedor.xaml.cs">
       <DependentUpon>vntComedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ventanas\VntSnack.xaml.cs">
+      <DependentUpon>VntSnack.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -136,6 +139,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ventanas\vntComedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntSnack.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
