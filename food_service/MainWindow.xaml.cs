@@ -29,7 +29,7 @@ namespace food_service
         ObservableCollection<Item> itemsVenta;
         Item item = null;
         bool itemExiste = false;
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -37,8 +37,6 @@ namespace food_service
             cargarItemsBDDALista();
             itemsVenta = new ObservableCollection<Item>();
             lbItems.ItemsSource = items;
-
-            
 
             lbItemsVenta.ItemsSource = itemsVenta;
             DataContext = itemsVenta;
@@ -79,9 +77,11 @@ namespace food_service
                     {
                         Id = int.Parse(dataRow["id"].ToString()),
                         Nombre = dataRow["nombre"].ToString(),
-                        Precio = double.Parse(dataRow["precio"].ToString()),
+                        Precio = decimal.Parse(dataRow["precio"].ToString()),
                         Imagen = bmi,
-                        Visibilidad = "Hidden"
+                        Visibilidad = "Hidden",
+                        VisibilidadBotones="Hidden"
+                       
                     });
                 }
 
@@ -135,6 +135,7 @@ namespace food_service
                 {
                     (lbItems.SelectedItem as Item).Cantidad = 0;
                     (lbItems.SelectedItem as Item).Visibilidad = "Hidden";
+                    (lbItems.SelectedItem as Item).VisibilidadBotones = "Hidden";
                     itemExiste = false;
                     eliminarPedido((lbItems.SelectedItem as Item).Id);
                     actualizarListaPedido();
@@ -144,8 +145,16 @@ namespace food_service
                 {
                     
                     (lbItems.SelectedItem as Item).Cantidad = 1;
+                    foreach (Item item1 in items)
+                    {
+                        if (item1.VisibilidadBotones == "Visible")
+                        {
+                            item1.VisibilidadBotones = "Hidden";
+                            break;
+                        }
+                    }
                     (lbItems.SelectedItem as Item).Visibilidad = "Visible";
-
+                    (lbItems.SelectedItem as Item).VisibilidadBotones = "Visible";
 
                     item = new Item()
                     {
@@ -204,8 +213,8 @@ namespace food_service
         {
             var listaItemsPedido = from c in itemsVenta
             select c.Cantidad +" "+ c.Nombre + " " + c.Precio + " "+ c.Cantidad * c.Precio;
-            lbItemsVenta.ItemsSource = listaItemsPedido;
-            lblTotal.Content = obtenerTotal() + " Bs.";
+            //lbItemsVenta.ItemsSource = listaItemsPedido;
+            lblTotal.Text = obtenerTotal() + " Bs.";
             
         }
 
@@ -226,9 +235,9 @@ namespace food_service
             itemsVenta.Remove(itemsVenta.Where(item => item.Id == Id).Single());
         }
 
-        private double obtenerTotal()
+        private decimal obtenerTotal()
         {
-            double total = 0;
+            decimal total = 0;
             foreach (var item in itemsVenta)
             {
                 total = total + (item.Precio * item.Cantidad);
@@ -238,20 +247,22 @@ namespace food_service
 
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            double total = obtenerTotal(); 
+            decimal total = obtenerTotal(); 
             if (total > 0)
             {
                 ObservableCollection<Item> nuevaLista = itemsVenta;
                 ventanas.VntSnack vs = new ventanas.VntSnack(total, nuevaLista);
+                vs.ShowInTaskbar = false;
                 vs.Show();
+                           
                 itemsVenta = new ObservableCollection<Item>();
                 actualizarListaPedido();
+                
             }
             else
             {
                 MessageBox.Show("Debe escoger por lo menos un producto");
             }
-            
         }
     }
 }

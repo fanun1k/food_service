@@ -26,12 +26,12 @@ namespace food_service.ventanas
         ClienteImpl clienteImpl = null;
         SnackImpl snackImpl = null;
         Cliente cliente = null;
-        double total;
+        decimal total;
         ObservableCollection<Item> lista;
         int codigoCliente;
 
 
-        public VntSnack(double totalTodo, ObservableCollection<Item> listaPedidos)
+        public VntSnack(decimal totalTodo, ObservableCollection<Item> listaPedidos)
         {
             InitializeComponent();
             btnEnter.IsEnabled = false;
@@ -111,7 +111,7 @@ namespace food_service.ventanas
             //numeroFicha.Clear();
             try
             {
-                double monto = 0;
+                decimal monto = 0;
                 foreach (var item in lista)
                 {
                     monto = monto + (item.Precio * item.Cantidad);

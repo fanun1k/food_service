@@ -75,7 +75,7 @@ namespace Implementation
                 cmd.Parameters.AddWithValue("@id",id);
                 dt = DBImplementation.ExecuteDataTableCommand(cmd);
                 result.Id = id;
-                result.Precio = double.Parse(dt.Rows[0][0].ToString());
+                result.Precio = decimal.Parse(dt.Rows[0][0].ToString());
 
                 return result;
             }

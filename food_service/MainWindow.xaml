@@ -24,11 +24,11 @@
                 </TabControl.Background>
                 <TabItem Header="Cliente" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="80" Background="#ffe089" Margin="2">Snack</Button>
-                        <Button Width="80" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click" Margin="2">
+                        <Button Width="60" Background="#ffe089" Margin="1">Snack</Button>
+                        <Button Width="60" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click" Margin="1">
                             <TextBlock Text="Comedor" VerticalAlignment="Bottom" Margin="0 10" HorizontalAlignment="Center"/>
                         </Button>
-                        <Button Name="btnAsistencia" Width="80" Background="#ffe089" Click="btnAsistencia_Click" Margin="2" BorderBrush="#cd9528">
+                        <Button Name="btnAsistencia" Width="60" Background="#ffe089" Click="btnAsistencia_Click" Margin="1" BorderBrush="#cd9528">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -57,25 +57,72 @@
             <Border BorderBrush="Black" BorderThickness="1" Margin="1">
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="80"/>
+                        <RowDefinition Height="100"/>
                     </Grid.RowDefinitions>
-                    <ListBox Name="lbItemsVenta" ItemsSource="{Binding listaItemsPedido, Mode=OneWay}" >
-                        
+                    <Grid>
+                        <Viewbox Stretch="Fill" VerticalAlignment="Top" Height="180">
+                            <Calendar></Calendar>
+                        </Viewbox>
+                        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="2">
+                            <Border BorderBrush="Black" BorderThickness="1">
+                                <TextBlock Width="20" Text="#" FontWeight="Bold" TextAlignment="Center"/>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1">
+                                <TextBlock Width="110" Text="ITEM" FontWeight="Bold" TextAlignment="Center"/>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1">
+                                <TextBlock Width="40" Text="PREC" FontWeight="Bold" TextAlignment="Center"/>
+                            </Border>
+                            <Border BorderBrush="Black" BorderThickness="1">
+                                <TextBlock Width="45" Text="TOTAL" FontWeight="Bold" TextAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                    </Grid>
+                    <ListBox Grid.Row="1" Name="lbItemsVenta" Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="2 0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="110"/>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                        <TextBlock Text="{Binding Cantidad}" FontWeight="Bold"/>
+                                    <Border Grid.Column="1" Padding="0 0 10 0">
+                                        <TextBlock  Text="{Binding Nombre}"/>
+                                    </Border>
+                                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1"> 
+                                        <TextBlock  Text="{Binding Precio}"/>
+                                    </Border>
+                                    <Border Grid.Column="3" BorderBrush="Black" BorderThickness="1">
+                                        <TextBlock Text="{Binding Total}"/>
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
-                    <StackPanel Grid.Row="1">
-                        <Grid>
-                            <Label HorizontalAlignment="Left">TOTAL =</Label>
-                            <Label HorizontalAlignment="Right" Name="lblTotal" Content="{Binding total}"></Label>
-                        </Grid>
-                        <Button Height="50" Name="btnFinalizar" Click="btnFinalizar_Click" >
-                            FINALIZAR
+                    <StackPanel Grid.Row="2">
+                        <StackPanel Orientation="Horizontal" Margin="0 2">
+                            <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="18">TOTAL =</Label>
+                            <Border Background="White" Width="100" CornerRadius="2">
+                                <TextBlock Name="lblTotal" Text="{Binding total}"  TextAlignment="Center" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                            </Border>
+                        </StackPanel>
+                        <Button Height="62" Name="btnFinalizar" Click="btnFinalizar_Click" Background="#fffacd" FontFamily="Arial" FontSize="15" >
+                            <StackPanel Orientation="Horizontal">
+                                <fa:ImageAwesome Icon="IdCard" Width="30" Foreground="#646464"></fa:ImageAwesome>
+                                <TextBlock FontFamily="Segoe UI Black" Foreground="#646464">FINALIZAR</TextBlock>
+                            </StackPanel>
+                     
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
             <Grid x:Name="gridItems" Grid.Column="1" >
-                <ListView x:Name="lbItems" Background="Transparent" >
+                <ListView x:Name="lbItems" Background="Transparent" Margin="0,-2,0.2,2">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Width="900"></WrapPanel>
@@ -88,7 +135,7 @@
                                     <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="#7a8aa7" >
                                         <Grid>
                                             <Image  Source="{Binding Imagen}" Stretch="Fill" Margin="2" PreviewMouseLeftButtonDown="Image_PreviewMouseLeftButtonDown"></Image>
-                                            <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding Visibilidad}">
+                                            <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding VisibilidadBotones}">
                                                 <Button Name="btnAumentarCantidad" Width="50" Height="55" Margin="0 0 0 3" Background="#ffe089" Click="btnAumentarCantidad_Click" BorderBrush="{x:Null}">
                                                     <fa:ImageAwesome Icon="ArrowUp"  Width="45"  Height="30" Stretch="Fill" >
                                                         <fa:ImageAwesome.Foreground>

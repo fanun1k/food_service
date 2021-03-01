@@ -11,7 +11,7 @@ namespace Model
         private int id;
         private DateTime fecha;
         private DateTime hora;
-        private double monto;
+        private decimal monto;
         private double descuente;
         private int documento;
         private int cliente;
@@ -54,7 +54,7 @@ namespace Model
         }
 
 
-        public double Monto
+        public decimal Monto
         {
             get { return monto; }
             set { monto = value; }
@@ -86,7 +86,7 @@ namespace Model
 
         }
 
-        public Orden(int id, DateTime fecha, DateTime hora, double monto, double descuente, int documento, int cliente, int usuario, string estado)
+        public Orden(int id, DateTime fecha, DateTime hora, decimal monto, double descuente, int documento, int cliente, int usuario, string estado)
         {
             this.id = id;
             this.fecha = fecha;
@@ -99,7 +99,7 @@ namespace Model
             this.estado = estado;
         }
 
-        public Orden(double monto, int cliente)
+        public Orden(decimal monto, int cliente)
         {       
             this.monto = monto;         
             this.cliente = cliente;
