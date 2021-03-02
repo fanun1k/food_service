@@ -41,7 +41,31 @@
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Configuracion">
-                   
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="60" Background="#ffe089" Margin="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <fa:ImageAwesome />
+                                <TextBlock Text="Snack Manual" HorizontalAlignment="Center"/>
+                            </Grid>   
+                        </Button>
+                        <Button Width="60" Background="#ffe089" Margin="1">
+                            <TextBlock Text="Comedor" VerticalAlignment="Bottom" Margin="0 10" HorizontalAlignment="Center"/>
+                        </Button>
+                        <Button Width="60" Background="#ffe089" Margin="1" BorderBrush="#cd9528">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <fa:ImageAwesome Icon="Calendar" Foreground="#74dbfc" ></fa:ImageAwesome>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri">Asistencia</TextBlock>
+                            </Grid>
+                        </Button>
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="Reportes">
                     
@@ -160,7 +184,7 @@
                                             <Border VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="{Binding Visibilidad}">
                                                 <TextBlock  FontWeight="Bold" FontSize="15" Text="{Binding Path=Cantidad,Mode=OneWay}" Background="White" TextAlignment="Center"/>
                                             </Border>
-                                            <TextBlock Text="{Binding Precio}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15"></TextBlock>
+                                            <TextBlock Text="{Binding Precio}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
                                         </Grid>
                                     </Border>
                                     <TextBlock FontSize="13" FontWeight="Bold" Text="{Binding Nombre}" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>

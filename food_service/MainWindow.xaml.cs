@@ -208,16 +208,13 @@ namespace food_service
                 }
             }
         }
-
         private void actualizarListaPedido()
         {
             var listaItemsPedido = from c in itemsVenta
             select c.Cantidad +" "+ c.Nombre + " " + c.Precio + " "+ c.Cantidad * c.Precio;
             //lbItemsVenta.ItemsSource = listaItemsPedido;
             lblTotal.Text = obtenerTotal() + " Bs.";
-            
         }
-
         private bool verificarSiSePidio(Item item)
         {
             foreach (var itemEnVenta in itemsVenta)
@@ -256,12 +253,7 @@ namespace food_service
                 vs.Show();
                            
                 itemsVenta = new ObservableCollection<Item>();
-                actualizarListaPedido();
-                
-            }
-            else
-            {
-                MessageBox.Show("Debe escoger por lo menos un producto");
+                actualizarListaPedido();                
             }
         }
     }
