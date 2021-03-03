@@ -9,7 +9,7 @@ using System.Data;
 
 namespace food_service
 {
-    class VentaImpresion
+    class Ticket
     {
         RegistroImpl registroImpl;
         ClienteImpl clienteImpl;
@@ -23,7 +23,7 @@ namespace food_service
 
         Tickets.TicketsComedor ticketImprimir;
         Tickets.TicketLunch ticketLunch;
-        private void ImprimirTicketRegistro(int id, int codigo)
+        public void ImprimirTicketRegistro(int id, int codigo)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace food_service
                 ticketImprimir.Dispose();
             }
         }
-        void ImprimirTicketLunch(int idSnack, int codigo)
+        public void ImprimirTicketLunch(int idSnack, int codigo)
         {
             try
             {

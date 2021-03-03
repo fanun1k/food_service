@@ -24,10 +24,19 @@ namespace food_service.ventanas
     {
         private string codigo="";
         string tipo = "";
+
+
         ClienteImpl clienteImpl;
         Cliente cliente;
         Registro registro;
         RegistroImpl registroImpl;
+        SnackImpl snackImpl;
+        ItemImpl itemImpl;
+
+        Orden orden;
+        Item item;
+        Snack snack;
+        Ticket ticket;
 
         private void OnPropertyChanged(string property)
         {
@@ -53,6 +62,7 @@ namespace food_service.ventanas
             DataContext = this;
             calendario.SelectedDate = DateTime.Now;
             btnAceptar.IsEnabled = false;
+            cargarComboLonches();
         }
 
         private void btn0_Click(object sender, RoutedEventArgs e)
@@ -231,6 +241,7 @@ namespace food_service.ventanas
         }
         private void RealizarVentaEnRegistro(string tipo, string turno)
         {
+            ticket = new Ticket();
             try
             {
                 registroImpl = new RegistroImpl();
@@ -246,8 +257,7 @@ namespace food_service.ventanas
                     int resultado = registroImpl.Insert(registro);
                     if (resultado > 0)
                     {
-                        ImprimirTicketRegistro(registroImpl.GetIdRegistro(), int.Parse(cliente.Codigo));
-
+                        ticket.ImprimirTicketRegistro(registroImpl.GetIdRegistro(), int.Parse(cliente.Codigo));
                         //MessageBox.Show("se hizo el insert con exito");
                     }
                     else
@@ -262,41 +272,55 @@ namespace food_service.ventanas
                 MessageBox.Show("error: " + ex.Message);
             }
         }
-
-    }
-    void RealizarVentaLunch()
-    {
-        try
+        void RealizarVentaLunch()
         {
-            snackImpl = new SnackImpl();
-            List<Snack> listSnack = new List<Snack>();
-            itemImpl = new ItemImpl();
-            item = itemImpl.SelectItem(int.Parse(cbLonches.SelectedValue.ToString()));
-
-            orden = new Orden
+            try
             {
-                Monto = item.Precio,
-                Cliente = cliente.Id
-            };
+                ticket = new Ticket();
+                snackImpl = new SnackImpl();
+                List<Snack> listSnack = new List<Snack>();
+                itemImpl = new ItemImpl();
+                item = itemImpl.SelectItem(int.Parse(cbLonches.SelectedValue.ToString()));
 
-            snack = new Snack
+                orden = new Orden
+                {
+                    Monto = item.Precio,
+                    Cliente = cliente.Id
+                };
+
+                snack = new Snack
+                {
+                    Cliente = cliente.Id,
+                    Item = item.Id,
+                    Precio = item.Precio,
+                    Cantidad = 1,
+                    Total = item.Precio
+                };
+                listSnack.Add(snack);
+                snackImpl.Insert(orden, listSnack);
+                ticket.ImprimirTicketLunch(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
+            }
+            catch (Exception ex)
             {
-                Cliente = cliente.Id,
-                Item = item.Id,
-                Precio = item.Precio,
-                Cantidad = 1,
-                Total = item.Precio
-            };
-            listSnack.Add(snack);
-            snackImpl.Insert(orden, listSnack);
-            ImprimirTicketLunch(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
 
-
+                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+            }
         }
-        catch (Exception ex)
+        public void cargarComboLonches()
         {
+            try
+            {
+                itemImpl = new ItemImpl();
 
-            MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+                cbLonches.DisplayMemberPath = "nombre";
+                cbLonches.SelectedValuePath = "id";
+                cbLonches.ItemsSource = itemImpl.SelectLunch().DefaultView;
+                cbLonches.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.  \n error: " + ex.Message);
+            }
         }
     }
 }

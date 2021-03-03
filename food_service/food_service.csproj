@@ -113,7 +113,7 @@
       <DependentUpon>TicketSnack.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="VentaImpresion.cs" />
+    <Compile Include="Ticket.cs" />
     <Compile Include="ventanas\VntAsistencia.xaml.cs">
       <DependentUpon>VntAsistencia.xaml</DependentUpon>
     </Compile>
