@@ -122,6 +122,9 @@
     <Compile Include="ventanas\VntSnack.xaml.cs">
       <DependentUpon>VntSnack.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ventanas\VtnRegistrar.xaml.cs">
+      <DependentUpon>VtnRegistrar.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ventanas\VntSnack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VtnRegistrar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

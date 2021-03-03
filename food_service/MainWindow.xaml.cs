@@ -256,5 +256,11 @@ namespace food_service
                 actualizarListaPedido();                
             }
         }
+
+        private void btnRegistrar_Click(object sender, RoutedEventArgs e)
+        {
+            ventanas.VtnRegistrar vtn = new ventanas.VtnRegistrar();
+            vtn.Show();
+        }
     }
 }
