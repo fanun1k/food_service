@@ -492,7 +492,7 @@ namespace food_service.ventanas
             catch (Exception ex)
             {
 
-                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+                MessageBox.Show("error: " + ex.Message);
             }
         }
 

@@ -207,8 +207,6 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.SlateGray;
             btnCena.Background = Brushes.Transparent;
             btnAlmuerzo.Background = Brushes.Transparent;
-
-
         }
 
         private void btnAlmuerzo_Click(object sender, RoutedEventArgs e)
@@ -230,6 +228,75 @@ namespace food_service.ventanas
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        private void RealizarVentaEnRegistro(string tipo, string turno)
+        {
+            try
+            {
+                registroImpl = new RegistroImpl();
+                if (cliente != null)
+                {
+                    registro = new Registro
+                    {
+                        Cliente = cliente.Id,
+                        Tipo = tipo,
+                        Turno = turno
+                    };
+                    registroImpl = new RegistroImpl();
+                    int resultado = registroImpl.Insert(registro);
+                    if (resultado > 0)
+                    {
+                        ImprimirTicketRegistro(registroImpl.GetIdRegistro(), int.Parse(cliente.Codigo));
+
+                        //MessageBox.Show("se hizo el insert con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("no se pudo insertar un registro");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("error: " + ex.Message);
+            }
+        }
+
+    }
+    void RealizarVentaLunch()
+    {
+        try
+        {
+            snackImpl = new SnackImpl();
+            List<Snack> listSnack = new List<Snack>();
+            itemImpl = new ItemImpl();
+            item = itemImpl.SelectItem(int.Parse(cbLonches.SelectedValue.ToString()));
+
+            orden = new Orden
+            {
+                Monto = item.Precio,
+                Cliente = cliente.Id
+            };
+
+            snack = new Snack
+            {
+                Cliente = cliente.Id,
+                Item = item.Id,
+                Precio = item.Precio,
+                Cantidad = 1,
+                Total = item.Precio
+            };
+            listSnack.Add(snack);
+            snackImpl.Insert(orden, listSnack);
+            ImprimirTicketLunch(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
+
+
+        }
+        catch (Exception ex)
+        {
+
+            MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
         }
     }
 }
