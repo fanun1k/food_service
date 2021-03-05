@@ -109,5 +109,29 @@ namespace Implementation
         {
             throw new NotImplementedException();
         }
+
+        public double SelectPrecio(int id)
+        {
+            
+            DataTable dt;
+            SqlCommand cmd;
+            string query = @"SELECT precio
+                                FROM item
+                                WHERE id = @id;";
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@id", id);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                return double.Parse(dt.Rows[0][0].ToString());                 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
     }
 }

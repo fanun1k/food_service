@@ -16,6 +16,7 @@ using Model;
 using Implementation;
 using System.Data;
 using System.Collections.ObjectModel;
+using food_service.ventanas;
 
 namespace food_service
 {
@@ -264,5 +265,11 @@ namespace food_service
                 MessageBox.Show("Debe escoger por lo menos un producto");
             }
         }
+
+        private void btnMostrarReporteGeneral_Click(object sender, RoutedEventArgs e)
+        {
+            VntReporteGeneral crg = new VntReporteGeneral();
+            crg.Show();
+        }     
     }
 }
