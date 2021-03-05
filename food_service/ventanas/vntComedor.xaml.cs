@@ -137,10 +137,15 @@ namespace food_service.ventanas
 
                         switch (fechaHoraServidor.Hour)
                         {
+                            case 4:
+                            case 5:
+                            case 6:
+                            case 7:
                             case 8:
                             case 9:
                             case 10:
                                 // en caso sea la hora en el servidor 8:00 9:00 o 10:00 se vendera Lunch
+                                btnEnter.IsEnabled = false;
                                 RealizarVentaLunch();
                                 numeroFicha.Clear();
                                 break;
@@ -149,6 +154,7 @@ namespace food_service.ventanas
                             case 12:
                             case 13:
                                 // en caso sea la hora en el servidor 11:00 12:00 o 13:00 se vendera Almuerzo
+                                btnEnter.IsEnabled = false;
                                 RealizarVentaEnRegistro("CODIGO QR", "ALMUERZO");
                                 numeroFicha.Clear();
                                 break;
@@ -157,6 +163,7 @@ namespace food_service.ventanas
                             case 18:
                             case 19:
                                 // en caso sea la hora en el servidor 17:00 18:00 o 19:00 se vendera Cena
+                                btnEnter.IsEnabled = false;
                                 RealizarVentaEnRegistro("CODIGO QR", "CENA");
                                 numeroFicha.Clear();
                                 break;
@@ -216,13 +223,14 @@ namespace food_service.ventanas
                     }
                     if (cliente.Estado.Trim() == "INACTIVO")
                     {
-                        btnEnter.IsEnabled = false;
+                        btnEnter.IsEnabled = false;                    
                         tbNombreComensal.Text = cliente.Paterno + " " + cliente.Materno + ", " + cliente.Nombre + " (" + cliente.Estado+")";
                     }
                     else
                     {
                         btnEnter.IsEnabled = true;
                         tbNombreComensal.Text = cliente.Paterno + " " + cliente.Materno + ", " + cliente.Nombre;
+
                     }
                 }
                 else
@@ -302,11 +310,16 @@ namespace food_service.ventanas
 
                 switch (fechaHoraServidor.Hour)
                 {
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
                     case 8:
                     case 9:
                     case 10:
                         // en caso sea la hora en el servidor 8:00 9:00 o 10:00 se vendera Lunch
-                        RealizarVentaLunch();
+                        btnEnter.IsEnabled = false;
+                        RealizarVentaLunch();                        
                         numeroFicha.Clear();
                         break;
                         
@@ -314,7 +327,8 @@ namespace food_service.ventanas
                     case 12:
                     case 13:
                         // en caso sea la hora en el servidor 11:00 12:00 o 13:00 se vendera Almuerzo
-                        RealizarVentaEnRegistro("TOUCH","ALMUERZO");
+                        btnEnter.IsEnabled = false;
+                        RealizarVentaEnRegistro("TOUCH","ALMUERZO");                        
                         numeroFicha.Clear();
                         break;
 
@@ -322,7 +336,8 @@ namespace food_service.ventanas
                     case 18:
                     case 19:
                         // en caso sea la hora en el servidor 17:00 18:00 o 19:00 se vendera Cena
-                        RealizarVentaEnRegistro("TOUCH","CENA");
+                        btnEnter.IsEnabled = false;
+                        RealizarVentaEnRegistro("TOUCH","CENA");                       
                         numeroFicha.Clear();
                         break;
                     default:
@@ -390,8 +405,7 @@ namespace food_service.ventanas
                 switch (numeroFicha.Count)
                 {
                 case 0:
-                    LimpiarPantalla();
-                    btnEnter.IsEnabled = false;
+                    LimpiarPantalla();              
                     numeroFicha.Enqueue(numero);
                     MostrarPila();
                     break;
@@ -478,7 +492,7 @@ namespace food_service.ventanas
             catch (Exception ex)
             {
 
-                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+                MessageBox.Show("error: " + ex.Message);
             }
         }
 
@@ -538,6 +552,9 @@ namespace food_service.ventanas
                 dtRegistro = registroImpl.GetTableRegistro(id);
               
                 dtCliente = clienteImpl.GetTableCliente(codigo);
+                //MessageBox.Show(dtCliente.Rows[0][1].ToString());
+                //MessageBox.Show(dtCliente.Rows[0][2].ToString());
+                //MessageBox.Show(dtCliente.Rows[0][3].ToString());
 
 
 

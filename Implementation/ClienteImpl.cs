@@ -73,6 +73,36 @@ namespace Implementation
             }
         }
 
+        public Cliente SelectIdPorCodigo(int codigo)
+        {
+            DataTable dt = new DataTable();
+            Cliente cliente = null;
+            string query = @"SELECT id
+                             FROM cliente
+                             WHERE codigo=@codigo";
+            SqlCommand cmd;
+
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@codigo", codigo);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+
+                if (dt.Rows.Count > 0)
+                {                  
+                    cliente = new Cliente();                  
+                    cliente.Id = int.Parse(dt.Rows[0][0].ToString());
+                }
+                return cliente;
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
         public int Update(Cliente t)
         {
             throw new NotImplementedException();

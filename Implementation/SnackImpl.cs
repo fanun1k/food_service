@@ -108,5 +108,129 @@ namespace Implementation
         {
             throw new NotImplementedException();
         }
+
+        public List<double> SelectTotal(int idItem, string fecha)
+        {
+            List<double> list = new List<double>();
+            string query = @"SELECT SUM(total), SUM(cantidad)
+                            FROM snack 
+                            WHERE item = @id AND fecha = @fechaT AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@id", idItem);
+                cmd.Parameters.AddWithValue("@fechaT", fecha);
+                var res = DBImplementation.ExecuteDataTableCommand(cmd);
+                var tot = res.Rows[0][0].ToString();
+                var cant = res.Rows[0][1].ToString();
+                if (tot == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(tot));
+                }
+
+                if (cant == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(cant));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public List<double> SelectTotalPorId(int idItem, string fecha, int idCliente)
+        {
+            List<double> list = new List<double>();
+            string query = @"SELECT SUM(total), SUM(cantidad)
+                            FROM snack 
+                            WHERE item = @id AND cliente = @idCliente AND fecha = @fechaT AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@id", idItem);
+                cmd.Parameters.AddWithValue("@fechaT", fecha);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                var res = DBImplementation.ExecuteDataTableCommand(cmd);
+                var tot = res.Rows[0][0].ToString();
+                var cant = res.Rows[0][1].ToString();
+                if (tot == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(tot));
+                }
+
+                if (cant == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(cant));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public List<double> SelectTotalPorIdTotal(int idItem, int idCliente)
+        {
+            List<double> list = new List<double>();
+            string query = @"SELECT SUM(total), SUM(cantidad)
+                            FROM snack 
+                            WHERE item = @id AND cliente = @idCliente AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@id", idItem);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                var res = DBImplementation.ExecuteDataTableCommand(cmd);
+                var tot = res.Rows[0][0].ToString();
+                var cant = res.Rows[0][1].ToString();
+                if (tot == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(tot));
+                }
+
+                if (cant == "")
+                {
+                    list.Add(0);
+                }
+                else
+                {
+                    list.Add(double.Parse(cant));
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

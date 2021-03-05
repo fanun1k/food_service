@@ -86,6 +86,167 @@ namespace Implementation
         {
             throw new NotImplementedException();
         }
-        
+
+        public int obtenerCantAlmuerzoOCena(string tipo, string fecha)
+        {
+            string query = @"SELECT SUM(cantidad)
+                             FROM registro
+                             WHERE turno = @tipo AND fecha = @fecha AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int obtenerCantAlmuerzoOCenaPOrId(string tipo, string fecha, int idCliente)
+        {
+            string query = @"SELECT SUM(cantidad)
+                             FROM registro
+                             WHERE turno = @tipo AND fecha = @fecha AND cliente = @idCliente AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int obtenerCantAlmuerzoOCenaPOrIdTodo(string tipo, int idCliente)
+        {
+            string query = @"SELECT SUM(cantidad)
+                             FROM registro
+                             WHERE turno = @tipo AND cliente = @idCliente AND estado = 'ACTIVO';";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int obtenerCantSnack(string tipo, string fecha)
+        {
+            //aqui es lunch?
+            string query = @"SELECT SUM(cantidad)
+                            FROM registro
+                            WHERE cuenta = @tipo AND turno = 'LUNCH' AND estado = 'ACTIVO' AND fecha = @fecha;";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int obtenerCantSnackPorid(string tipo, string fecha, int idCliente)
+        {
+            //aqui es lunch?
+            string query = @"SELECT SUM(cantidad)
+                            FROM registro
+                            WHERE cuenta = @tipo AND turno = 'LUNCH' AND cliente = @idCliente AND estado = 'ACTIVO' AND fecha = @fecha;";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int obtenerCantSnackPorIdTodo(string tipo, int idCliente)
+        {
+            //aqui es lunch?
+            string query = @"SELECT SUM(cantidad)
+                            FROM registro
+                            WHERE cuenta = @tipo AND turno = 'LUNCH' AND estado = 'ACTIVO' AND cliente = @idCliente;";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }

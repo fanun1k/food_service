@@ -75,7 +75,7 @@ namespace Implementation
                 cmd.Parameters.AddWithValue("@id",id);
                 dt = DBImplementation.ExecuteDataTableCommand(cmd);
                 result.Id = id;
-                result.Precio = double.Parse(dt.Rows[0][0].ToString());
+                result.Precio = decimal.Parse(dt.Rows[0][0].ToString());
 
                 return result;
             }
@@ -109,5 +109,29 @@ namespace Implementation
         {
             throw new NotImplementedException();
         }
+
+        public double SelectPrecio(int id)
+        {
+            
+            DataTable dt;
+            SqlCommand cmd;
+            string query = @"SELECT precio
+                                FROM item
+                                WHERE id = @id;";
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@id", id);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                return double.Parse(dt.Rows[0][0].ToString());                 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
     }
 }
