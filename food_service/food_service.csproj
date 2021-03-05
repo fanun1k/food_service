@@ -120,6 +120,12 @@
     <Compile Include="ventanas\vntComedor.xaml.cs">
       <DependentUpon>vntComedor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ventanas\VntIngresarCliente.xaml.cs">
+      <DependentUpon>VntIngresarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntReporteGeneral.xaml.cs">
+      <DependentUpon>VntReporteGeneral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\VntSnack.xaml.cs">
       <DependentUpon>VntSnack.xaml</DependentUpon>
     </Compile>
@@ -143,6 +149,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ventanas\vntComedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntIngresarCliente.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntReporteGeneral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

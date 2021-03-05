@@ -16,6 +16,7 @@ using Model;
 using Implementation;
 using System.Data;
 using System.Collections.ObjectModel;
+using food_service.ventanas;
 
 namespace food_service
 {
@@ -256,11 +257,16 @@ namespace food_service
                 actualizarListaPedido();                
             }
         }
-
         private void btnRegistrar_Click(object sender, RoutedEventArgs e)
         {
             ventanas.VtnRegistrar vtn = new ventanas.VtnRegistrar();
             vtn.Show();
         }
+
+        private void btnMostrarReporteGeneral_Click(object sender, RoutedEventArgs e)
+        {
+            VntReporteGeneral crg = new VntReporteGeneral();
+            crg.Show();
+        }     
     }
 }

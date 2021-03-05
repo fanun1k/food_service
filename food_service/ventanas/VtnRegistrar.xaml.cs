@@ -287,7 +287,6 @@ namespace food_service.ventanas
                     Monto = item.Precio,
                     Cliente = cliente.Id
                 };
-
                 snack = new Snack
                 {
                     Cliente = cliente.Id,

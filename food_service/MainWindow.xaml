@@ -72,7 +72,9 @@
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Reportes">
-                    
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60">General</Button>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
