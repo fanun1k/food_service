@@ -113,19 +113,65 @@ namespace Implementation
             }
         }
 
-        public int obtenerCantAlmuerzoOCenaPOrId(string tipo, string fecha, int idCliente)
+        public int obtenerCantAlmuerzoOCenaPOrId(string tipo, string fechaInicio, string fechaFinal, int idCliente)
         {
-            string query = @"SELECT SUM(cantidad)
-                             FROM registro
-                             WHERE turno = @tipo AND fecha = @fecha AND cliente = @idCliente AND estado = 'ACTIVO';";
+            bool hayInicio = false;
+            bool hayFinal = false;
+            string query;
             SqlCommand cmd;
             DataTable dt;
+
+            string queryTodo = @"SELECT SUM(cantidad)
+                                FROM registro
+                                WHERE turno = @tipo AND cliente = @idCliente AND estado = 'ACTIVO';";
+
+            string queryFechaInicio = @"SELECT SUM(cantidad)
+                                        FROM registro
+                                        WHERE turno = @tipo AND cliente = @idCliente AND estado = 'ACTIVO' AND fecha >= @fechaInicio;";
+
+            string queryFechaFinal = @"SELECT SUM(cantidad)
+                                        FROM registro
+                                        WHERE turno = @tipo AND cliente = @idCliente AND estado = 'ACTIVO' AND fecha <= @fechaFinal;";
+
+            string queryAmbasFechas = @"SELECT SUM(cantidad)
+                                    FROM registro
+                                    WHERE turno = @tipo AND cliente = @idCliente AND estado = 'ACTIVO' AND fecha >= @fechaInicio AND fecha <= @fechaFinal;";
+            
+
+            if (fechaInicio == "" && fechaFinal == "")
+            {
+                query = queryTodo;
+            }
+            else if (fechaInicio != "" && fechaFinal == "")
+            {
+                query = queryFechaInicio;
+                hayInicio = true;
+            }
+            else if (fechaInicio == "" && fechaFinal != "")
+            {
+                query = queryFechaFinal;
+                hayFinal = true;
+            }
+            else
+            {
+                query = queryAmbasFechas;
+                hayInicio = true;
+                hayFinal = true;
+            }
+
             try
             {
                 cmd = DBImplementation.CreateBasicCommand(query);
                 cmd.Parameters.AddWithValue("@tipo", tipo);
-                cmd.Parameters.AddWithValue("@fecha", fecha);
                 cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                if (hayInicio)
+                {
+                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                }
+                if (hayFinal)
+                {
+                    cmd.Parameters.AddWithValue("@fechaFinal", fechaFinal);
+                }
                 dt = DBImplementation.ExecuteDataTableCommand(cmd);
                 var res = dt.Rows[0][0].ToString();
                 if (res == "")

@@ -27,7 +27,7 @@ namespace food_service
     {
         ItemImpl itemImpl;
         List<Item> items;
-        ObservableCollection<Item> itemsVenta;
+        public static ObservableCollection<Item> itemsVenta;
         Item item = null;
         bool itemExiste = false;
 
@@ -229,8 +229,8 @@ namespace food_service
         }
 
         private void eliminarPedido(int Id)
-        {
-            itemsVenta.Remove(itemsVenta.Where(item => item.Id == Id).Single());
+        {           
+           itemsVenta.Remove(itemsVenta.Where(item => item.Id == Id).Single());  
         }
 
         private decimal obtenerTotal()
