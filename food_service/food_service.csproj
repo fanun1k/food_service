@@ -238,6 +238,10 @@
     <Resource Include="appData\itemPorDefecto.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ControlesFoodService\ControlesFoodService.csproj">
+      <Project>{600b0ffd-e78e-414e-846f-12f8875396c1}</Project>
+      <Name>ControlesFoodService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Implementation\Implementation.csproj">
       <Project>{a5780c00-bd1f-4bb7-ba2d-4312005e3abe}</Project>
       <Name>Implementation</Name>

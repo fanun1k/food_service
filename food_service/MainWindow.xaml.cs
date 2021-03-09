@@ -17,6 +17,7 @@ using Implementation;
 using System.Data;
 using System.Collections.ObjectModel;
 using food_service.ventanas;
+using ControlesFoodService;
 
 namespace food_service
 {
@@ -27,9 +28,10 @@ namespace food_service
     {
         ItemImpl itemImpl;
         List<Item> items;
+
+        ItemSnack itemSnack;
+
         ObservableCollection<Item> itemsVenta;
-        Item item = null;
-        bool itemExiste = false;
 
         public MainWindow()
         {
@@ -37,11 +39,8 @@ namespace food_service
             items = new List<Item>();
             cargarItemsBDDALista();
             itemsVenta = new ObservableCollection<Item>();
-            lbItems.ItemsSource = items;
-
             lbItemsVenta.ItemsSource = itemsVenta;
             DataContext = itemsVenta;
-            DataContext = items;
         }
 
         private void btnComedor_Click(object sender, RoutedEventArgs e)
@@ -74,18 +73,18 @@ namespace food_service
                         Uri uri = new Uri("/food_service;component/appData/itemPorDefecto.png", UriKind.Relative);
                         bmi = new BitmapImage(uri);
                     }
-                    items.Add(new Item()
+                    itemSnack= new ItemSnack();
+                    itemSnack.ItemMostrar=(new Item()
                     {
                         Id = int.Parse(dataRow["id"].ToString()),
                         Nombre = dataRow["nombre"].ToString(),
                         Precio = decimal.Parse(dataRow["precio"].ToString()),
                         Imagen = bmi,
                         Visibilidad = "Hidden",
-                        VisibilidadBotones="Hidden"
-                       
+                        VisibilidadBotones = "Hidden"
                     });
+                    lbItems.Items.Add(itemSnack);
                 }
-
             }
             catch (Exception ex)
             {
@@ -95,84 +94,8 @@ namespace food_service
 
         }
 
-        private void btnAumentarCantidad_Click(object sender, RoutedEventArgs e)
-        {
-            aumentarCantidad((lbItems.SelectedItem as Item).Id);          
-            (lbItems.SelectedItem as Item).Cantidad = (lbItems.SelectedItem as Item).Cantidad + 1;          
-            actualizarListaPedido();
-        }
 
-        private void btnQuitarCantidad_Click(object sender, RoutedEventArgs e)
-        {
-            
-            if ((lbItems.SelectedItem as Item).Cantidad > 1)
-            {
-                (lbItems.SelectedItem as Item).Cantidad = (lbItems.SelectedItem as Item).Cantidad - 1;
-                quitarCantidad((lbItems.SelectedItem as Item).Id);
-            }
-            actualizarListaPedido();
-        }
 
-        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var item = sender as ListViewItem;
-            if (item != null && item.IsSelected)
-            {
-                if (itemExiste == false)
-                {
-                    itemExiste = true;
-                }
-            }
-            else
-            {
-                itemExiste = false;
-            }
-        }
-        private void Image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (itemExiste)
-            {
-                if ((lbItems.SelectedItem as Item).Cantidad > 0)
-                {
-                    (lbItems.SelectedItem as Item).Cantidad = 0;
-                    (lbItems.SelectedItem as Item).Visibilidad = "Hidden";
-                    (lbItems.SelectedItem as Item).VisibilidadBotones = "Hidden";
-                    itemExiste = false;
-                    eliminarPedido((lbItems.SelectedItem as Item).Id);
-                    actualizarListaPedido();
-
-                }
-                else
-                {
-                    
-                    (lbItems.SelectedItem as Item).Cantidad = 1;
-                    foreach (Item item1 in items)
-                    {
-                        if (item1.VisibilidadBotones == "Visible")
-                        {
-                            item1.VisibilidadBotones = "Hidden";
-                            break;
-                        }
-                    }
-                    (lbItems.SelectedItem as Item).Visibilidad = "Visible";
-                    (lbItems.SelectedItem as Item).VisibilidadBotones = "Visible";
-
-                    item = new Item()
-                    {
-                        Id = (lbItems.SelectedItem as Item).Id,
-                        Cantidad = 1,
-                        Nombre = (lbItems.SelectedItem as Item).Nombre,
-                        Precio = (lbItems.SelectedItem as Item).Precio,
-                    };
-                    if (!verificarSiSePidio(item))
-                    {
-                        itemsVenta.Add(item);
-                    }                   
-                    actualizarListaPedido();
-
-                }
-            }
-        }
 
         private void btnAsistencia_Click(object sender, RoutedEventArgs e)
         {
@@ -267,6 +190,7 @@ namespace food_service
         {
             VntReporteGeneral crg = new VntReporteGeneral();
             crg.Show();
-        }     
+        }
+
     }
 }
