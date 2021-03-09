@@ -1,14 +1,15 @@
-﻿<Window x:Class="food_service.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:food_service"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
+        xmlns:ControlesFoodService="clr-namespace:ControlesFoodService;assembly=ControlesFoodService" x:Class="food_service.MainWindow"
         mc:Ignorable="d"
         Title="food service 2" Height="1000" Width="1200"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        Name="vntPrincipal">
+        x:Name="vntPrincipal">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
@@ -24,8 +25,8 @@
                 </TabControl.Background>
                 <TabItem Header="Cliente" IsSelected="True">
                     <StackPanel Orientation="Horizontal">
-                        <Button Width="60" Background="#ffe089" Margin="1">Snack</Button>
-                        <Button Width="60" Background="#ffe089" Name="btnComedor" Click="btnComedor_Click" Margin="1">
+                        <Button Width="60" Background="#ffe089" Margin="1" Content="Snack"/>
+                        <Button Width="60" Background="#ffe089" x:Name="btnComedor" Click="btnComedor_Click" Margin="1">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -33,30 +34,30 @@
                                 </Grid.RowDefinitions>
                                 <Grid>
                                     <StackPanel Orientation="Horizontal">
-                                        <fa:ImageAwesome Icon="Spoon" Foreground="#646464" Width="15" ></fa:ImageAwesome>
-                                        <fa:ImageAwesome Icon="Cutlery" Foreground="#646464"  Width="30" ></fa:ImageAwesome>
+                                        <fa:ImageAwesome Icon="Spoon" Foreground="#646464" Width="15" />
+                                        <fa:ImageAwesome Icon="Cutlery" Foreground="#646464"  Width="30" />
                                     </StackPanel>
                                 </Grid>
-                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri">Comedor</TextBlock>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri"><Run Text="Comedor"/></TextBlock>
                             </Grid>
                         </Button>
-                        <Button Name="btnAsistencia" Width="60" Background="#ffe089" Click="btnAsistencia_Click" Margin="1" BorderBrush="#cd9528">
+                        <Button x:Name="btnAsistencia" Width="60" Background="#ffe089" Click="btnAsistencia_Click" Margin="1" BorderBrush="#cd9528">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
                                 <Grid>
-                                    <fa:ImageAwesome Icon="CalendarCheckOutline" Foreground="#646464" ></fa:ImageAwesome>
+                                    <fa:ImageAwesome Icon="CalendarCheckOutline" Foreground="#646464" />
                                 </Grid>
-                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri">Asistencia</TextBlock>
+                                <TextBlock Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Calibri"><Run Text="Asistencia"/></TextBlock>
                             </Grid>
                         </Button>
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Configuracion">
                     <StackPanel Orientation="Horizontal">
-                        <Button Name="btnRegistrar" Width="60" Background="#ffe089" Margin="1" Click="btnRegistrar_Click">
+                        <Button x:Name="btnRegistrar" Width="60" Background="#ffe089" Margin="1" Click="btnRegistrar_Click">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
@@ -72,7 +73,9 @@
                     </StackPanel>
                 </TabItem>
                 <TabItem Header="Reportes">
-                    
+                    <StackPanel Orientation="Horizontal">
+                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60" Content="General"/>
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </Grid>
@@ -91,7 +94,7 @@
                     </Grid.RowDefinitions>
                     <Grid>
                         <Viewbox Stretch="Fill" VerticalAlignment="Top" Height="180">
-                            <Calendar></Calendar>
+                            <Calendar/>
                         </Viewbox>
                         <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" Margin="2">
                             <Border BorderBrush="Black" BorderThickness="1">
@@ -108,7 +111,7 @@
                             </Border>
                         </StackPanel>
                     </Grid>
-                    <ListBox Grid.Row="1" Name="lbItemsVenta" Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Hidden" >
+                    <ListBox Grid.Row="1" x:Name="lbItemsVenta" Background="Transparent"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="2 0">
@@ -118,11 +121,11 @@
                                         <ColumnDefinition Width="40"/>
                                         <ColumnDefinition Width="40"/>
                                     </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding Cantidad}" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Cantidad}" FontWeight="Bold"/>
                                     <Border Grid.Column="1" Padding="0 0 10 0">
                                         <TextBlock  Text="{Binding Nombre}"/>
                                     </Border>
-                                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1"> 
+                                    <Border Grid.Column="2" BorderBrush="Black" BorderThickness="1">
                                         <TextBlock  Text="{Binding Precio}"/>
                                     </Border>
                                     <Border Grid.Column="3" BorderBrush="Black" BorderThickness="1">
@@ -134,76 +137,28 @@
                     </ListBox>
                     <StackPanel Grid.Row="2">
                         <StackPanel Orientation="Horizontal" Margin="0 2">
-                            <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="18">TOTAL =</Label>
+                            <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="18" Content="TOTAL ="/>
                             <Border Background="White" Width="100" CornerRadius="2">
-                                <TextBlock Name="lblTotal" Text="{Binding total}"  TextAlignment="Center" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"></TextBlock>
+                                <TextBlock x:Name="lblTotal" Text="{Binding Total}"  TextAlignment="Center" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
-                        <Button Height="62" Name="btnFinalizar" Click="btnFinalizar_Click" Background="#fffacd" FontFamily="Arial" FontSize="15" >
+                        <Button Height="62" x:Name="btnFinalizar" Click="btnFinalizar_Click" Background="#fffacd" FontFamily="Arial" FontSize="15" >
                             <StackPanel Orientation="Horizontal">
-                                <fa:ImageAwesome Icon="IdCard" Width="30" Foreground="#646464"></fa:ImageAwesome>
-                                <TextBlock FontFamily="Segoe UI Black" Foreground="#646464">FINALIZAR</TextBlock>
+                                <fa:ImageAwesome Icon="IdCard" Width="30" Foreground="#646464"/>
+                                <TextBlock FontFamily="Segoe UI Black" Foreground="#646464"><Run Text="FINALIZAR"/></TextBlock>
                             </StackPanel>
-                     
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
             <Grid x:Name="gridItems" Grid.Column="1" >
-                <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,2,2">
-                    <ListBox.ItemsPanel>
+                <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" >
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Width="900"></WrapPanel>
+                            <WrapPanel Width="900"/>
                         </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border x:Name="bordeItem" Width="130" Height="180" Margin="5" Background="#7a8aa7" CornerRadius="10" Padding="5">
-                                <StackPanel Orientation="Vertical">
-                                    <Border Width="115" Height="120" BorderThickness="1" BorderBrush="White" CornerRadius="10" Background="#7a8aa7" >
-                                        <Grid>
-                                            <Image  Source="{Binding Imagen}" Stretch="Fill" Margin="2" PreviewMouseLeftButtonDown="Image_PreviewMouseLeftButtonDown"></Image>
-                                            <StackPanel Name="stackOcultar"  Orientation="Vertical" HorizontalAlignment="Right" VerticalAlignment="Top" Visibility="{Binding VisibilidadBotones}">
-                                                <Button Name="btnAumentarCantidad" Width="50" Height="55" Margin="0 0 0 3" Background="#ffe089" Click="btnAumentarCantidad_Click" BorderBrush="{x:Null}">
-                                                    <fa:ImageAwesome Icon="ArrowUp"  Width="45"  Height="30" Stretch="Fill" >
-                                                        <fa:ImageAwesome.Foreground>
-                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                                <GradientStop Color="#FFABDA72"  Offset="0"/>
-                                                                <GradientStop Color="#FF4F740E"  Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </fa:ImageAwesome.Foreground>
-                                                    </fa:ImageAwesome>
-                                                </Button>
-                                                <Button Name="btnQuitarCantidad" Width="50" Height="55" Click="btnQuitarCantidad_Click" Background="#ffe089">
-                                                    <fa:ImageAwesome Icon="ArrowDown" Width="45"  Height="30" Stretch="Fill" >
-                                                        <fa:ImageAwesome.Foreground>
-                                                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                                                                <GradientStop Color="#FF4F740E" Offset="0"/>
-                                                                <GradientStop Color="#FFABDA72" Offset="1"/>
-                                                            </LinearGradientBrush>
-                                                        </fa:ImageAwesome.Foreground>
-                                                    </fa:ImageAwesome>
-                                                </Button>
-                                            </StackPanel>
-                                            <Border VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="Black" BorderThickness="1" Width="45" Visibility="{Binding Visibilidad}">
-                                                <TextBlock  FontWeight="Bold" FontSize="15" Text="{Binding Path=Cantidad,Mode=OneWay}" Background="White" TextAlignment="Center"/>
-                                            </Border>
-                                            <TextBlock Text="{Binding Precio}" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" HorizontalAlignment="Left" Background="#696969" Width="45" TextAlignment="Center" FontSize="15" ></TextBlock>
-                                        </Grid>
-                                    </Border>
-                                    <TextBlock FontSize="13" FontWeight="Bold" Text="{Binding Nombre}" TextWrapping="Wrap" TextAlignment="Center" Margin="0 10 0 0"></TextBlock>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown">
-                            </EventSetter>
-                        </Style>
-                    </ListView.ItemContainerStyle>
+                    </ListView.ItemsPanel>
                 </ListView>
-
             </Grid>
         </Grid>
     </Grid>

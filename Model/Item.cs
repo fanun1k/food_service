@@ -20,10 +20,8 @@ namespace Model
         private int stock;
         private BitmapImage imagen;
         private string estado;
-        private int cantidad;
-        private string visibilidad;
+        private int cantidad;     
         private decimal total;
-        private string visibilidadBotones;
 
        
         public event PropertyChangedEventHandler PropertyChanged;
@@ -40,13 +38,6 @@ namespace Model
 
 
         #region get set
-        public string VisibilidadBotones
-        {
-            get { return visibilidadBotones; }
-            set { visibilidadBotones = value;
-                OnPropertyChanged("VisibilidadBotones");
-            }
-        }
         public decimal Total
         {
             get { return cantidad * precio; }
@@ -54,13 +45,6 @@ namespace Model
             {
                 total =(cantidad * precio);
                 OnPropertyChanged("Total");
-            }
-        }
-        public string Visibilidad
-        {
-            get { return visibilidad; }
-            set { visibilidad = value;
-                OnPropertyChanged("Visibilidad");
             }
         }
         public string Estado
