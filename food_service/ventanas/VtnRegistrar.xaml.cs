@@ -114,7 +114,7 @@ namespace food_service.ventanas
               
             }
         }
-
+        #region botones de la inaterfaz
         private void btn1_Click(object sender, RoutedEventArgs e)
         {
             Apilar("1");
@@ -159,7 +159,7 @@ namespace food_service.ventanas
         {
             Apilar("9");
         }
-
+        #endregion
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
             btnAceptar.IsEnabled = false;
@@ -303,7 +303,7 @@ namespace food_service.ventanas
             catch (Exception ex)
             {
 
-                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+                MessageBox.Show("error: " + ex.Message);
             }
         }
         public void cargarComboLonches()
