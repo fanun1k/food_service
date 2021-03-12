@@ -171,6 +171,7 @@ namespace food_service.ventanas
                         switch (tipo)
                         {
                             case "LUNCH":
+
                                 
                                 break;
                             case "ALMUERZO":
@@ -217,6 +218,7 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.SlateGray;
             btnCena.Background = Brushes.Transparent;
             btnAlmuerzo.Background = Brushes.Transparent;
+            mostrarCuadroLonche();
         }
 
         private void btnAlmuerzo_Click(object sender, RoutedEventArgs e)
@@ -225,6 +227,7 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.Transparent;
             btnCena.Background = Brushes.Transparent;
             btnAlmuerzo.Background = Brushes.SlateGray;
+            ocultarCuadroLonche();
         }
 
         private void btnCena_Click(object sender, RoutedEventArgs e)
@@ -233,6 +236,7 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.Transparent;
             btnCena.Background = Brushes.SlateGray;
             btnAlmuerzo.Background = Brushes.Transparent;
+            ocultarCuadroLonche();
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
@@ -320,6 +324,15 @@ namespace food_service.ventanas
             {
                 MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.  \n error: " + ex.Message);
             }
+        }
+
+        public void mostrarCuadroLonche()
+        {
+           borderLonches.Visibility = Visibility.Visible;
+        }
+        public void ocultarCuadroLonche()
+        {
+            borderLonches.Visibility = Visibility.Hidden;
         }
     }
 }
