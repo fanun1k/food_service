@@ -28,6 +28,7 @@ namespace food_service
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         ItemImpl itemImpl;
+<<<<<<< HEAD
         List<Item> items; 
         ItemSnack itemSnack;
 
@@ -52,6 +53,12 @@ namespace food_service
         }
 
 
+=======
+        List<Item> items;
+        public static ObservableCollection<Item> itemsVenta;
+        Item item = null;
+        bool itemExiste = false;
+>>>>>>> e0b33c7224c7f7334492609946975e0f2eab584b
 
         public MainWindow()
         {
@@ -143,5 +150,78 @@ namespace food_service
         }
 
 
+<<<<<<< HEAD
+=======
+        private void quitarCantidad(int Id)
+        {
+            foreach (var item in itemsVenta)
+            {
+                if (item.Id == Id)
+                {
+                    item.Cantidad--;
+                    break;
+                }
+            }
+        }
+        private void actualizarListaPedido()
+        {
+            var listaItemsPedido = from c in itemsVenta
+            select c.Cantidad +" "+ c.Nombre + " " + c.Precio + " "+ c.Cantidad * c.Precio;
+            //lbItemsVenta.ItemsSource = listaItemsPedido;
+            lblTotal.Text = obtenerTotal() + " Bs.";
+        }
+        private bool verificarSiSePidio(Item item)
+        {
+            foreach (var itemEnVenta in itemsVenta)
+            {
+                if (itemEnVenta.Id == item.Id)
+                {
+                    return true;
+                }            
+            }
+            return false;
+        }
+
+        private void eliminarPedido(int Id)
+        {           
+           itemsVenta.Remove(itemsVenta.Where(item => item.Id == Id).Single());  
+        }
+
+        private decimal obtenerTotal()
+        {
+            decimal total = 0;
+            foreach (var item in itemsVenta)
+            {
+                total = total + (item.Precio * item.Cantidad);
+            }
+            return total;
+        }
+
+        private void btnFinalizar_Click(object sender, RoutedEventArgs e)
+        {
+            decimal total = obtenerTotal(); 
+            if (total > 0)
+            {
+                ObservableCollection<Item> nuevaLista = itemsVenta;
+                ventanas.VntSnack vs = new ventanas.VntSnack(total, nuevaLista);
+                vs.ShowInTaskbar = false;
+                vs.Show();
+                           
+                itemsVenta = new ObservableCollection<Item>();
+                actualizarListaPedido();                
+            }
+        }
+        private void btnRegistrar_Click(object sender, RoutedEventArgs e)
+        {
+            ventanas.VtnRegistrar vtn = new ventanas.VtnRegistrar();
+            vtn.Show();
+        }
+
+        private void btnMostrarReporteGeneral_Click(object sender, RoutedEventArgs e)
+        {
+            VntReporteGeneral crg = new VntReporteGeneral();
+            crg.Show();
+        }     
+>>>>>>> e0b33c7224c7f7334492609946975e0f2eab584b
     }
 }

@@ -25,33 +25,17 @@ namespace food_service.ventanas
         
         ClienteImpl clienteImpl = null;
         SnackImpl snackImpl = null;
+        ItemImpl itemImpl;
+        RegistroImpl registroImpl;
         Cliente cliente = null;
-        decimal total;
-        int codigoCliente;
-        Cliente ClienteAEnviar;
-        string nombreCompleto;
+        string codigoLeidoBase;
 
         public VntIngresarCliente()
         {
             InitializeComponent();
             btnEnter.IsEnabled = false;
         }
-
-
-        private void btnCerrarComedor_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-        }
-
-
-        /// <summary>
-        /// metodo que muestra los datos del usuario si el codigo leido existe
-        /// el metodo crea un objeto del tipo Cliente que se utiliza para hacer 
-        /// el INSERT en la base de datos
-        /// </summary>
-        /// <param name="codigoLeido"></param>
-
-
+           
         Queue<int> numeroFicha = new Queue<int>();
         #region metodos que ayudan a agregar numeros a la variable numeroFicha segun los botones que pulsamos en la vista
         private void btn0_Click(object sender, RoutedEventArgs e)
@@ -104,29 +88,19 @@ namespace food_service.ventanas
         }
         #endregion
 
-        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        #region metodos logica de los botones
+
+        private void btnCerrarComedor_Click(object sender, RoutedEventArgs e)
         {
-            //RealizarVentaEnRegistro("TOUCH");
-            //numeroFicha.Clear();
-            try
-            {
-                ClienteAEnviar = new Cliente();
-                ClienteAEnviar.Id = codigoCliente;
-                ClienteAEnviar.Nombre = nombreCompleto;
-                VntReporteGeneral.clienteActual = ClienteAEnviar;
-                this.Close();
-
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
-            }
+            this.Close();
         }
 
         private List<Snack> convertirAListaSnacks(ObservableCollection<Item> listaObservable)
         {
             List<Snack> nuevaLista = new List<Snack>();
+            clienteImpl = new ClienteImpl();
+
+            var codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoLeidoBase)).Id;
             foreach (var item in listaObservable)
             {
                 nuevaLista.Add(new Snack(codigoCliente, item.Id, item.Precio, item.Cantidad, item.Precio * item.Cantidad));
@@ -169,6 +143,7 @@ namespace food_service.ventanas
             numeroFicha.Clear();
             LimpiarPantalla();
             btnEnter.IsEnabled = false;
+            limpiarLabels();
         }
 
         /// <summary>
@@ -180,35 +155,35 @@ namespace food_service.ventanas
         /// <param name="numero"></param>
         private void Apilar(int numero)
         {
-
-            switch (numeroFicha.Count)
-            {
-                case 0:
-                    LimpiarPantalla();
-                    numeroFicha.Enqueue(numero);
-                    MostrarPila();
-                    break;
-                case 1:
-                    numeroFicha.Enqueue(numero);
-                    MostrarPila();
-                    break;
-                case 2:
-                    numeroFicha.Enqueue(numero);
-                    MostrarPila();
-                    break;
-                case 3:
-                    numeroFicha.Enqueue(numero);
-                    MostrarPila();
-                    string codigoLeido = "";
-                    foreach (int n in numeroFicha)
-                    {
-                        codigoLeido = codigoLeido + n;
-                    }
-                    ImprimirDatosCliente(int.Parse(codigoLeido));
-                    clienteImpl = new ClienteImpl();
-                    codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoLeido)).Id;
-                    break;
-            }
+            
+                switch (numeroFicha.Count)
+                {
+                    case 0:
+                        LimpiarPantalla();
+                        numeroFicha.Enqueue(numero);
+                        MostrarPila();
+                        break;
+                    case 1:
+                        numeroFicha.Enqueue(numero);
+                        MostrarPila();
+                        break;
+                    case 2:
+                        numeroFicha.Enqueue(numero);
+                        MostrarPila();
+                        break;
+                    case 3:
+                        numeroFicha.Enqueue(numero);
+                        MostrarPila();
+                        string codigoLeido = "";
+                        foreach (int n in numeroFicha)
+                        {
+                            codigoLeido = codigoLeido + n;
+                        }
+                        ImprimirDatosCliente(int.Parse(codigoLeido));
+                        codigoLeidoBase = codigoLeido;                  
+                        break;
+                }
+           
         }
 
         /// <summary>
@@ -267,8 +242,7 @@ namespace food_service.ventanas
                     else
                     {
                         btnEnter.IsEnabled = true;
-                        nombreCompleto = cliente.Paterno + " " + cliente.Materno + ", " + cliente.Nombre;
-                        tbNombreComensal.Text = nombreCompleto;
+                        tbNombreComensal.Text = cliente.Paterno + " " + cliente.Materno + ", " + cliente.Nombre;
 
                     }
                 }
@@ -284,5 +258,119 @@ namespace food_service.ventanas
             }
 
         }
+
+        #endregion
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                generarReportesGenerales();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.\n error: " + ex.Message);
+            }
+        }
+
+        private void btnReiniciarInicio_Click(object sender, RoutedEventArgs e)
+        {
+            dpInicio.SelectedDate = null;
+        }
+
+        private void btnReiniciarFinal_Click(object sender, RoutedEventArgs e)
+        {
+            dpFinal.SelectedDate = null;
+        }     
+
+        private void generarReportesGenerales()
+        {
+            snackImpl = new SnackImpl();
+            itemImpl = new ItemImpl();
+            registroImpl = new RegistroImpl();
+            clienteImpl = new ClienteImpl();
+
+            var codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoLeidoBase)).Id;
+            //comedor
+            var dataListDesayuno = snackImpl.SelectTotalPorId("DESAYUNO", obtenerFechaInicio(), obtenerFechaFinal(), codigoCliente);
+               totDes.Content = dataListDesayuno[0].ToString() + " Bs.";
+               cantDes.Content = dataListDesayuno[1];
+
+               var dataListLunch = snackImpl.SelectTotalPorId("LONCHE", obtenerFechaInicio(), obtenerFechaFinal(), codigoCliente);
+               totLunch.Content = dataListLunch[0].ToString() + " Bs.";
+               cantLunch.Content = dataListLunch[1];
+
+              var CantidadAlmuerzo = registroImpl.obtenerCantAlmuerzoOCenaPOrId("ALMUERZO", obtenerFechaInicio(), obtenerFechaFinal(), codigoCliente);
+              var dataAlmuerzo = itemImpl.SelectPrecio((int)ItemId.Almuerzo) * CantidadAlmuerzo;
+              cantAlmu.Content = CantidadAlmuerzo;
+              totAlmu.Content = dataAlmuerzo.ToString() + " Bs.";
+
+              var CantidadCena = registroImpl.obtenerCantAlmuerzoOCenaPOrId("CENA", obtenerFechaInicio(), obtenerFechaFinal(), codigoCliente);
+              var dataCena = itemImpl.SelectPrecio((int)ItemId.Cena) * CantidadCena;
+              cantCena.Content = CantidadCena;
+              totCena.Content = dataCena.ToString() + " Bs.";
+
+              var totalComedor = dataListDesayuno[0] + dataListLunch[0] + dataAlmuerzo + dataCena;
+              totComedor.Content = totalComedor.ToString() + " Bs.";
+            //snack
+
+              var totalSnack = snackImpl.SelectTotalSnackSinLonche(obtenerFechaInicio(), obtenerFechaFinal(), codigoCliente);
+                totSnackU.Content = totalSnack.ToString() + " Bs.";
+
+            //otros
+            totComedorU.Content = totalComedor.ToString() + " Bs.";             
+              totalTodo.Content = (totalComedor + totalSnack).ToString() + " Bs.";
+        }
+
+        private void generarReportesPorFechas()
+        {
+
+
+        }
+
+        private string obtenerFechaInicio()
+        {
+            try
+            {
+                return dpInicio.SelectedDate.Value.Date.ToString("yyyy-MM-dd");
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+        }
+
+        private string obtenerFechaFinal()
+        {
+            try
+            {
+                return dpFinal.SelectedDate.Value.Date.ToString("yyyy-MM-dd");
+            }
+            catch (Exception)
+            {
+
+                return "";
+            }
+        }
+        private void limpiarLabels()
+        {
+            cantDes.Content = 0;
+            cantAlmu.Content = 0;
+            cantLunch.Content = 0;
+            cantCena.Content = 0;
+
+            totDes.Content = 00.00 + " Bs.";
+            totAlmu.Content = 00.00 + " Bs.";
+            totLunch.Content = 00.00 + " Bs.";
+            totCena.Content = 00.00 + " Bs.";
+            totComedor.Content = 00.00 + " Bs.";
+
+            totComedorU.Content = 00.00 + " Bs.";
+            totSnackU.Content = 00.00 + " Bs.";
+            totalTodo.Content = 00.00 + " Bs.";
+
+        }
+
     }
 }

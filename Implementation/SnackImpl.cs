@@ -150,19 +150,64 @@ namespace Implementation
             }
         }
 
-        public List<double> SelectTotalPorId(int idItem, string fecha, int idCliente)
+        public List<double> SelectTotalPorId(string nombreItem, string fechaInicio, string fechaFinal, int idCliente)
         {
             List<double> list = new List<double>();
-            string query = @"SELECT SUM(total), SUM(cantidad)
-                            FROM snack 
-                            WHERE item = @id AND cliente = @idCliente AND fecha = @fechaT AND estado = 'ACTIVO';";
             SqlCommand cmd;
+            bool hayInicio = false;
+            bool hayFinal = false;
+            string query;
+            string queryTodo = @"SELECT SUM(sna.total), SUM(sna.cantidad)
+                                FROM snack AS sna
+                                INNER JOIN item AS it ON it.id = sna.item
+                                WHERE it.nombre LIKE @nombreItem AND cliente = @idCliente  AND sna.estado = 'ACTIVO';";
+
+            string queryFechaInicio = @"SELECT SUM(sna.total), SUM(sna.cantidad)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre LIKE @nombreItem AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha >= @fechaInicio;";
+            string queryFechaFinal = @"SELECT SUM(sna.total), SUM(sna.cantidad)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre LIKE @nombreItem AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha <= @fechaFinal;";
+            string queryAmbasFechas = @"SELECT SUM(sna.total), SUM(sna.cantidad)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre LIKE @nombreItem AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha >= @fechaInicio AND fecha <= @fechaFinal;";
+            if (fechaInicio == "" && fechaFinal == "")
+            {
+                query = queryTodo;
+            }
+            else if (fechaInicio != "" && fechaFinal == "")
+            {
+                query = queryFechaInicio;
+                hayInicio = true;
+            }
+            else if (fechaInicio == "" && fechaFinal != "")
+            {
+                query = queryFechaFinal;
+                hayFinal = true;
+            }
+            else
+            {
+                query = queryAmbasFechas;
+                hayInicio = true;
+                hayFinal = true;
+            }
+
             try
             {
                 cmd = DBImplementation.CreateBasicCommand(query);
-                cmd.Parameters.AddWithValue("@id", idItem);
-                cmd.Parameters.AddWithValue("@fechaT", fecha);
+                cmd.Parameters.AddWithValue("@nombreItem", "%"+nombreItem+"%");
                 cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                if (hayInicio)
+                {
+                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                }
+                if (hayFinal)
+                {
+                    cmd.Parameters.AddWithValue("@fechaFinal", fechaFinal);
+                }
                 var res = DBImplementation.ExecuteDataTableCommand(cmd);
                 var tot = res.Rows[0][0].ToString();
                 var cant = res.Rows[0][1].ToString();
@@ -184,6 +229,81 @@ namespace Implementation
                     list.Add(double.Parse(cant));
                 }
                 return list;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        public double SelectTotalSnackSinLonche(string fechaInicio, string fechaFinal, int idCliente)
+        {
+            SqlCommand cmd;
+            bool hayInicio = false;
+            bool hayFinal = false;
+            string query;
+            string queryTodo = @"SELECT SUM(sna.total)
+                                FROM snack AS sna
+                                INNER JOIN item AS it ON it.id = sna.item
+                                WHERE it.nombre NOT LIKE '%LONCHE%' AND cliente = @idCliente  AND sna.estado = 'ACTIVO';";
+
+            string queryFechaInicio = @"SELECT SUM(sna.total)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre NOT LIKE '%LONCHE%' AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha >= @fechaInicio;";
+            string queryFechaFinal = @"SELECT SUM(sna.total)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre NOT LIKE '%LONCHE%' AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha <= @fechaFinal;";
+            string queryAmbasFechas = @"SELECT SUM(sna.total)
+                                        FROM snack AS sna
+                                        INNER JOIN item AS it ON it.id = sna.item
+                                        WHERE it.nombre NOT LIKE '%LONCHE%' AND cliente = @idCliente  AND sna.estado = 'ACTIVO' AND fecha >= @fechaInicio AND fecha <= @fechaFinal;";
+            if (fechaInicio == "" && fechaFinal == "")
+            {
+                query = queryTodo;
+            }
+            else if (fechaInicio != "" && fechaFinal == "")
+            {
+                query = queryFechaInicio;
+                hayInicio = true;
+            }
+            else if (fechaInicio == "" && fechaFinal != "")
+            {
+                query = queryFechaFinal;
+                hayFinal = true;
+            }
+            else
+            {
+                query = queryAmbasFechas;
+                hayInicio = true;
+                hayFinal = true;
+            }
+
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@idCliente", idCliente);
+                if (hayInicio)
+                {
+                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                }
+                if (hayFinal)
+                {
+                    cmd.Parameters.AddWithValue("@fechaFinal", fechaFinal);
+                }
+                var res = DBImplementation.ExecuteDataTableCommand(cmd);
+                var tot = res.Rows[0][0].ToString();
+                if (tot == "")
+                {
+                    return 0;
+                }
+                else
+                {
+                    return double.Parse(tot);
+                }
+                
             }
             catch (Exception ex)
             {
