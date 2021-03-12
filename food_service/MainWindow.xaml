@@ -74,7 +74,9 @@
                 </TabItem>
                 <TabItem Header="Reportes">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60" Content="General"/>
+                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60" Content="General" Background="#ffe089"/>
+                        <Button x:Name="btnReportePorPersona" Click="btnReportePorPersona_Click"  Margin="1" Width="60" Content="Persona" Background="#ffe089"/>
+                        <Button x:Name="btnReportePorDia" Click="btnReportePorDia_Click" Margin="1" Width="60" Content="Dia" Background="#ffe089"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>

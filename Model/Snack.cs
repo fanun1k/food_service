@@ -146,5 +146,15 @@ namespace Model
             this.cantidad = cantidad;
             this.total = total;
         }
+        public Snack(int cliente, int item, decimal precio, int cantidad, decimal total, DateTime fecha, DateTime hora)
+        {
+            this.fecha = fecha;
+            this.hora = hora;
+            this.cliente = cliente;
+            this.item = item;
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.total = total;
+        }
     }
 }

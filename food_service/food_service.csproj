@@ -126,6 +126,9 @@
     <Compile Include="ventanas\VntReporteGeneral.xaml.cs">
       <DependentUpon>VntReporteGeneral.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ventanas\VntReportePorDia.xaml.cs">
+      <DependentUpon>VntReportePorDia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\VntSnack.xaml.cs">
       <DependentUpon>VntSnack.xaml</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ventanas\VntReporteGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntReportePorDia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

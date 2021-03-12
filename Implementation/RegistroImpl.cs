@@ -186,6 +186,78 @@ namespace Implementation
             }
         }
 
+        public int obtenerCantAlmuerzoOCenaGeneral(string tipo, string fechaInicio, string fechaFinal)
+        {
+            bool hayInicio = false;
+            bool hayFinal = false;
+            string query;
+            SqlCommand cmd;
+            DataTable dt;
+
+            string queryTodo = @"SELECT SUM(cantidad)
+                                FROM registro
+                                WHERE turno = @tipo AND estado = 'ACTIVO';";
+
+            string queryFechaInicio = @"SELECT SUM(cantidad)
+                                        FROM registro
+                                        WHERE turno = @tipo AND estado = 'ACTIVO' AND fecha >= @fechaInicio;";
+
+            string queryFechaFinal = @"SELECT SUM(cantidad)
+                                        FROM registro
+                                        WHERE turno = @tipo AND estado = 'ACTIVO' AND fecha <= @fechaFinal;";
+
+            string queryAmbasFechas = @"SELECT SUM(cantidad)
+                                    FROM registro
+                                    WHERE turno = @tipo AND estado = 'ACTIVO' AND fecha >= @fechaInicio AND fecha <= @fechaFinal;";
+
+
+            if (fechaInicio == "" && fechaFinal == "")
+            {
+                query = queryTodo;
+            }
+            else if (fechaInicio != "" && fechaFinal == "")
+            {
+                query = queryFechaInicio;
+                hayInicio = true;
+            }
+            else if (fechaInicio == "" && fechaFinal != "")
+            {
+                query = queryFechaFinal;
+                hayFinal = true;
+            }
+            else
+            {
+                query = queryAmbasFechas;
+                hayInicio = true;
+                hayFinal = true;
+            }
+
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@tipo", tipo);
+                if (hayInicio)
+                {
+                    cmd.Parameters.AddWithValue("@fechaInicio", fechaInicio);
+                }
+                if (hayFinal)
+                {
+                    cmd.Parameters.AddWithValue("@fechaFinal", fechaFinal);
+                }
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                var res = dt.Rows[0][0].ToString();
+                if (res == "")
+                {
+                    return 0;
+                }
+                return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public int obtenerCantAlmuerzoOCenaPOrIdTodo(string tipo, int idCliente)
         {
             string query = @"SELECT SUM(cantidad)
@@ -287,6 +359,29 @@ namespace Implementation
                     return 0;
                 }
                 return int.Parse(res);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public DataTable obtenerRegistroPOrTurno(string fecha, string turno, double precio)
+        {
+            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', reg.turno AS 'Nombre Producto' , @precio AS 'precio' ,SUM(reg.cantidad) AS 'Cantidad', @precio * SUM(reg.cantidad) AS 'Total'
+                            FROM registro AS reg
+                            INNER JOIN cliente AS cli ON cli.id = reg.cliente
+                            WHERE reg.turno = @turno AND reg.fecha = @fecha AND reg.estado = 'ACTIVO'
+                            GROUP BY cli.paterno, cli.materno, cli.nombre, reg.turno;";
+            SqlCommand cmd;
+            DataTable dt;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@fecha", fecha);
+                cmd.Parameters.AddWithValue("@turno", turno);
+                cmd.Parameters.AddWithValue("@precio", precio);
+                return DBImplementation.ExecuteDataTableCommand(cmd);               
             }
             catch (Exception ex)
             {

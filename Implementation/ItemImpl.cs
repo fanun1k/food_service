@@ -132,6 +132,28 @@ namespace Implementation
             }
         }
 
+        public double SelectPrecioPorNombre(string name)
+        {
+
+            DataTable dt;
+            SqlCommand cmd;
+            string query = @"SELECT precio
+                            FROM item
+                            WHERE nombre LIKE @name;";
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@name", name);
+                dt = DBImplementation.ExecuteDataTableCommand(cmd);
+                return double.Parse(dt.Rows[0][0].ToString());
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
 
     }
 }

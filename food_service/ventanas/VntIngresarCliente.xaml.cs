@@ -34,6 +34,8 @@ namespace food_service.ventanas
         {
             InitializeComponent();
             btnEnter.IsEnabled = false;
+            dpInicio.DisplayDateEnd = DateTime.Today;
+            dpFinal.DisplayDateEnd = DateTime.Today;
         }
            
         Queue<int> numeroFicha = new Queue<int>();
@@ -369,7 +371,6 @@ namespace food_service.ventanas
             totComedorU.Content = 00.00 + " Bs.";
             totSnackU.Content = 00.00 + " Bs.";
             totalTodo.Content = 00.00 + " Bs.";
-
         }
 
     }

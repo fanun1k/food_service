@@ -104,5 +104,12 @@ namespace Model
             this.monto = monto;         
             this.cliente = cliente;
         }
+        public Orden(decimal monto, int cliente, DateTime fecha, DateTime hora)
+        {
+            this.fecha = fecha;
+            this.hora = hora;
+            this.monto = monto;
+            this.cliente = cliente;
+        }
     }
 }
