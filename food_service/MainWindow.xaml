@@ -162,6 +162,18 @@
                     </ListView.ItemsPanel>
                 </ListView>
             </Grid>
+            <Grid Grid.Column="2">
+                <Border BorderBrush="Black">
+                    <StackPanel>
+                        <Label  FontSize="25" FontWeight="Bold" HorizontalAlignment="Center">
+                            <TextBlock x:Name="lblFecha" TextDecorations="UnderLine"></TextBlock>
+                        </Label>
+                        <Label x:Name="lblNombre" HorizontalAlignment="Center" FontWeight="Bold"></Label>
+                        <Label FontSize="15" FontWeight="Bold">Nombre - Precio - Cantidad - Total</Label>
+                        <Label x:Name="lblItems" FontWeight="Bold"></Label>
+                    </StackPanel>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 

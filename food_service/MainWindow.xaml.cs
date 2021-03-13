@@ -28,6 +28,7 @@ namespace food_service
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         ItemImpl itemImpl;
+        SnackImpl snackImpl;
         List<Item> items;
         ObservableCollection<Item> itemsVenta;
         Item item = null;
@@ -63,6 +64,7 @@ namespace food_service
             cargarItemsBDDALista();
             lbItemsVenta.ItemsSource = ItemsVenta.items;
             DataContext = this;
+            mostrarUltimoReporte();
         }
 
         private void cargarItemsBDDALista()
@@ -160,6 +162,19 @@ namespace food_service
         {
             VntReportePorDia vrpd = new VntReportePorDia();
             vrpd.Show();
+        }
+
+        private void mostrarUltimoReporte()
+        {
+            int x = 0;
+            snackImpl = new SnackImpl();
+            var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
+            lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
+            lblNombre.Content = ultimaVenta.Rows[0][0];
+            foreach (DataRow venta in ultimaVenta.Rows)
+            {
+                lblItems.Content = venta[2].ToString() + " | "+ venta[3].ToString() + " | " + venta[4].ToString() + " | " + venta[5].ToString() + "\n";
+            }
         }
     }
 }

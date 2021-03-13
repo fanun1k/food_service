@@ -661,5 +661,27 @@ namespace Implementation
                 throw ex;
             }
         }
+        public DataTable SelectUltimaVentaSnack()
+        {
+            var ordenId = DBImplementation.GetIdentityFromTable("orden") - 1;
+            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', sna.fecha AS 'Fecha', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', sna.cantidad AS 'Cantidad', sna.total AS 'Total'
+                            FROM snack AS sna
+                            INNER JOIN item AS it ON it.id = sna.item
+                            INNER JOIN cliente AS cli ON cli.id = sna.cliente
+                            WHERE orden = @ordenId;";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@ordenId", ordenId);
+                return DBImplementation.ExecuteDataTableCommand(cmd);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }
