@@ -99,7 +99,7 @@ namespace food_service.ventanas
                 if (cliente!=null)
                 {
                     tbNombre.Text = cliente.Paterno + " " + cliente.Materno + " " + cliente.Nombre;
-                    btnAceptar.IsEnabled = true;
+                    activarBotonEnCodigo();
                 }
                 else
                 {
@@ -166,19 +166,39 @@ namespace food_service.ventanas
             try
             {
                 registroImpl = new RegistroImpl();
+                snackImpl = new SnackImpl();
+                clienteImpl = new ClienteImpl();
                     if (cliente!=null && tipo!="")
                     {
                         switch (tipo)
                         {
                             case "LUNCH":
-                                 
+                            try
+                            {
+                                int idLonche = int.Parse(cbLonches.SelectedValue.ToString());
+                                double precioLonche = snackImpl.SelectPrecioPorId(idLonche);
+                                int idCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigo)).Id;
+                                var fecha = DateTime.Parse(calendario.SelectedDate.ToString());
+                                var hora = DateTime.Parse("09:00:00");
+                                List <Snack> list = new List<Snack>();  
+                                list.Add(new Snack(idCliente, idLonche, (decimal)precioLonche, 1, (decimal)precioLonche * 1, fecha, hora));                               
+                                if (snackImpl.InsertConTransaccion(new Orden((decimal)precioLonche * 1, idCliente, fecha, hora), list) > 0)
+                                {
+                                    limpiarVentana();
+                                    //Imprimir el ticket
+                                    MessageBox.Show("Registro exitoso b");
+                                }
+                            }
+                            catch (Exception)
+                            {
+                                MessageBox.Show("Error al ingresar lonche");
+                            }                                                     
                                 break;
                             case "ALMUERZO":
                             registro = new Registro() { Cliente = cliente.Id, Fecha = DateTime.Parse(calendario.SelectedDate.ToString()), Hora = DateTime.Parse("12:00:00"),Turno="ALMUERZO",Tipo="TOUCH" };
                             if (registroImpl.Insert(registro)>0)
                             {
-                                tbNombre.Text = "";
-                                codigo = "";
+                                limpiarVentana();
                                 //Imprimir el ticket
                                 MessageBox.Show("Registro exitoso a");
 
@@ -188,8 +208,7 @@ namespace food_service.ventanas
                             registro = new Registro() { Cliente = cliente.Id, Fecha = DateTime.Parse(calendario.SelectedDate.ToString()), Hora = DateTime.Parse("18:00:00"), Turno = "CENA", Tipo = "TOUCH" };
                             if (registroImpl.Insert(registro) > 0)
                             {
-                                tbNombre.Text = "";
-                                codigo = "";
+                                limpiarVentana();
                                 //Imprimir el ticket
                                 MessageBox.Show("Registro exitoso c");
                             }
@@ -197,6 +216,7 @@ namespace food_service.ventanas
                             break;
                         }
                     }
+                Codigo = "";
             }
             catch (Exception ex)
             {
@@ -209,6 +229,7 @@ namespace food_service.ventanas
         {
             Codigo = "";
             tbNombre.Text = "";
+            btnAceptar.IsEnabled = false;
         }
 
         private void bntLunch_Click(object sender, RoutedEventArgs e)
@@ -217,6 +238,8 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.SlateGray;
             btnCena.Background = Brushes.Transparent;
             btnAlmuerzo.Background = Brushes.Transparent;
+            mostrarCuadroLonche();
+            activarBotonEnOpciones();
         }
 
         private void btnAlmuerzo_Click(object sender, RoutedEventArgs e)
@@ -225,6 +248,8 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.Transparent;
             btnCena.Background = Brushes.Transparent;
             btnAlmuerzo.Background = Brushes.SlateGray;
+            ocultarCuadroLonche();
+            activarBotonEnOpciones();
         }
 
         private void btnCena_Click(object sender, RoutedEventArgs e)
@@ -233,6 +258,8 @@ namespace food_service.ventanas
             bntLunch.Background = Brushes.Transparent;
             btnCena.Background = Brushes.SlateGray;
             btnAlmuerzo.Background = Brushes.Transparent;
+            ocultarCuadroLonche();
+            activarBotonEnOpciones();
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
@@ -319,6 +346,40 @@ namespace food_service.ventanas
             catch (Exception ex)
             {
                 MessageBox.Show("ups! ocurrio un error, contactese con su encargado de sistemas.  \n error: " + ex.Message);
+            }
+        }
+
+        public void mostrarCuadroLonche()
+        {
+           borderLonches.Visibility = Visibility.Visible;
+        }
+        public void ocultarCuadroLonche()
+        {
+            borderLonches.Visibility = Visibility.Hidden;
+        }
+        public void limpiarVentana()
+        {
+            borderLonches.Visibility = Visibility.Hidden;
+            tbNombre.Text = "";
+            codigo = "";
+            btnAceptar.IsEnabled = false;
+            btnCena.Background = Brushes.Transparent;
+            btnAlmuerzo.Background = Brushes.Transparent;
+            bntLunch.Background = Brushes.Transparent;
+            tipo = "";
+        }
+        public void activarBotonEnOpciones()
+        {
+            if (codigo != "")
+            {
+                btnAceptar.IsEnabled = true;
+            }         
+        }
+        public void activarBotonEnCodigo()
+        {
+            if (tipo != "")
+            {
+                btnAceptar.IsEnabled = true;
             }
         }
     }

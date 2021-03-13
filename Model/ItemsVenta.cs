@@ -34,5 +34,9 @@ namespace Model
             }
             return total;
         }
+        public static void ClearItems()
+        {
+            items.Clear();
+        }
     }
 }

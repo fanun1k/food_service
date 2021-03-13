@@ -28,7 +28,7 @@ namespace food_service.ventanas
         Cliente cliente = null;
         decimal total;
         ObservableCollection<Item> lista;
-        int codigoCliente;
+        string codigoClienteBase;
 
 
         public VntSnack(decimal totalTodo, ObservableCollection<Item> listaPedidos)
@@ -120,9 +120,11 @@ namespace food_service.ventanas
                 {
 
                     snackImpl = new SnackImpl();
-                   // MessageBox.Show(codigoCliente.ToString()); ;
+                    clienteImpl = new ClienteImpl();
+                    var codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoClienteBase)).Id;
                     snackImpl.Insert(new Orden(total, codigoCliente), convertirAListaSnacks(lista)); ;
                     MessageBox.Show("Pedido insertado con exito");
+                 //   MainWindow.itemsVenta = new ObservableCollection<Item>();
                     this.Close();
                 }
                 else
@@ -142,6 +144,8 @@ namespace food_service.ventanas
         private List<Snack> convertirAListaSnacks(ObservableCollection<Item> listaObservable)
         {
             List<Snack> nuevaLista = new List<Snack>();
+            clienteImpl = new ClienteImpl();
+            var codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoClienteBase)).Id;
             foreach (var item in listaObservable)
             {
                 nuevaLista.Add(new Snack(codigoCliente, item.Id, item.Precio, item.Cantidad, item.Precio * item.Cantidad));
@@ -220,8 +224,7 @@ namespace food_service.ventanas
                         codigoLeido = codigoLeido + n;
                     }
                     ImprimirDatosCliente(int.Parse(codigoLeido));
-                    clienteImpl = new ClienteImpl();
-                    codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoLeido)).Id;
+                    codigoClienteBase = codigoLeido;
                     break;
             }
         }

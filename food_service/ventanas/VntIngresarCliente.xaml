@@ -11,8 +11,8 @@
             <Setter Property="Opacity" Value="1"/>
         </Style>
     </Window.Resources>
-    <Grid Grid.RowSpan="2" >
-        <Grid Height="700" Width="700" Name="gridComedor">
+    <Grid Grid.RowSpan="2" Background="#FF69696C" >
+        <Grid Height="350" Width="350" Name="gridComedor" Margin="10,10,340,340">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.99*"/>
                 <RowDefinition Height="2.5*" />
@@ -22,7 +22,7 @@
                     <ColumnDefinition Width="0.8*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Border Background="Goldenrod" BorderBrush="DimGray" BorderThickness="0 0 2 0" Margin="0 5 0 0">
+                <Border Background="Goldenrod" BorderBrush="DimGray" BorderThickness="0 0 2 0">
                     <Grid Name="gridImg">
                         <Image x:Name="imgFotografia" Source="/food_service;component/appData/imgDefecto.png" Stretch="Fill"></Image>
                     </Grid>
@@ -30,9 +30,9 @@
                 </Border>
                 <Grid Grid.Column="1" Background="DimGray">
                     <Grid  Background="Gold" Margin="0 5 5 0">
-                        <TextBlock Name="tbNombreComensal" VerticalAlignment="Center" Text="INGRESE SU NUMERO DE FICHA" FontSize="40"  TextAlignment="Center" TextWrapping="Wrap" Foreground="#696969" FontFamily="Yu Gothic UI Semibold" ></TextBlock>
+                        <TextBlock Name="tbNombreComensal" VerticalAlignment="Center" Text="INGRESE SU NUMERO DE FICHA" FontSize="20"  TextAlignment="Center" TextWrapping="Wrap" Foreground="#696969" FontFamily="Yu Gothic UI Semibold" Height="94" />
                     </Grid>
-                    <Button x:Name="btnCerrarComedor" Width="35" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnCerrarComedor_Click" Background="Red" Margin="0,0,0,169">x</Button>
+                    <Button x:Name="btnCerrarComedor" Width="35" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="btnCerrarComedor_Click" Background="Red" Margin="0,-8,-337,77">x</Button>
                 </Grid>
             </Grid>
             <Grid Background="#FF69696C" Grid.Row="1">
@@ -59,51 +59,87 @@
                     </Grid.ColumnDefinitions>
                     <Border Margin="5" Background="White" BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="4">
                         <Grid>
-                            <TextBlock Name="tbCodigo" FontFamily="Segoe UI Black" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="80" Foreground="#696969" Text="{Binding numeroFicha, Mode=OneWay}"/>
+                            <TextBlock Name="tbCodigo" FontFamily="Segoe UI Black" Visibility="Visible" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" Foreground="#696969" Text="{Binding numeroFicha, Mode=OneWay}"/>
                         </Grid>
                     </Border>
                     <Button Name="btn7" Grid.Row="1" Click="btn7_Click" Style="{StaticResource Botoncomedor}" >
-                        <TextBlock Text="7" VerticalAlignment="Center"/>
+                        <TextBlock Text="7" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
 
                     <Button Name="btn8" Grid.Row="1" Grid.Column="1" Style="{StaticResource Botoncomedor}" Click="btn8_Click" >
-                        <TextBlock Text="8" VerticalAlignment="Center"/>
+                        <TextBlock Text="8" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="1" Grid.Column="2" Name="btn9" Style="{StaticResource Botoncomedor}" Click="btn9_Click" >
-                        <TextBlock Text="9" VerticalAlignment="Center"/>
+                        <TextBlock Text="9" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="1" Grid.Column="3" FontSize="25" Name="btnBorrar" Style="{StaticResource Botoncomedor}" Click="btnBorrar_Click">
-                        <TextBlock Text="BORRAR" VerticalAlignment="Center"/>
+                        <TextBlock Text="BORRAR" FontSize="10" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="2" Name="btn4" Style="{StaticResource Botoncomedor}" Click="btn4_Click" >
-                        <TextBlock Text="4" VerticalAlignment="Center"/>
+                        <TextBlock Text="4" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="2" Grid.Column="1" Name="btn5" Style="{StaticResource Botoncomedor}" Click="btn5_Click">
-                        <TextBlock Text="5" VerticalAlignment="Center"/>
+                        <TextBlock Text="5" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="2" Grid.Column="2" Style="{StaticResource Botoncomedor}" Name="btn6" Click="btn6_Click" >
-                        <TextBlock Text="6" VerticalAlignment="Center"/>
+                        <TextBlock Text="6"  FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="2" Grid.Column="3" FontSize="25" Style="{StaticResource Botoncomedor}" Name="btnLimpiar" Click="btnLimpiar_Click" >
-                        <TextBlock Text="LIMPIAR" VerticalAlignment="Center"/>
+                        <TextBlock Text="LIMPIAR" FontSize="10" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="3" Name="btn1" Style="{StaticResource Botoncomedor}" Click="btn1_Click" >
-                        <TextBlock Text="1" VerticalAlignment="Center"/>
+                        <TextBlock Text="1" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource Botoncomedor}" Name="btn2" Click="btn2_Click" >
-                        <TextBlock Text="2" VerticalAlignment="Center"/>
+                        <TextBlock Text="2" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="3" Grid.Column="2" Style="{StaticResource Botoncomedor}" Name="btn3" Click="btn3_Click">
-                        <TextBlock Text="3" VerticalAlignment="Center"/>
+                        <TextBlock Text="3" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="4" Name="btn0" Style="{StaticResource Botoncomedor}" Click="btn0_Click" >
-                        <TextBlock Text="0" VerticalAlignment="Center"/>
+                        <TextBlock Text="0" FontSize="20" VerticalAlignment="Center"/>
                     </Button>
                     <Button Grid.Row="4" Grid.Column="1" FontSize="30" Style="{StaticResource Botoncomedor}" Grid.ColumnSpan="2" Name="btnEnter" Click="btnEnter_Click" >
-                        <TextBlock Text="ENTER" VerticalAlignment="Center"/>
+                        <TextBlock Text="BUSCAR" FontSize="10" VerticalAlignment="Center"/>
                     </Button>
                 </Grid>
             </Grid>
         </Grid>
+        <Label Content="Inicio:" HorizontalAlignment="Left" Margin="499,23,0,0" VerticalAlignment="Top" Foreground="White" FontSize="17"/>
+        <DatePicker Name="dpInicio" Margin="449,71,101,603"></DatePicker>
+        <Label Content="Final:" HorizontalAlignment="Left" Margin="499,195,0,0" VerticalAlignment="Top" Foreground="White" FontSize="17"/>
+        <DatePicker x:Name="dpFinal" Margin="449,247,101,427"/>
+        <Button Content="Reiniciar" x:Name="btnReiniciarInicio" Click="btnReiniciarInicio_Click" HorizontalAlignment="Left" Margin="487,115,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Reiniciar" x:Name="btnReiniciarFinal" Click="btnReiniciarFinal_Click" HorizontalAlignment="Left" Margin="487,292,0,0" VerticalAlignment="Top" Width="75"/>
+
+        <Label Content="DESAYUNO:" HorizontalAlignment="Left" Margin="74,466,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="LUNCH:" HorizontalAlignment="Left" Margin="75,493,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="ALMUERZO:" HorizontalAlignment="Left" Margin="75,524,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="CENA:" HorizontalAlignment="Left" Margin="75,555,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <Label Content="0" x:Name="cantDes" HorizontalAlignment="Left" Margin="189,466,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="0" x:Name="cantLunch" HorizontalAlignment="Left" Margin="190,493,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="0" x:Name="cantAlmu" HorizontalAlignment="Left" Margin="190,524,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="0" x:Name="cantCena" HorizontalAlignment="Left" Margin="190,555,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <Label Content="00,00 Bs." x:Name="totDes" HorizontalAlignment="Left" Margin="263,466,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totLunch" HorizontalAlignment="Left" Margin="264,493,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totAlmu" HorizontalAlignment="Left" Margin="264,524,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totCena" HorizontalAlignment="Left" Margin="264,555,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+        <Label Content="Comedor" HorizontalAlignment="Left" Margin="163,425,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="114,598,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totComedor" HorizontalAlignment="Left" Margin="218,598,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="173" Margin="62,451,0,0" VerticalAlignment="Top" Width="271" />
+
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="141" Margin="385,464,0,0" VerticalAlignment="Top" Width="288"/>
+        <Label Content="COMEDOR:" HorizontalAlignment="Left" Margin="431,481,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totComedorU" HorizontalAlignment="Left" Margin="581,481,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="SNACK:" HorizontalAlignment="Left" Margin="431,512,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totSnackU" HorizontalAlignment="Left" Margin="581,512,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="461,563,0,0" VerticalAlignment="Top" Foreground="White"/>
+        <Label Content="00,00 Bs." x:Name="totalTodo" HorizontalAlignment="Left" Margin="543,563,0,0" VerticalAlignment="Top" Foreground="White"/>
+
+
     </Grid>
 </Window>

@@ -74,7 +74,9 @@
                 </TabItem>
                 <TabItem Header="Reportes">
                     <StackPanel Orientation="Horizontal">
-                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60" Content="General"/>
+                        <Button x:Name="btnMostrarReporteGeneral" Click="btnMostrarReporteGeneral_Click" Margin="1" Width="60" Content="General" Background="#ffe089"/>
+                        <Button x:Name="btnReportePorPersona" Click="btnReportePorPersona_Click"  Margin="1" Width="60" Content="Persona" Background="#ffe089"/>
+                        <Button x:Name="btnReportePorDia" Click="btnReportePorDia_Click" Margin="1" Width="60" Content="Dia" Background="#ffe089"/>
                     </StackPanel>
                 </TabItem>
             </TabControl>
@@ -159,6 +161,18 @@
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Border BorderBrush="Black">
+                    <StackPanel>
+                        <Label  FontSize="25" FontWeight="Bold" HorizontalAlignment="Center">
+                            <TextBlock x:Name="lblFecha" TextDecorations="UnderLine"></TextBlock>
+                        </Label>
+                        <Label x:Name="lblNombre" HorizontalAlignment="Center" FontWeight="Bold"></Label>
+                        <Label FontSize="15" FontWeight="Bold">Nombre - Precio - Cantidad - Total</Label>
+                        <Label x:Name="lblItems" FontWeight="Bold"></Label>
+                    </StackPanel>
+                </Border>
             </Grid>
         </Grid>
         <Grid x:Name="GridIngresarCodigoVenta" Grid.RowSpan="2" Background="Transparent" Visibility="Hidden">

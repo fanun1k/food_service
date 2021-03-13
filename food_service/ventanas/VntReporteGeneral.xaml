@@ -5,65 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:food_service.ventanas"
         mc:Ignorable="d"
-        Title="VntReporteGeneral" Height="700" Width="700">
+        Title="VntReporteGeneral" Height="700" Width="700" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
 
     <Grid >
-        <Label Content="Usuario:"  HorizontalAlignment="Left" Margin="35,28,0,0" VerticalAlignment="Top"/>
-        <Label Content=""  x:Name="lblUsuario" HorizontalAlignment="Left" Margin="96,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,0.481" Width="227" Height="33"/>
-        <Button Content="Seleccionar Usuario" x:Name="btnSeleccionarUsuario" Click="btnSeleccionarUsuario_Click" HorizontalAlignment="Left" Margin="363,31,0,0" VerticalAlignment="Top" Width="110"/>
-        <Button Content="Registro Total Usuario" x:Name="btnRegistroGeneralUsuario" Click="btnRegistroGeneralUsuario_Click" HorizontalAlignment="Left" Margin="505,31,0,0" VerticalAlignment="Top" Width="125"/>
-        <Button Content="Limpiar Usuario" x:Name="btnLimpiarUsuario" Click="btnLimpiarUsuario_Click"  HorizontalAlignment="Left" Margin="440,81,0,0" VerticalAlignment="Top" Width="93"/>
+        <Button Content="X" Name="btnClose" Click="btnClose_Click" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="45" Height="35" Background="Red"/>
+        <DatePicker x:Name="dpInicio" Margin="125,74,412,600"></DatePicker>
+        <DatePicker x:Name="dpFinal" Margin="404,74,134,600"></DatePicker>
+        <Button Content="Buscar" Name="btnBuscar" Click="btnBuscar_Click" HorizontalAlignment="Left" Margin="302,116,0,0" VerticalAlignment="Top" Width="94" Height="24"/>
+        <Button Content="Reiniciar" Name="btnReiniciarInicio" Click="btnReiniciarInicio_Click"  HorizontalAlignment="Left" Margin="166,26,0,0" VerticalAlignment="Top" Width="76"/>
+        <Button Content="Reiniciar" Name="btnReiniciarFinal" Click="btnReiniciarFinal_Click"  HorizontalAlignment="Left" Margin="438,26,0,0" VerticalAlignment="Top" Width="76"/>
 
-        <DatePicker x:Name="dpComedor" Margin="180,79,357,558" SelectedDateChanged="dpFecha_SelectedDateChanged"></DatePicker>
-        <Label Content="DESAYUNO:" HorizontalAlignment="Left" Margin="51,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="DESAYUNO E:" HorizontalAlignment="Left" Margin="51,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="LUNCH:" HorizontalAlignment="Left" Margin="51,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="ALMUERZO:" HorizontalAlignment="Left" Margin="51,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="CENA:" HorizontalAlignment="Left" Margin="51,302,0,0" VerticalAlignment="Top"/>
+        <Label Content="DESAYUNO:" HorizontalAlignment="Left" Margin="225,233,0,0" VerticalAlignment="Top"/>
+        <Label Content="LUNCH:" HorizontalAlignment="Left" Margin="226,267,0,0" VerticalAlignment="Top"/>
+        <Label Content="ALMUERZO:" HorizontalAlignment="Left" Margin="226,298,0,0" VerticalAlignment="Top"/>
+        <Label Content="CENA:" HorizontalAlignment="Left" Margin="226,329,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="0" x:Name="cantDes" HorizontalAlignment="Left" Margin="166,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantDesE" HorizontalAlignment="Left" Margin="166,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantLunch" HorizontalAlignment="Left" Margin="166,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantAlmu" HorizontalAlignment="Left" Margin="166,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantCena" HorizontalAlignment="Left" Margin="166,302,0,0" VerticalAlignment="Top"/>
+        <Label Content="0" x:Name="cantDes" HorizontalAlignment="Left" Margin="340,233,0,0" VerticalAlignment="Top"/>
+        <Label Content="0" x:Name="cantLunch" HorizontalAlignment="Left" Margin="341,267,0,0" VerticalAlignment="Top"/>
+        <Label Content="0" x:Name="cantAlmu" HorizontalAlignment="Left" Margin="341,298,0,0" VerticalAlignment="Top"/>
+        <Label Content="0" x:Name="cantCena" HorizontalAlignment="Left" Margin="341,329,0,0" VerticalAlignment="Top"/>
 
-        <Label Content="00,00 Bs." x:Name="totDes" HorizontalAlignment="Left" Margin="240,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totDesE" HorizontalAlignment="Left" Margin="240,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totLunch" HorizontalAlignment="Left" Margin="240,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totAlmu" HorizontalAlignment="Left" Margin="240,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totCena" HorizontalAlignment="Left" Margin="240,302,0,0" VerticalAlignment="Top"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="237" Margin="35,162,0,0" VerticalAlignment="Top" Width="288"/>
-        <Label Content="Comedor" HorizontalAlignment="Left" Margin="145,131,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="87,351,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totComedor" HorizontalAlignment="Left" Margin="191,351,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totDes" HorizontalAlignment="Left" Margin="414,233,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totLunch" HorizontalAlignment="Left" Margin="415,267,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totAlmu" HorizontalAlignment="Left" Margin="415,298,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totCena" HorizontalAlignment="Left" Margin="415,329,0,0" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="216" Margin="205,215,0,0" VerticalAlignment="Top" Width="292"/>
+        <Label Content="Comedor" HorizontalAlignment="Left" Margin="321,179,0,0" VerticalAlignment="Top"/>
+        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="284,389,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totComedor" HorizontalAlignment="Left" Margin="366,389,0,0" VerticalAlignment="Top"/>
 
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="237" Margin="363,162,0,0" VerticalAlignment="Top" Width="288"/>
-        <Label Content="Snack" HorizontalAlignment="Left" Margin="486,131,0,0" VerticalAlignment="Top"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="176" Margin="205,470,0,0" VerticalAlignment="Top" Width="293"/>
+        <Label Content="COMEDOR:" HorizontalAlignment="Left" Margin="254,496,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totComedorU" HorizontalAlignment="Left" Margin="404,496,0,0" VerticalAlignment="Top"/>
+        <Label Content="SNACK:" HorizontalAlignment="Left" Margin="254,545,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totSnackU" HorizontalAlignment="Left" Margin="404,545,0,0" VerticalAlignment="Top"/>
+        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="283,598,0,0" VerticalAlignment="Top"/>
+        <Label Content="00,00 Bs." x:Name="totalTodo" HorizontalAlignment="Left" Margin="365,598,0,0" VerticalAlignment="Top"/>
 
-
-        <Label Content="PERSONAL:" HorizontalAlignment="Left" Margin="401,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totPersonal" HorizontalAlignment="Left" Margin="551,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="EXTRANJEROS:" HorizontalAlignment="Left" Margin="401,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totExtranjeros" HorizontalAlignment="Left" Margin="551,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="INVITADOS:" HorizontalAlignment="Left" Margin="401,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totInvitados" HorizontalAlignment="Left" Margin="551,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="VARIOS:" HorizontalAlignment="Left" Margin="401,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totVarios" HorizontalAlignment="Left" Margin="551,274,0,0" VerticalAlignment="Top"/>
-        <Label Content="PATH:" HorizontalAlignment="Left" Margin="240,535,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totPath" HorizontalAlignment="Left" Margin="390,538,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="422,351,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totSnack" HorizontalAlignment="Left" Margin="526,351,0,0" VerticalAlignment="Top"/>
-
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="176" Margin="198,428,0,0" VerticalAlignment="Top" Width="293"/>
-        <Label Content="COMEDOR:" HorizontalAlignment="Left" Margin="240,445,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totComedorU" HorizontalAlignment="Left" Margin="390,445,0,0" VerticalAlignment="Top"/>
-        <Label Content="SNACK:" HorizontalAlignment="Left" Margin="240,476,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totSnackU" HorizontalAlignment="Left" Margin="390,476,0,0" VerticalAlignment="Top"/>
-        <Label Content="CONTADO:" HorizontalAlignment="Left" Margin="240,507,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totContadoU" HorizontalAlignment="Left" Margin="390,507,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="269,567,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totalTodo" HorizontalAlignment="Left" Margin="351,567,0,0" VerticalAlignment="Top"/>
-        <Button Content="Cargar" Name="btnVerificar" Click="btnVerificar_Click" HorizontalAlignment="Left" Margin="576,79,0,0" VerticalAlignment="Top" Width="75"/>
 
 
     </Grid>

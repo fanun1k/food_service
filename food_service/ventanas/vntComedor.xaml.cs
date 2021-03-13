@@ -226,6 +226,7 @@ namespace food_service.ventanas
                 else
                 {
                     tbNombreComensal.Text = "CODIGO NO REGISTRADO";
+                    btnEnter.IsEnabled = false;
                 }
             }
             catch (Exception ex)

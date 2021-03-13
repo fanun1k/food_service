@@ -81,7 +81,7 @@ namespace ControlesFoodService
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
         }
         private void btnItemSelected_Click(object sender, RoutedEventArgs e)
