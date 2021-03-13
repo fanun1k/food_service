@@ -21,9 +21,7 @@ namespace ControlesFoodService
     /// </summary>
     public partial class ItemSnack : UserControl
     {
-        
         private Item itemMostrar;
-
         public Item ItemMostrar
         {
             get { return itemMostrar; }
@@ -52,7 +50,6 @@ namespace ControlesFoodService
                 tbCantidad.Text = itemMostrar.Cantidad.ToString();
             }
         }
-
         public void OnItemSelected()
         {
             if (stackOcultar.Visibility == Visibility.Visible)
@@ -84,11 +81,9 @@ namespace ControlesFoodService
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
         }
-
         private void btnItemSelected_Click(object sender, RoutedEventArgs e)
         {
             OnItemSelected();

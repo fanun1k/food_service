@@ -171,7 +171,7 @@ namespace food_service.ventanas
                         switch (tipo)
                         {
                             case "LUNCH":
-                                
+                                 
                                 break;
                             case "ALMUERZO":
                             registro = new Registro() { Cliente = cliente.Id, Fecha = DateTime.Parse(calendario.SelectedDate.ToString()), Hora = DateTime.Parse("12:00:00"),Turno="ALMUERZO",Tipo="TOUCH" };
