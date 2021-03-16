@@ -45,6 +45,7 @@
     <Compile Include="ClienteImpl.cs" />
     <Compile Include="DBImplementation.cs" />
     <Compile Include="ItemImpl.cs" />
+    <Compile Include="OrdenImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegistroImpl.cs" />
     <Compile Include="ServerImpl.cs" />

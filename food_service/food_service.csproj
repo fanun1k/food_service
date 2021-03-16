@@ -95,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ItemsVenta.cs" />
     <Compile Include="Tickets\TicketLunch.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +115,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ticket.cs" />
+    <Compile Include="UserControls\ItemSnack.xaml.cs">
+      <DependentUpon>ItemSnack.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\VntAsistencia.xaml.cs">
       <DependentUpon>VntAsistencia.xaml</DependentUpon>
     </Compile>
@@ -147,6 +151,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\ItemSnack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ventanas\VntAsistencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,9 +234,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="UserControls\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="appData\imgDefecto.png" />
   </ItemGroup>
@@ -245,10 +251,6 @@
     <Resource Include="appData\itemPorDefecto.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControlesFoodService\ControlesFoodService.csproj">
-      <Project>{600b0ffd-e78e-414e-846f-12f8875396c1}</Project>
-      <Name>ControlesFoodService</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Implementation\Implementation.csproj">
       <Project>{a5780c00-bd1f-4bb7-ba2d-4312005e3abe}</Project>
       <Name>Implementation</Name>

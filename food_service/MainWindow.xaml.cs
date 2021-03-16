@@ -5,7 +5,6 @@ using Model;
 using Implementation;
 using System.Data;
 using food_service.ventanas;
-using ControlesFoodService;
 using System.ComponentModel;
 using System.Collections.Generic;
 
@@ -14,7 +13,6 @@ namespace food_service
     /// <summary>
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
-
     public partial class MainWindow : Window,INotifyPropertyChanged
 
     {
@@ -24,12 +22,23 @@ namespace food_service
         Orden orden;
         SnackImpl snackImpl;
         Snack snack;
+
         
-        ItemSnack itemSnack;        
+        UserControls.ItemSnack itemSnack;        
         private string codigo="";
-        List<Item> items;
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        private decimal total=0;
+
+        public decimal Total
+        {
+            get { return total; }
+            set { total = value;
+                OnPropertyChanged("Total");
+            }
+        }
+
         private void OnPropertyChanged(string property)
         {
             if (PropertyChanged != null)
@@ -47,12 +56,14 @@ namespace food_service
         public MainWindow()
         {
             InitializeComponent();
-            items = new List<Item>();
             cargarItemsBDDALista();
             lbItemsVenta.ItemsSource = ItemsVenta.items;
             DataContext = this;
             mostrarUltimoReporte();
             btnEnter.IsEnabled = false;
+
+            ItemsVenta.pasarTotal += MostrarTotal;
+
         }
         private void cargarItemsBDDALista()
         {
@@ -80,7 +91,7 @@ namespace food_service
                         Uri uri = new Uri("/food_service;component/appData/itemPorDefecto.png", UriKind.Relative);
                         bmi = new BitmapImage(uri);
                     }
-                    itemSnack= new ItemSnack();
+                    itemSnack = new UserControls.ItemSnack();
                     itemSnack.ItemMostrar=(new Item()
                     {
                         Id = int.Parse(dataRow["id"].ToString()),
@@ -212,6 +223,7 @@ namespace food_service
         private void btnCerrarComedor_Click(object sender, RoutedEventArgs e)
         {
             GridIngresarCodigoVenta.Visibility = Visibility.Collapsed;
+            LimpiarPantalla();
         }
         #endregion
         private void Apilar(string v)
@@ -265,6 +277,8 @@ namespace food_service
                 else
                 {
                     tbNombre.Text = "EL CLIENTE NO EXISTE";
+                    Uri uri = new Uri("/food_service;component/appData/imgDefecto.png", UriKind.Relative);
+                    imgFotografia.Source = new BitmapImage(uri);
                 }
             }
             catch (Exception ex)
@@ -307,10 +321,11 @@ namespace food_service
                 }
 
                 snackImpl.Insert(orden, lista);
-                // ImprimirTicketLunch(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
-                //ItemsVenta.ClearItems();
+                //ticket = new Ticket();
+                //ticket.ImprimirTicketSnack(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
                 LimpiarPantalla();
                 GridIngresarCodigoVenta.Visibility = Visibility.Hidden;
+                
             }
             catch (Exception ex)
             {
@@ -320,15 +335,22 @@ namespace food_service
 
         private void mostrarUltimoReporte()
         {
-            int x = 0;
             snackImpl = new SnackImpl();
             var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
             lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
-            lblNombre.Content = ultimaVenta.Rows[0][0];
+            lbNombres.Text = ultimaVenta.Rows[0][0].ToString();
+            lbItemsUltimaVenta.Text = "";
+            decimal total = 0;
             foreach (DataRow venta in ultimaVenta.Rows)
             {
-                lblItems.Content = venta[2].ToString() + " | "+ venta[3].ToString() + " | " + venta[4].ToString() + " | " + venta[5].ToString() + "\n";
+                lbItemsUltimaVenta.Text += venta[4].ToString() + "  " + venta[2].ToString() + "\n";
+                total += decimal.Parse(venta[5].ToString());
             }
+            tbTotalUltimaVenta.Text = total.ToString();
+        }
+        void MostrarTotal(decimal v)
+        {
+            tbTotal.Text = v.ToString();
         }
     }
 }

@@ -374,7 +374,6 @@ namespace Implementation
                             WHERE reg.turno = @turno AND reg.fecha = @fecha AND reg.estado = 'ACTIVO'
                             GROUP BY cli.paterno, cli.materno, cli.nombre, reg.turno;";
             SqlCommand cmd;
-            DataTable dt;
             try
             {
                 cmd = DBImplementation.CreateBasicCommand(query);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:food_service"
         xmlns:fa="http://schemas.fontawesome.io/icons/"
-        xmlns:ControlesFoodService="clr-namespace:ControlesFoodService;assembly=ControlesFoodService" x:Class="food_service.MainWindow"
+        x:Class="food_service.MainWindow"
         mc:Ignorable="d"
         Title="food service 2" Height="1000" Width="1200"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
@@ -141,7 +141,7 @@
                         <StackPanel Orientation="Horizontal" Margin="0 2">
                             <Label HorizontalAlignment="Left" FontWeight="Bold" FontSize="18" Content="TOTAL ="/>
                             <Border Background="White" Width="100" CornerRadius="2">
-                                <TextBlock x:Name="lblTotal" Text="{Binding Total}"  TextAlignment="Center" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
+                                <TextBlock x:Name="tbTotal" Text="{Binding Total}"  TextAlignment="Center" FontWeight="Bold" FontSize="18" VerticalAlignment="Center"/>
                             </Border>
                         </StackPanel>
                         <Button Height="62" x:Name="btnFinalizar" Click="btnFinalizar_Click" Background="#fffacd" FontFamily="Arial" FontSize="15" >
@@ -162,18 +162,19 @@
                     </ListView.ItemsPanel>
                 </ListView>
             </Grid>
-            <Grid Grid.Column="2">
-                <Border BorderBrush="Black">
+            <StackPanel Grid.Column="2" Margin="5">
+                <TextBlock x:Name="lblFecha" TextDecorations="UnderLine" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>
+                <Border BorderBrush="Black" BorderThickness="1">
                     <StackPanel>
-                        <Label  FontSize="25" FontWeight="Bold" HorizontalAlignment="Center">
-                            <TextBlock x:Name="lblFecha" TextDecorations="UnderLine"></TextBlock>
-                        </Label>
-                        <Label x:Name="lblNombre" HorizontalAlignment="Center" FontWeight="Bold"></Label>
-                        <Label FontSize="15" FontWeight="Bold">Nombre - Precio - Cantidad - Total</Label>
-                        <Label x:Name="lblItems" FontWeight="Bold"></Label>
+                        <TextBlock Name="lbNombres" TextWrapping="Wrap"/>
+                        <TextBlock Name="lbItemsUltimaVenta" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
-            </Grid>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="TOTAL: " FontWeight="Bold" FontSize="15"/>
+                    <TextBlock Name="tbTotalUltimaVenta" FontWeight="Bold" FontSize="15" />
+                </StackPanel>
+            </StackPanel>
         </Grid>
         <Grid x:Name="GridIngresarCodigoVenta" Grid.RowSpan="2" Background="Transparent" Visibility="Hidden">
             <Grid Height="700" Width="700" Name="gridComedor">
