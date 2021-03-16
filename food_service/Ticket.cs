@@ -99,14 +99,17 @@ namespace food_service
                 dtCliente = new DataTable();
                 dtItem = new DataTable();
                 dtSnack = new DataTable();
+                dtOrden = new DataTable();
 
                 snackImpl = new SnackImpl();
                 clienteImpl = new ClienteImpl();
                 itemImpl = new ItemImpl();
+                ordenImpl = new OrdenImpl();
 
                 dtSnack = snackImpl.GetTableSnack(idSnack);
                 dtCliente = clienteImpl.GetTableCliente(codigo);
                 dtItem = itemImpl.SelectDataTableItem(int.Parse(dtSnack.Rows[0][3].ToString()));
+                dtOrden = ordenImpl.GetOrdenForId(int.Parse(dtSnack.Rows[0][11].ToString()));
 
 
                 ticketSnack = new Tickets.TicketSnack();

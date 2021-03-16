@@ -38,7 +38,7 @@ namespace food_service.ventanas
 
         public VntReporteGeneral()
         {
-            InitializeComponent();
+            InitializeComponent();          
             configurarYBuscar();  
             
         }
@@ -70,6 +70,8 @@ namespace food_service.ventanas
 
         private void configurarYBuscar()
         {
+            dpInicio.SelectedDate = DateTime.Now;
+            dpFinal.SelectedDate = DateTime.Now;
             dpInicio.DisplayDateEnd = DateTime.Today;
             dpFinal.DisplayDateEnd = DateTime.Today;
             generarReportes();         

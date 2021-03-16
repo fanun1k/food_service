@@ -7,6 +7,7 @@ using System.Data;
 using food_service.ventanas;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace food_service
 {
@@ -22,8 +23,9 @@ namespace food_service
         Orden orden;
         SnackImpl snackImpl;
         Snack snack;
+        ObservableCollection<UserControls.ItemSnack> itemsParaMostrar;
 
-        
+
         UserControls.ItemSnack itemSnack;        
         private string codigo="";
 
@@ -56,6 +58,7 @@ namespace food_service
         public MainWindow()
         {
             InitializeComponent();
+            itemsParaMostrar = new ObservableCollection<UserControls.ItemSnack>();
             cargarItemsBDDALista();
             lbItemsVenta.ItemsSource = ItemsVenta.items;
             DataContext = this;
@@ -63,6 +66,8 @@ namespace food_service
             btnEnter.IsEnabled = false;
 
             ItemsVenta.pasarTotal += MostrarTotal;
+
+            lbItems.ItemsSource = itemsParaMostrar;
 
         }
         private void cargarItemsBDDALista()
@@ -99,7 +104,7 @@ namespace food_service
                         Precio = decimal.Parse(dataRow["precio"].ToString()),
                         Imagen = bmi
                     });
-                    lbItems.Items.Add(itemSnack);
+                    itemsParaMostrar.Add(itemSnack);
                 }
             }
             catch (Exception ex)
@@ -212,6 +217,7 @@ namespace food_service
             try
             {
                 RealizarVentaSnack();
+                TerminarVenta();
                 mostrarUltimoReporte();
             }
             catch (Exception ex)
@@ -351,6 +357,17 @@ namespace food_service
         void MostrarTotal(decimal v)
         {
             tbTotal.Text = v.ToString();
+        }
+        void TerminarVenta()
+        {
+            foreach (var item in itemsParaMostrar)
+            {
+                if (item.borderCantidad.Visibility==Visibility.Visible)
+                {
+                    item.Deseleccionar();
+                }
+            }
+            ItemsVenta.ClearItems();
         }
     }
 }

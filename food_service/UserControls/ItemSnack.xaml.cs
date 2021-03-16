@@ -53,19 +53,11 @@ namespace food_service.UserControls
         {
             if (stackOcultar.Visibility == Visibility.Visible)
             {
-                ItemMostrar.Cantidad = 0;
-                stackOcultar.Visibility = Visibility.Hidden;
-                borderCantidad.Visibility = Visibility.Hidden;
-                tbCantidad.Text = itemMostrar.Cantidad.ToString();
-                ItemsVenta.DeleteItem(ItemMostrar.Id);
+                Deseleccionar();
             }
             else
             {
-                ItemMostrar.Cantidad = 1;
-                stackOcultar.Visibility = Visibility.Visible;
-                borderCantidad.Visibility = Visibility.Visible;
-                tbCantidad.Text = itemMostrar.Cantidad.ToString();
-                ItemsVenta.AddItemVenta(ItemMostrar);
+                Seleccionar();
             }
         }
         private void cargarItem()
@@ -86,6 +78,23 @@ namespace food_service.UserControls
         private void btnItemSelected_Click(object sender, RoutedEventArgs e)
         {
             OnItemSelected();
+        }
+        public void Seleccionar()
+        {
+
+            ItemMostrar.Cantidad = 1;
+            stackOcultar.Visibility = Visibility.Visible;
+            borderCantidad.Visibility = Visibility.Visible;
+            tbCantidad.Text = itemMostrar.Cantidad.ToString();
+            ItemsVenta.AddItemVenta(ItemMostrar);
+        }
+        public void Deseleccionar()
+        {
+            ItemMostrar.Cantidad = 0;
+            stackOcultar.Visibility = Visibility.Hidden;
+            borderCantidad.Visibility = Visibility.Hidden;
+            tbCantidad.Text = itemMostrar.Cantidad.ToString();
+            ItemsVenta.DeleteItem(ItemMostrar.Id);
         }
     }
 }
