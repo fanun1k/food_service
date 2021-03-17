@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="VntReportePorDia" Height="800" Width="700" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF9FAEC8" Offset="0"/>
+                <GradientStop Color="#FF7787A4" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <DatePicker Name="dpDia" Margin="161,35,156,736" SelectedDateChanged="dpDia_SelectedDateChanged"></DatePicker>
         <Button Content="X" Name="btnClose" Click="btnClose_Click" HorizontalAlignment="Left" Margin="655,0,0,0" VerticalAlignment="Top" Width="45" Height="35" Background="Red"/>
 
