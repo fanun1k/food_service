@@ -85,50 +85,39 @@ namespace food_service.ventanas
 
             //comedor
             var dataListDesayuno = snackImpl.SelectTotalGeneral("DESAYUNO", obtenerFechaInicio(), obtenerFechaFinal());
-            totDes.Content = dataListDesayuno[0].ToString() + " Bs.";
-            cantDes.Content = dataListDesayuno[1];
+            totDes.Text = dataListDesayuno[0].ToString() + " Bs.";
+            cantDes.Text = dataListDesayuno[1].ToString();
 
             var dataListLunch = snackImpl.SelectTotalGeneral("LONCHE", obtenerFechaInicio(), obtenerFechaFinal());
-            totLunch.Content = dataListLunch[0].ToString() + " Bs.";
-            cantLunch.Content = dataListLunch[1];
+            totLunch.Text = dataListLunch[0].ToString() + " Bs.";
+            cantLunch.Text = dataListLunch[1].ToString();
 
             var CantidadAlmuerzo = registroImpl.obtenerCantAlmuerzoOCenaGeneral("ALMUERZO", obtenerFechaInicio(), obtenerFechaFinal());
             var dataAlmuerzo = itemImpl.SelectPrecioPorNombre("3-ALMUERZO") * CantidadAlmuerzo;
-            cantAlmu.Content = CantidadAlmuerzo;
-            totAlmu.Content = dataAlmuerzo.ToString() + " Bs.";
+            cantAlmu.Text = CantidadAlmuerzo.ToString();
+            totAlmu.Text = dataAlmuerzo.ToString() + " Bs.";
 
             var CantidadCena = registroImpl.obtenerCantAlmuerzoOCenaGeneral("CENA", obtenerFechaInicio(), obtenerFechaFinal());
             var dataCena = itemImpl.SelectPrecioPorNombre("4-CENA") * CantidadCena;
-            cantCena.Content = CantidadCena;
-            totCena.Content = dataCena.ToString() + " Bs.";
+            cantCena.Text = CantidadCena.ToString();
+            totCena.Text = dataCena.ToString() + " Bs.";
 
             var totalComedor = dataListDesayuno[0] + dataListLunch[0] + dataAlmuerzo + dataCena;
-            totComedor.Content = totalComedor.ToString() + " Bs.";
+            totComedor.Text = totalComedor.ToString() + " Bs.";
             //snack
 
             var totalSnack = snackImpl.SelectTotalSnackSinLoncheGeneral(obtenerFechaInicio(), obtenerFechaFinal());
-            totSnackU.Content = totalSnack.ToString() + " Bs.";
+            totSnackU.Text = totalSnack.ToString() + " Bs.";
 
             //otros
-            totComedorU.Content = totalComedor.ToString() + " Bs.";
-            totalTodo.Content = (totalComedor + totalSnack).ToString() + " Bs.";
+            totComedorU.Text = totalComedor.ToString() + " Bs.";
+            totalTodo.Text = (totalComedor + totalSnack).ToString() + " Bs.";
         }
 
         private void btnBuscar_Click(object sender, RoutedEventArgs e)
         {
             generarReportes();
         }
-
-        private void btnReiniciarInicio_Click(object sender, RoutedEventArgs e)
-        {
-            dpInicio.SelectedDate = null;
-        }
-
-        private void btnReiniciarFinal_Click(object sender, RoutedEventArgs e)
-        {
-            dpFinal.SelectedDate = null;
-        }
-
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
