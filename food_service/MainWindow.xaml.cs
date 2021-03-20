@@ -68,7 +68,6 @@ namespace food_service
             ItemsVenta.pasarTotal += MostrarTotal;
 
             lbItems.ItemsSource = itemsParaMostrar;
-
         }
         private void cargarItemsBDDALista()
         {

@@ -234,7 +234,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="appData\snack.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="appData\imgDefecto.png" />
   </ItemGroup>
@@ -263,6 +265,18 @@
       <Project>{984d264b-c304-4e82-a4cf-9ae83d5d3f37}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="snack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appData\reportePersonal.png" />
+    <Resource Include="appData\reporteGeneral.png" />
+    <Resource Include="appData\reporteDiario.png" />
+    <Resource Include="appData\registrar.png" />
+    <Resource Include="appData\asistencia.png" />
+    <Resource Include="appData\comedor.png" />
+    <Content Include="Comedor.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
