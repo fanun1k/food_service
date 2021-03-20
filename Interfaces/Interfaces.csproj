@@ -45,6 +45,7 @@
     <Compile Include="ICliente.cs" />
     <Compile Include="IDao.cs" />
     <Compile Include="IItem.cs" />
+    <Compile Include="IOrden.cs" />
     <Compile Include="IRegistro.cs" />
     <Compile Include="ISnack.cs" />
     <Compile Include="IUsuario.cs" />

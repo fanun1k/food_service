@@ -94,9 +94,9 @@ namespace Implementation
                 SqlCommand cmd = CreateBasicCommand(query);
                 res = int.Parse(ExecuteScalarCommand(cmd));
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
             return res;
 

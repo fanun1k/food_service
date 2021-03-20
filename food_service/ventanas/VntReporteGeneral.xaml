@@ -3,69 +3,140 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:fa="http://schemas.fontawesome.io/icons/"
         xmlns:local="clr-namespace:food_service.ventanas"
         mc:Ignorable="d"
-        Title="VntReporteGeneral" Height="700" Width="700">
+        Title="VntReporteGeneral" Height="500" Width="600" WindowStartupLocation="CenterScreen" AllowsTransparency="True" WindowStyle="None">
 
-    <Grid >
-        <Label Content="Usuario:"  HorizontalAlignment="Left" Margin="35,28,0,0" VerticalAlignment="Top"/>
-        <Label Content=""  x:Name="lblUsuario" HorizontalAlignment="Left" Margin="96,21,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.316,0.481" Width="227" Height="33"/>
-        <Button Content="Seleccionar Usuario" x:Name="btnSeleccionarUsuario" Click="btnSeleccionarUsuario_Click" HorizontalAlignment="Left" Margin="363,31,0,0" VerticalAlignment="Top" Width="110"/>
-        <Button Content="Registro Total Usuario" x:Name="btnRegistroGeneralUsuario" Click="btnRegistroGeneralUsuario_Click" HorizontalAlignment="Left" Margin="505,31,0,0" VerticalAlignment="Top" Width="125"/>
-        <Button Content="Limpiar Usuario" x:Name="btnLimpiarUsuario" Click="btnLimpiarUsuario_Click"  HorizontalAlignment="Left" Margin="440,81,0,0" VerticalAlignment="Top" Width="93"/>
-
-        <DatePicker x:Name="dpComedor" Margin="180,79,357,558" SelectedDateChanged="dpFecha_SelectedDateChanged"></DatePicker>
-        <Label Content="DESAYUNO:" HorizontalAlignment="Left" Margin="51,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="DESAYUNO E:" HorizontalAlignment="Left" Margin="51,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="LUNCH:" HorizontalAlignment="Left" Margin="51,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="ALMUERZO:" HorizontalAlignment="Left" Margin="51,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="CENA:" HorizontalAlignment="Left" Margin="51,302,0,0" VerticalAlignment="Top"/>
-
-        <Label Content="0" x:Name="cantDes" HorizontalAlignment="Left" Margin="166,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantDesE" HorizontalAlignment="Left" Margin="166,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantLunch" HorizontalAlignment="Left" Margin="166,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantAlmu" HorizontalAlignment="Left" Margin="166,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="0" x:Name="cantCena" HorizontalAlignment="Left" Margin="166,302,0,0" VerticalAlignment="Top"/>
-
-        <Label Content="00,00 Bs." x:Name="totDes" HorizontalAlignment="Left" Margin="240,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totDesE" HorizontalAlignment="Left" Margin="240,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totLunch" HorizontalAlignment="Left" Margin="240,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totAlmu" HorizontalAlignment="Left" Margin="240,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totCena" HorizontalAlignment="Left" Margin="240,302,0,0" VerticalAlignment="Top"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="237" Margin="35,162,0,0" VerticalAlignment="Top" Width="288"/>
-        <Label Content="Comedor" HorizontalAlignment="Left" Margin="145,131,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="87,351,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totComedor" HorizontalAlignment="Left" Margin="191,351,0,0" VerticalAlignment="Top"/>
-
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="237" Margin="363,162,0,0" VerticalAlignment="Top" Width="288"/>
-        <Label Content="Snack" HorizontalAlignment="Left" Margin="486,131,0,0" VerticalAlignment="Top"/>
-
-
-        <Label Content="PERSONAL:" HorizontalAlignment="Left" Margin="401,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totPersonal" HorizontalAlignment="Left" Margin="551,178,0,0" VerticalAlignment="Top"/>
-        <Label Content="EXTRANJEROS:" HorizontalAlignment="Left" Margin="401,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totExtranjeros" HorizontalAlignment="Left" Margin="551,209,0,0" VerticalAlignment="Top"/>
-        <Label Content="INVITADOS:" HorizontalAlignment="Left" Margin="401,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totInvitados" HorizontalAlignment="Left" Margin="551,240,0,0" VerticalAlignment="Top"/>
-        <Label Content="VARIOS:" HorizontalAlignment="Left" Margin="401,271,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totVarios" HorizontalAlignment="Left" Margin="551,274,0,0" VerticalAlignment="Top"/>
-        <Label Content="PATH:" HorizontalAlignment="Left" Margin="240,535,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totPath" HorizontalAlignment="Left" Margin="390,538,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="422,351,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totSnack" HorizontalAlignment="Left" Margin="526,351,0,0" VerticalAlignment="Top"/>
-
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="176" Margin="198,428,0,0" VerticalAlignment="Top" Width="293"/>
-        <Label Content="COMEDOR:" HorizontalAlignment="Left" Margin="240,445,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totComedorU" HorizontalAlignment="Left" Margin="390,445,0,0" VerticalAlignment="Top"/>
-        <Label Content="SNACK:" HorizontalAlignment="Left" Margin="240,476,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totSnackU" HorizontalAlignment="Left" Margin="390,476,0,0" VerticalAlignment="Top"/>
-        <Label Content="CONTADO:" HorizontalAlignment="Left" Margin="240,507,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totContadoU" HorizontalAlignment="Left" Margin="390,507,0,0" VerticalAlignment="Top"/>
-        <Label Content="TOTAL:" HorizontalAlignment="Left" Margin="269,567,0,0" VerticalAlignment="Top"/>
-        <Label Content="00,00 Bs." x:Name="totalTodo" HorizontalAlignment="Left" Margin="351,567,0,0" VerticalAlignment="Top"/>
-        <Button Content="Cargar" Name="btnVerificar" Click="btnVerificar_Click" HorizontalAlignment="Left" Margin="576,79,0,0" VerticalAlignment="Top" Width="75"/>
-
-
-    </Grid>
-
+    <Border Padding="2" BorderThickness="2" BorderBrush="Black">
+        <Grid Background="#a9b5c8" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Button Content="X" Name="btnClose" Click="btnClose_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Width="35" Height="25" Background="Red"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Viewbox Width="209" Margin="0 0 10 0">
+                    <DatePicker x:Name="dpInicio"/>
+                </Viewbox>
+                <Viewbox  Width="209">
+                    <DatePicker x:Name="dpFinal" />
+                </Viewbox>
+                <Button  Name="btnBuscar" Click="btnBuscar_Click" Width="30" Height="30" Margin="10 0 0 0">
+                    <fa:ImageAwesome Icon="Refresh" Foreground="Green" Margin="1" />
+                </Button>
+            </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Margin="10" BorderBrush="Black" BorderThickness="1" CornerRadius="5" >
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF9FAEC8" Offset="0"/>
+                            <GradientStop Color="#FF7787A4" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Margin="10 20 5 0" Width="100" Background="#FFA9B5C8" Height="20" >
+                                <TextBlock Text="DESAYUNO:" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center"/>
+                            </Border>
+                            <Border Margin="0 20 5 0" Width="50" Background="#FFA9B5C8" >
+                                <TextBlock Text="0" x:Name="cantDes" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                            </Border>
+                            <Border Margin="0 20 0 0" Width="100" Background="#FFA9B5C8" >
+                                <TextBlock Text="00,00 Bs." x:Name="totDes" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Margin="10 5 5 0" Width="100" Background="#FFA9B5C8" Height="20" >
+                                    <TextBlock Text="LUNCH:" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 5 0" Width="50" Background="#FFA9B5C8" >
+                                    <TextBlock Text="0" x:Name="cantLunch" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 0 0" Width="100" Background="#FFA9B5C8" >
+                                    <TextBlock Text="00,00 Bs." x:Name="totLunch" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Margin="10 5 5 0" Width="100" Background="#FFA9B5C8" Height="20" >
+                                    <TextBlock Text="ALMUERZO:" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 5 0" Width="50" Background="#FFA9B5C8" >
+                                    <TextBlock Text="0" x:Name="cantAlmu"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 0 0" Width="100" Background="#FFA9B5C8" >
+                                    <TextBlock Text="00,00 Bs." x:Name="totAlmu"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Border Margin="10 5 5 0" Width="100" Background="#FFA9B5C8" Height="20">
+                                    <TextBlock Text="CENA:" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 5 0" Width="50" Background="#FFA9B5C8" >
+                                    <TextBlock Text="0" x:Name="cantCena"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                                <Border Margin="0 5 0 0" Width="100" Background="#FFA9B5C8" >
+                                    <TextBlock Text="00,00 Bs." x:Name="totCena"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Center"/>
+                                </Border>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Border Margin="0 5 6 0" Width="50" Background="#FFA9B5C8" Height="20">
+                                <TextBlock Text="TOTAL:" TextAlignment="Center" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center"/>
+                            </Border>
+                            <Border Margin="0 5 5 0" Width="155" Background="#FFA9B5C8" Height="20">
+                                <TextBlock Text="00,00 Bs." x:Name="totComedor" TextAlignment="Right" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" />
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <Grid Grid.Row="2">
+                <Border Margin="10" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+                    <Border.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FF9FAEC8" Offset="0"/>
+                            <GradientStop Color="#FF7787A4" Offset="0.6"/>
+                        </LinearGradientBrush>
+                    </Border.Background>
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 40 0 0">
+                            <Border Margin="10 5 5 0" Width="120" Background="#FFA9B5C8" Height="30">
+                                <TextBlock FontSize="17"  Text="COMEDOR=" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Right"/>
+                            </Border>
+                            <Border Margin="0 5 5 0" Width="130" Background="#FFA9B5C8" >
+                                <TextBlock Text="00,00 Bs." x:Name="totComedorU"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Right" FontSize="17"/>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 5 0 0">
+                            <Border Margin="10 5 5 0" Width="120" Background="#FFA9B5C8" Height="30">
+                                <TextBlock FontSize="17"  Text="SNACK=" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Right"/>
+                            </Border>
+                            <Border Margin="0 5 5 0" Width="130" Background="#FFA9B5C8" >
+                                <TextBlock Text="00,00 Bs." x:Name="totSnackU" FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Right" FontSize="17"/>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 10 0 0">
+                            <Border Margin="10 5 5 0" Width="170" Background="#FFA9B5C8" Height="40">
+                                <TextBlock FontSize="25"  Text="TOTAL=" FontFamily="Arial" FontWeight="Bold"  VerticalAlignment="Center" TextAlignment="Right"/>
+                            </Border>
+                            <Border Margin="0 5 5 0" Width="200" Background="#FFA9B5C8" >
+                                <TextBlock Text="00,00 Bs." x:Name="totalTodo"  FontFamily="Arial" FontWeight="Bold" VerticalAlignment="Center" TextAlignment="Right" FontSize="25"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
 </Window>

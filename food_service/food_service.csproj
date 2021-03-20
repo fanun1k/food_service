@@ -95,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ItemsVenta.cs" />
     <Compile Include="Tickets\TicketLunch.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -114,6 +115,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Ticket.cs" />
+    <Compile Include="UserControls\ItemSnack.xaml.cs">
+      <DependentUpon>ItemSnack.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\VntAsistencia.xaml.cs">
       <DependentUpon>VntAsistencia.xaml</DependentUpon>
     </Compile>
@@ -125,6 +129,9 @@
     </Compile>
     <Compile Include="ventanas\VntReporteGeneral.xaml.cs">
       <DependentUpon>VntReporteGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntReportePorDia.xaml.cs">
+      <DependentUpon>VntReportePorDia.xaml</DependentUpon>
     </Compile>
     <Compile Include="ventanas\VntSnack.xaml.cs">
       <DependentUpon>VntSnack.xaml</DependentUpon>
@@ -144,6 +151,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\ItemSnack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ventanas\VntAsistencia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -153,10 +164,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ventanas\VntIngresarCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ventanas\VntReporteGeneral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ventanas\VntReporteGeneral.xaml">
+    <Page Include="ventanas\VntReportePorDia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,7 +235,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserControls\" />
+    <Resource Include="appData\snack.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="appData\imgDefecto.png" />
@@ -250,6 +265,18 @@
       <Project>{984d264b-c304-4e82-a4cf-9ae83d5d3f37}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="snack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appData\reportePersonal.png" />
+    <Resource Include="appData\reporteGeneral.png" />
+    <Resource Include="appData\reporteDiario.png" />
+    <Resource Include="appData\registrar.png" />
+    <Resource Include="appData\asistencia.png" />
+    <Resource Include="appData\comedor.png" />
+    <Content Include="Comedor.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
