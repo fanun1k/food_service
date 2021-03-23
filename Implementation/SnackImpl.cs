@@ -619,7 +619,7 @@ namespace Implementation
         }
         public DataTable SelectAllLunchesPorUsuario(string fecha)
         {
-            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', SUM(sna.cantidad) AS 'Cantidad', SUM(sna.total) AS 'Total'
+            string query = @"SELECT (ISNULL(cli.paterno,'')+' '+ ISNULL(cli.materno, '') +' '+ISNULL(cli.nombre,'')) AS 'Nombre Cliente', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', SUM(sna.cantidad) AS 'Cantidad', SUM(sna.total) AS 'Total'
                             FROM snack AS sna
                             INNER JOIN item AS it ON it.id = sna.item
                             INNER JOIN cliente AS cli On cli.id = sna.cliente
@@ -641,7 +641,7 @@ namespace Implementation
         }
         public DataTable SelectAllNotLunchesPorUsuario(string fecha)
         {
-            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', SUM(sna.cantidad) AS 'Cantidad', SUM(sna.total) AS 'Total'
+            string query = @"SELECT (ISNULL(cli.paterno,'')+' '+ ISNULL(cli.materno, '') +' '+cli.nombre) AS 'Nombre Cliente', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', SUM(sna.cantidad) AS 'Cantidad', SUM(sna.total) AS 'Total'
                             FROM snack AS sna
                             INNER JOIN item AS it ON it.id = sna.item
                             INNER JOIN cliente AS cli On cli.id = sna.cliente
@@ -664,7 +664,7 @@ namespace Implementation
         public DataTable SelectUltimaVentaSnack()
         {
             var ordenId = DBImplementation.GetIdentityFromTable("orden") - 1;
-            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', sna.fecha AS 'Fecha', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', sna.cantidad AS 'Cantidad', sna.total AS 'Total'
+            string query = @"SELECT (ISNULL(cli.paterno,'')+' '+ ISNULL(cli.materno, '') +' '+ISNULL(cli.nombre,'')) AS 'Nombre Cliente', sna.fecha AS 'Fecha', it.nombre AS 'Nombre Producto', it.precio AS 'Precio Producto', sna.cantidad AS 'Cantidad', sna.total AS 'Total'
                             FROM snack AS sna
                             INNER JOIN item AS it ON it.id = sna.item
                             INNER JOIN cliente AS cli ON cli.id = sna.cliente

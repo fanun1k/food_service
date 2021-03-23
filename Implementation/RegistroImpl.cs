@@ -368,7 +368,7 @@ namespace Implementation
 
         public DataTable obtenerRegistroPOrTurno(string fecha, string turno, double precio)
         {
-            string query = @"SELECT CONCAT(cli.paterno,' ', ISNULL(cli.materno, '') , ' ',cli.nombre) AS 'Nombre Cliente', reg.turno AS 'Nombre Producto' , @precio AS 'precio' ,SUM(reg.cantidad) AS 'Cantidad', @precio * SUM(reg.cantidad) AS 'Total'
+            string query = @"SELECT (ISNULL(cli.paterno,'')+' '+ ISNULL(cli.materno, '') + ' '+ISNULL(cli.nombre,'')) AS 'Nombre Cliente', reg.turno AS 'Nombre Producto' , @precio AS 'precio' ,SUM(reg.cantidad) AS 'Cantidad', @precio * SUM(reg.cantidad) AS 'Total'
                             FROM registro AS reg
                             INNER JOIN cliente AS cli ON cli.id = reg.cliente
                             WHERE reg.turno = @turno AND reg.fecha = @fecha AND reg.estado = 'ACTIVO'

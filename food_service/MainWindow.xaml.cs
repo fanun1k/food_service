@@ -18,25 +18,37 @@ namespace food_service
 
     {
         ItemImpl itemImpl;
-        Cliente cliente=null;
+        Cliente cliente = null;
         ClienteImpl clienteImpl;
         Orden orden;
         SnackImpl snackImpl;
         Snack snack;
+        Ticket ticket;
         ObservableCollection<UserControls.ItemSnack> itemsParaMostrar;
 
 
-        UserControls.ItemSnack itemSnack;        
-        private string codigo="";
+        UserControls.ItemSnack itemSnack;
+        private string codigo = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private decimal total=0;
+        private decimal total = 0;
+        private double tamanioGrid;
+
+        public double TamanioGrid
+        {
+            get { return tamanioGrid; }
+            set { tamanioGrid = value;
+                OnPropertyChanged("TamanioGrid");
+            }
+        }
 
         public decimal Total
         {
             get { return total; }
-            set { total = value;
+            set
+            {
+                total = value;
                 OnPropertyChanged("Total");
             }
         }
@@ -51,13 +63,16 @@ namespace food_service
         public string Codigo
         {
             get { return codigo; }
-            set { codigo = value;
+            set
+            {
+                codigo = value;
                 OnPropertyChanged("Codigo");
             }
         }
         public MainWindow()
         {
             InitializeComponent();
+            
             itemsParaMostrar = new ObservableCollection<UserControls.ItemSnack>();
             cargarItemsBDDALista();
             lbItemsVenta.ItemsSource = ItemsVenta.items;
@@ -68,12 +83,13 @@ namespace food_service
             ItemsVenta.pasarTotal += MostrarTotal;
 
             lbItems.ItemsSource = itemsParaMostrar;
+            TamanioGrid = gridItems.Width;
         }
         private void cargarItemsBDDALista()
         {
             try
             {
-                
+
                 byte[] fotografia = new byte[0];
                 itemImpl = new ItemImpl();
                 DataTable dt = itemImpl.Select();
@@ -96,7 +112,7 @@ namespace food_service
                         bmi = new BitmapImage(uri);
                     }
                     itemSnack = new UserControls.ItemSnack();
-                    itemSnack.ItemMostrar=(new Item()
+                    itemSnack.ItemMostrar = (new Item()
                     {
                         Id = int.Parse(dataRow["id"].ToString()),
                         Nombre = dataRow["nombre"].ToString(),
@@ -109,13 +125,13 @@ namespace food_service
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-               
+
             }
 
         }
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            if (ItemsVenta.GetTotal()>0 )
+            if (ItemsVenta.GetTotal() > 0)
             {
                 GridIngresarCodigoVenta.Visibility = Visibility.Visible;
             }
@@ -189,7 +205,7 @@ namespace food_service
         }
         private void btn8_Click(object sender, RoutedEventArgs e)
         {
-            Apilar("8");
+            //Apilar("8");
         }
         private void btn9_Click(object sender, RoutedEventArgs e)
         {
@@ -197,9 +213,9 @@ namespace food_service
         }
         private void btnBorrar_Click(object sender, RoutedEventArgs e)
         {
-            if (Codigo.Length>1)
+            if (Codigo.Length > 1)
             {
-                Codigo = Codigo.Substring(0,Codigo.Length-1);
+                Codigo = Codigo.Substring(0, Codigo.Length - 1);
                 btnEnter.IsEnabled = false;
             }
             else
@@ -256,7 +272,7 @@ namespace food_service
             {
                 clienteImpl = new ClienteImpl();
                 cliente = clienteImpl.Select(int.Parse(codigo));
-                if (cliente!=null)
+                if (cliente != null)
                 {
                     if (cliente.Fotografia != null)
                     {
@@ -326,11 +342,12 @@ namespace food_service
                 }
 
                 snackImpl.Insert(orden, lista);
-                //ticket = new Ticket();
-                //ticket.ImprimirTicketSnack(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
+                ticket = new Ticket();
+
+                ticket.ImprimirTicketSnack(snackImpl.GetIdSnack(), int.Parse(Codigo));
                 LimpiarPantalla();
                 GridIngresarCodigoVenta.Visibility = Visibility.Hidden;
-                
+
             }
             catch (Exception ex)
             {
@@ -340,18 +357,26 @@ namespace food_service
 
         private void mostrarUltimoReporte()
         {
-            snackImpl = new SnackImpl();
-            var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
-            lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
-            lbNombres.Text = ultimaVenta.Rows[0][0].ToString();
-            lbItemsUltimaVenta.Text = "";
-            decimal total = 0;
-            foreach (DataRow venta in ultimaVenta.Rows)
+            try
             {
-                lbItemsUltimaVenta.Text += venta[4].ToString() + "  " + venta[2].ToString() + "\n";
-                total += decimal.Parse(venta[5].ToString());
+                snackImpl = new SnackImpl();
+                var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
+                lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
+                lbNombres.Text = ultimaVenta.Rows[0][0].ToString();
+                lbItemsUltimaVenta.Text = "";
+                decimal total = 0;
+                foreach (DataRow venta in ultimaVenta.Rows)
+                {
+                    lbItemsUltimaVenta.Text += venta[4].ToString() + "  " + venta[2].ToString() + "\n";
+                    total += decimal.Parse(venta[5].ToString());
+                }
+                tbTotalUltimaVenta.Text = total.ToString();
             }
-            tbTotalUltimaVenta.Text = total.ToString();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
         void MostrarTotal(decimal v)
         {
@@ -361,12 +386,17 @@ namespace food_service
         {
             foreach (var item in itemsParaMostrar)
             {
-                if (item.borderCantidad.Visibility==Visibility.Visible)
+                if (item.borderCantidad.Visibility == Visibility.Visible)
                 {
                     item.Deseleccionar();
                 }
             }
             ItemsVenta.ClearItems();
+        }
+        void RecuperarTamañoGrid()
+        {
+            TamanioGrid = gridItems.Width;
+            MessageBox.Show(TamanioGrid+"");
         }
     }
 }

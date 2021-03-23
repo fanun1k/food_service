@@ -186,7 +186,6 @@ namespace food_service.ventanas
                                 {
                                     limpiarVentana();
                                     //Imprimir el ticket
-                                    MessageBox.Show("Registro exitoso b");
                                 }
                             }
                             catch (Exception)
@@ -200,8 +199,6 @@ namespace food_service.ventanas
                             {
                                 limpiarVentana();
                                 //Imprimir el ticket
-                                MessageBox.Show("Registro exitoso a");
-
                             }
                             break;
                             case "CENA":
@@ -210,7 +207,6 @@ namespace food_service.ventanas
                             {
                                 limpiarVentana();
                                 //Imprimir el ticket
-                                MessageBox.Show("Registro exitoso c");
                             }
 
                             break;

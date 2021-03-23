@@ -216,10 +216,10 @@
                 </Grid>
             </Border>
             <Grid x:Name="gridItems" Grid.Column="1" >
-                <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" >
+                <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel Width="900"/>
+                            <WrapPanel Width="850"/>
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                 </ListView>

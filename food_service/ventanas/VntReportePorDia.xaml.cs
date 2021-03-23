@@ -37,21 +37,29 @@ namespace food_service.ventanas
 
         private void sacarReportes()
         {
-            snackImpl = new SnackImpl();
-            ItemImpl = new ItemImpl();
-            registroImpl = new RegistroImpl();
+            try
+            {
+                snackImpl = new SnackImpl();
+                ItemImpl = new ItemImpl();
+                registroImpl = new RegistroImpl();
 
-            dgLonche.ItemsSource = null;
-            dgLonche.ItemsSource = snackImpl.SelectAllLunchesPorUsuario(obtenerfechaActual()).DefaultView;
+                dgLonche.ItemsSource = null;
+                dgLonche.ItemsSource = snackImpl.SelectAllLunchesPorUsuario(obtenerfechaActual()).DefaultView;
 
-            dgAlmuerzo.ItemsSource = null;
-            dgAlmuerzo.ItemsSource = registroImpl.obtenerRegistroPOrTurno(obtenerfechaActual(), "ALMUERZO", ItemImpl.SelectPrecioPorNombre("3-ALMUERZO")).DefaultView;
+                dgAlmuerzo.ItemsSource = null;
+                dgAlmuerzo.ItemsSource = registroImpl.obtenerRegistroPOrTurno(obtenerfechaActual(), "ALMUERZO", ItemImpl.SelectPrecioPorNombre("3-ALMUERZO")).DefaultView;
 
-            dgCena.ItemsSource = null;
-            dgCena.ItemsSource = registroImpl.obtenerRegistroPOrTurno(obtenerfechaActual(), "CENA", ItemImpl.SelectPrecioPorNombre("4-CENA")).DefaultView;
+                dgCena.ItemsSource = null;
+                dgCena.ItemsSource = registroImpl.obtenerRegistroPOrTurno(obtenerfechaActual(), "CENA", ItemImpl.SelectPrecioPorNombre("4-CENA")).DefaultView;
 
-            dgSnack.ItemsSource = null;
-            dgSnack.ItemsSource = snackImpl.SelectAllNotLunchesPorUsuario(obtenerfechaActual()).DefaultView;
+                dgSnack.ItemsSource = null;
+                dgSnack.ItemsSource = snackImpl.SelectAllNotLunchesPorUsuario(obtenerfechaActual()).DefaultView;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

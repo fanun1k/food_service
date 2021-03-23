@@ -154,7 +154,8 @@ namespace food_service
                     }
                 }
                 //fin
-                ticketLunch.PrintToPrinter(1, true, 1, 1);
+
+                ticketSnack.PrintToPrinter(1, true, 1, 1);
 
             }
             catch (Exception ex)
@@ -163,7 +164,7 @@ namespace food_service
             }
             finally
             {
-                ticketLunch.Dispose();
+                ticketSnack.Dispose();
             }
 
         }
