@@ -60,7 +60,7 @@ namespace food_service.ventanas
         {
             InitializeComponent();
             DataContext = this;
-            calendario.SelectedDate = DateTime.Now;
+            
             btnAceptar.IsEnabled = false;
             cargarComboLonches();
         }
@@ -183,9 +183,10 @@ namespace food_service.ventanas
                                 List <Snack> list = new List<Snack>();  
                                 list.Add(new Snack(idCliente, idLonche, (decimal)precioLonche, 1, (decimal)precioLonche * 1, fecha, hora));                               
                                 if (snackImpl.InsertConTransaccion(new Orden((decimal)precioLonche * 1, idCliente, fecha, hora), list) > 0)
-                                {
+                                {                                  
+                                    ticket = new Ticket();
+                                    ticket.ImprimirTicketLunch(snackImpl.GetIdSnack(),int.Parse(codigo));
                                     limpiarVentana();
-                                    //Imprimir el ticket
                                 }
                             }
                             catch (Exception)
@@ -195,16 +196,20 @@ namespace food_service.ventanas
                                 break;
                             case "ALMUERZO":
                             registro = new Registro() { Cliente = cliente.Id, Fecha = DateTime.Parse(calendario.SelectedDate.ToString()), Hora = DateTime.Parse("12:00:00"),Turno="ALMUERZO",Tipo="TOUCH" };
-                            if (registroImpl.Insert(registro)>0)
+                            if (registroImpl.InsertRegistroTickes(registro)>0)
                             {
+                                ticket = new Ticket();
+                                ticket.ImprimirTicketRegistro(registroImpl.GetIdRegistro(), int.Parse(codigo));
                                 limpiarVentana();
                                 //Imprimir el ticket
                             }
                             break;
                             case "CENA":
                             registro = new Registro() { Cliente = cliente.Id, Fecha = DateTime.Parse(calendario.SelectedDate.ToString()), Hora = DateTime.Parse("18:00:00"), Turno = "CENA", Tipo = "TOUCH" };
-                            if (registroImpl.Insert(registro) > 0)
+                            if (registroImpl.InsertRegistroTickes(registro) > 0)
                             {
+                                ticket = new Ticket();
+                                ticket.ImprimirTicketRegistro(registroImpl.GetIdRegistro(), int.Parse(codigo));
                                 limpiarVentana();
                                 //Imprimir el ticket
                             }
@@ -319,7 +324,7 @@ namespace food_service.ventanas
                     Total = item.Precio
                 };
                 listSnack.Add(snack);
-                snackImpl.Insert(orden, listSnack);
+                snackImpl.Insert(orden, listSnack,"");
                 ticket.ImprimirTicketLunch(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
             }
             catch (Exception ex)

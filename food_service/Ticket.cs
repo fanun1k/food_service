@@ -9,7 +9,7 @@ using System.Data;
 
 namespace food_service
 {
-    class Ticket
+    class Ticket:IDisposable
     {
         RegistroImpl registroImpl;
         ClienteImpl clienteImpl;
@@ -27,9 +27,8 @@ namespace food_service
         Tickets.TicketLunch ticketLunch;
         Tickets.TicketSnack ticketSnack;
 
-        int cantidad_productos_snack;
-        string nombre_tamaño_pagina;
-        public void ImprimirTicketRegistro(int id, int codigo)
+
+        public void ImprimirTicketRegistro(int idRegistro, int codigo)
         {
             try
             {
@@ -39,7 +38,7 @@ namespace food_service
                 dtRegistro = new DataTable();
                 dtCliente = new DataTable();
 
-                dtRegistro = registroImpl.GetTableRegistro(id);
+                dtRegistro = registroImpl.GetTableRegistro(idRegistro);
                 dtCliente = clienteImpl.GetTableCliente(codigo);
 
                 ticketImprimir = new Tickets.TicketsComedor();
@@ -92,7 +91,7 @@ namespace food_service
             }
 
         }
-        public void ImprimirTicketSnack(int idSnack, int codigo)
+        public void ImprimirTicketSnack(int idOrden, int codigo)
         {
             try
             {
@@ -106,54 +105,18 @@ namespace food_service
                 itemImpl = new ItemImpl();
                 ordenImpl = new OrdenImpl();
 
-                dtSnack = snackImpl.GetTableSnack(idSnack);
+                dtSnack = snackImpl.GetTableSnackWhitOrderID(idOrden);
                 dtCliente = clienteImpl.GetTableCliente(codigo);
-                dtItem = itemImpl.SelectDataTableItem(int.Parse(dtSnack.Rows[0][3].ToString()));
-                dtOrden = ordenImpl.GetOrdenForId(int.Parse(dtSnack.Rows[0][11].ToString()));
+                dtOrden = ordenImpl.GetOrdenForId(idOrden);
+                dtItem = itemImpl.SelectItemsVentaSnack(int.Parse(dtOrden.Rows[0][0].ToString()));
 
 
                 ticketSnack = new Tickets.TicketSnack();
                 ticketSnack.Database.Tables["snack"].SetDataSource(dtSnack);
                 ticketSnack.Database.Tables["cliente"].SetDataSource(dtCliente);
-                ticketSnack.Database.Tables["item"].SetDataSource(dtItem);
                 ticketSnack.Database.Tables["orden"].SetDataSource(dtOrden);
+                ticketSnack.Database.Tables["item"].SetDataSource(dtItem);
 
-                //probar esto para tamaños personalizados
-                System.Drawing.Printing.PrintDocument doctoprint = new System.Drawing.Printing.PrintDocument();
-                doctoprint.PrinterSettings.PrinterName = "EPSON TM-T81 Receipt"; //'(ex. "Epson SQ-1170 ESC/P 2")
-
-                cantidad_productos_snack = dtSnack.Rows.Count;
-                switch (cantidad_productos_snack)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                        nombre_tamaño_pagina = "valeSnack 1a3";
-                        break;
-                    case 4:
-                    case 5:
-                    case 6:
-                        nombre_tamaño_pagina = "valeSnack 4a6";
-                        break;
-                    case 7:
-                    case 8:
-                    case 9:
-                        nombre_tamaño_pagina = "valeSnack 7a9";
-                        break;
-                }
-
-                for (int i = 0; i < doctoprint.PrinterSettings.PaperSizes.Count - 1; i++)
-                {
-                    int rawKind;
-                    if (doctoprint.PrinterSettings.PaperSizes[i].PaperName == nombre_tamaño_pagina)
-                    {
-                        rawKind = Convert.ToInt32(doctoprint.PrinterSettings.PaperSizes[i].GetType().GetField("kind", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(doctoprint.PrinterSettings.PaperSizes[i]));
-                        //crPrintOut.PrintOptions.PaperSize = rawKind;
-                        ticketSnack.PrintOptions.PaperSize = (CrystalDecisions.Shared.PaperSize)rawKind;
-                        break;
-                    }
-                }
-                //fin
 
                 ticketSnack.PrintToPrinter(1, true, 1, 1);
 
@@ -169,5 +132,9 @@ namespace food_service
 
         }
 
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

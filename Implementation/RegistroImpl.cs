@@ -76,6 +76,27 @@ namespace Implementation
                 throw ex;
             };
         }
+        public int InsertRegistroTickes(Registro t)
+        {
+            string query = @"INSERT INTO registro(cliente,fecha,hora,turno,tipo)
+				                           VALUES(@cliente,@fecha,@hora,@turno,@tipo)";
+            try
+            {
+                SqlCommand cmd = DBImplementation.CreateBasicCommand(query);
+                idAux = DBImplementation.GetIdentityFromTable("registro");
+
+                cmd.Parameters.AddWithValue("@cliente", t.Cliente);
+                cmd.Parameters.AddWithValue("@fecha", t.Fecha);
+                cmd.Parameters.AddWithValue("@hora", t.Hora);
+                cmd.Parameters.AddWithValue("@turno", t.Turno);
+                cmd.Parameters.AddWithValue("@tipo", t.Tipo);
+                return DBImplementation.ExecuteBasicCommand(cmd);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            };
+        }
 
         public DataTable Select()
         {

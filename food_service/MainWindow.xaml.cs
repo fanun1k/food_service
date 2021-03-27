@@ -341,10 +341,10 @@ namespace food_service
                     lista.Add(snack);
                 }
 
-                snackImpl.Insert(orden, lista);
+                snackImpl.Insert(orden, lista,"TOUCH");
                 ticket = new Ticket();
-
-                ticket.ImprimirTicketSnack(snackImpl.GetIdSnack(), int.Parse(Codigo));
+                int a = snackImpl.IdAuxOrden;
+                ticket.ImprimirTicketSnack(snackImpl.IdAuxOrden, int.Parse(Codigo));
                 LimpiarPantalla();
                 GridIngresarCodigoVenta.Visibility = Visibility.Hidden;
 

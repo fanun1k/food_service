@@ -154,6 +154,25 @@ namespace Implementation
             }
         }
 
+        public DataTable SelectItemsVentaSnack(int idOrden)
+        {
+            string query = @"SELECT I.id,I.nombre,I.descripcion,I.Precio
+                            FROM item I
+                            INNER JOIN snack S ON I.id=S.item
+                            WHERE S.orden=@idOrden";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@idOrden",idOrden);
+                return DBImplementation.ExecuteDataTableCommand(cmd);
 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
     }
 }

@@ -12,11 +12,19 @@ namespace Implementation
 {
     public class SnackImpl : ISnack
     {
-        int idAux=0;
+        int idAux = 0;
         public int Delete(Snack t)
         {
             throw new NotImplementedException();
         }
+        private int idAuxOrden=0;
+
+        public int IdAuxOrden
+        {
+            get { return idAuxOrden; }
+            set { idAuxOrden = value; }
+        }
+
 
         public int GetIdSnack()
         {
@@ -32,16 +40,35 @@ namespace Implementation
             
         }
 
-        public DataTable GetTableSnack(int id)
+        public DataTable GetTableSnackWhitOrderID(int ordenId)
         {
             string query = @"SELECT *
                               FROM snack
-                              WHERE id=@id";
+                              WHERE orden=@ordenId";
             SqlCommand cmd;
             try
             {
                 cmd = DBImplementation.CreateBasicCommand(query);
-                cmd.Parameters.AddWithValue("@id", id);
+                cmd.Parameters.AddWithValue("@ordenId", ordenId);
+
+                return DBImplementation.ExecuteDataTableCommand(cmd);
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public DataTable GetTableSnack(int idSnack)
+        {
+            string query = @"SELECT *
+                              FROM snack
+                              WHERE id=@idSnack";
+            SqlCommand cmd;
+            try
+            {
+                cmd = DBImplementation.CreateBasicCommand(query);
+                cmd.Parameters.AddWithValue("@idSnack", idSnack);
 
                 return DBImplementation.ExecuteDataTableCommand(cmd);
 
@@ -57,20 +84,20 @@ namespace Implementation
             throw new NotImplementedException();
         }
 
-        public void Insert(Orden orden, List<Snack> listSnack)
+        public void Insert(Orden orden, List<Snack> listSnack,string tipo)
         {
             string query1 = @"  INSERT INTO orden(fecha,hora,monto,descuento,cliente,estado)
                                             VALUES(@fecha,@hora,@monto,0,@cliente,'ENTREGADO')";
 
            
-            string query2 = @"INSERT INTO snack(cliente,item,precio,cantidad,total,tipo,orden)
-                                         VALUES(@cliente,@item,@precio,@cantidad,@total,0,@orden)";
+            string query2 = @"INSERT INTO snack(cliente,item,precio,cantidad,total,orden,tipo)
+                                         VALUES(@cliente,@item,@precio,@cantidad,@total,@orden,@tipo)";
             try
             {
                 
                 List<SqlCommand> cmds = DBImplementation.CreateNBasicCommand(listSnack.Count+1);
                 idAux = DBImplementation.GetIdentityFromTable("snack");
-                int idOrden = DBImplementation.GetIdentityFromTable("orden");
+                IdAuxOrden = DBImplementation.GetIdentityFromTable("orden");
                 orden.Fecha = DateTime.Parse(DBImplementation.fechaHoraServidor().ToString("yyy-MM-dd"));
                 orden.Hora = DateTime.Parse(DBImplementation.fechaHoraServidor().ToString("H:m:ss"));
                 for (int i = 0; i <cmds.Count; i++)
@@ -91,7 +118,8 @@ namespace Implementation
                         cmds[i].Parameters.AddWithValue("@precio", listSnack[i - 1].Precio);
                         cmds[i].Parameters.AddWithValue("@cantidad", listSnack[i - 1].Cantidad);
                         cmds[i].Parameters.AddWithValue("@total", listSnack[i - 1].Total);
-                        cmds[i].Parameters.AddWithValue("@orden",idOrden);
+                        cmds[i].Parameters.AddWithValue("@orden", IdAuxOrden);
+                        cmds[i].Parameters.AddWithValue("@tipo", tipo);
                     }
                 }
                 DBImplementation.ExecuteNBasicCommmand(cmds);
@@ -110,13 +138,13 @@ namespace Implementation
 
 
             string query2 = @"INSERT INTO snack(cliente,item, fecha, hora, precio,cantidad,total,tipo,orden)
-                                         VALUES(@cliente,@item, @fecha, @hora, @precio,@cantidad,@total,0,@orden)";
+                                         VALUES(@cliente,@item, @fecha, @hora, @precio,@cantidad,@total,'TOUCH',@orden)";
             try
             {
 
                 List<SqlCommand> cmds = DBImplementation.CreateNBasicCommand(listSnack.Count + 1);
                 idAux = DBImplementation.GetIdentityFromTable("snack");
-                int idOrden = DBImplementation.GetIdentityFromTable("orden");
+                IdAuxOrden = DBImplementation.GetIdentityFromTable("orden");
 
                 for (int i = 0; i < cmds.Count; i++)
                 {
@@ -138,7 +166,7 @@ namespace Implementation
                         cmds[i].Parameters.AddWithValue("@precio", listSnack[i - 1].Precio);
                         cmds[i].Parameters.AddWithValue("@cantidad", listSnack[i - 1].Cantidad);
                         cmds[i].Parameters.AddWithValue("@total", listSnack[i - 1].Total);
-                        cmds[i].Parameters.AddWithValue("@orden", idOrden);
+                        cmds[i].Parameters.AddWithValue("@orden", IdAuxOrden);
                     }
                 }
                 DBImplementation.ExecuteNBasicCommmand(cmds);
