@@ -8,6 +8,7 @@ using food_service.ventanas;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace food_service
 {
@@ -25,7 +26,7 @@ namespace food_service
         Snack snack;
         Ticket ticket;
         ObservableCollection<UserControls.ItemSnack> itemsParaMostrar;
-
+        string textoQR = "";
 
         UserControls.ItemSnack itemSnack;
         private string codigo = "";
@@ -205,7 +206,7 @@ namespace food_service
         }
         private void btn8_Click(object sender, RoutedEventArgs e)
         {
-            //Apilar("8");
+            Apilar("8");
         }
         private void btn9_Click(object sender, RoutedEventArgs e)
         {
@@ -231,7 +232,7 @@ namespace food_service
         {
             try
             {
-                RealizarVentaSnack();
+                RealizarVentaSnack("TOUCH");
                 TerminarVenta();
                 mostrarUltimoReporte();
             }
@@ -315,7 +316,7 @@ namespace food_service
             tbNombre.Text = "INGRESE SU CODIGO O TARJETA";
             btnEnter.IsEnabled = false;
         }
-        void RealizarVentaSnack()
+        void RealizarVentaSnack(string tipo)
         {
 
             try
@@ -341,7 +342,7 @@ namespace food_service
                     lista.Add(snack);
                 }
 
-                snackImpl.Insert(orden, lista,"TOUCH");
+                snackImpl.Insert(orden, lista,tipo);
                 ticket = new Ticket();
                 int a = snackImpl.IdAuxOrden;
                 ticket.ImprimirTicketSnack(snackImpl.IdAuxOrden, int.Parse(Codigo));
@@ -398,5 +399,74 @@ namespace food_service
             TamanioGrid = gridItems.Width;
             MessageBox.Show(TamanioGrid+"");
         }
+        private void btnVentaProductosDia_Click(object sender, RoutedEventArgs e)
+        {
+            VntProductosVendidosDia v = new VntProductosVendidosDia();
+            v.Show();
+        }
+        #region Codigo_para_el_QR
+        private int ValidarCadenaQr(string lecturaQr)
+        {
+            int codigo = 0;
+            try
+            {
+                string[] cadenaValidar = lecturaQr.Split('Ñ');
+                if (cadenaValidar[0] == "CODIGO")
+                {
+                    if (cadenaValidar[1].Length > 4)
+                    {
+                        int distanciaParaCortar = cadenaValidar[1].Trim().Length - 6;
+                        codigo = int.Parse(cadenaValidar[1].Trim().Substring(0, distanciaParaCortar));
+                    }
+                    else
+                    {
+                        codigo = int.Parse(cadenaValidar[1].Trim());
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return codigo;
+
+        } 
+        private void vntPrincipal_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            textoQR = textoQR + e.Text;
+        }
+        private void vntPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Return && GridIngresarCodigoVenta.Visibility==Visibility.Visible)
+                {
+                    int codigoLeido = ValidarCadenaQr(textoQR.Trim());
+                    if (codigoLeido > 0)
+                    {
+                        Codigo = codigoLeido.ToString();
+                        MostrarDatos(Codigo);
+                        RealizarVentaSnack("QR CODE");
+                        TerminarVenta();
+                        mostrarUltimoReporte();
+                    }
+                    textoQR = "";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        #endregion
+
     }
 }
