@@ -15,17 +15,15 @@ namespace Model
         private int id;
         private string nombre;
         private string descripcion;
-        private double precio;
+        private decimal precio;
         private int categoria;
         private int stock;
         private BitmapImage imagen;
         private string estado;
-        private int cantidad;
-        private string visibilidad;
+        private int cantidad;     
+        private decimal total;
 
        
-
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void OnPropertyChanged(string property)
@@ -40,11 +38,13 @@ namespace Model
 
 
         #region get set
-        public string Visibilidad
+        public decimal Total
         {
-            get { return visibilidad; }
-            set { visibilidad = value;
-                OnPropertyChanged("Visibilidad");
+            get { return cantidad * precio; }
+            set
+            {
+                total =(cantidad * precio);
+                OnPropertyChanged("Total");
             }
         }
         public string Estado
@@ -57,7 +57,9 @@ namespace Model
             get { return cantidad; }
             set { cantidad = value;
                 OnPropertyChanged("Cantidad");
+                OnPropertyChanged("Total");
             }
+            
         }
 
         public BitmapImage Imagen
@@ -80,10 +82,10 @@ namespace Model
         }
 
 
-        public double Precio
+        public decimal Precio
         {
             get { return precio; }
-            set { precio = value; }
+            set { precio = decimal.Parse(value.ToString("F")); }
         }
 
 
@@ -111,7 +113,7 @@ namespace Model
         {
 
         }
-        public Item(int id, string nombre, string descripcion, double precio, int categoria, int stock, BitmapImage imagen, string estado)
+        public Item(int id, string nombre, string descripcion, decimal precio, int categoria, int stock, BitmapImage imagen, string estado)
         {
             this.id = id;
             this.nombre = nombre;

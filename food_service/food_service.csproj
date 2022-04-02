@@ -64,6 +64,9 @@
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="FontAwesome.WPF, Version=4.7.0.37774, Culture=neutral, PublicKeyToken=0758b07a11a4f466, processorArchitecture=MSIL">
+      <HintPath>..\packages\FontAwesome.WPF.4.7.0.9\lib\net40\FontAwesome.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -92,6 +95,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ItemsVenta.cs" />
     <Compile Include="Tickets\TicketLunch.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,8 +108,36 @@
       <DependentUpon>TicketsComedor.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Tickets\TicketSnack.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TicketSnack.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Ticket.cs" />
+    <Compile Include="UserControls\ItemSnack.xaml.cs">
+      <DependentUpon>ItemSnack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntAsistencia.xaml.cs">
+      <DependentUpon>VntAsistencia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ventanas\vntComedor.xaml.cs">
       <DependentUpon>vntComedor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntIngresarCliente.xaml.cs">
+      <DependentUpon>VntIngresarCliente.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntReporteGeneral.xaml.cs">
+      <DependentUpon>VntReporteGeneral.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntReportePorDia.xaml.cs">
+      <DependentUpon>VntReportePorDia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VntSnack.xaml.cs">
+      <DependentUpon>VntSnack.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ventanas\VtnRegistrar.xaml.cs">
+      <DependentUpon>VtnRegistrar.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -119,7 +151,35 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserControls\ItemSnack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntAsistencia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ventanas\vntComedor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntIngresarCliente.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ventanas\VntReporteGeneral.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntReportePorDia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VntSnack.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ventanas\VtnRegistrar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,6 +210,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>TicketsComedor.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Tickets\TicketSnack.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TicketSnack.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="food_serviceDataSet.xsc">
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
     </None>
@@ -161,6 +225,7 @@
     <None Include="food_serviceDataSet.xss">
       <DependentUpon>food_serviceDataSet.xsd</DependentUpon>
     </None>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -168,6 +233,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appData\snack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appData\imgDefecto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icono.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="itemPorDefecto.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="appData\itemPorDefecto.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Implementation\Implementation.csproj">
@@ -184,22 +267,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UserControls\" />
+    <Resource Include="snack.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="appData\imgDefecto.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="icono.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="itemPorDefecto.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="appData\itemPorDefecto.png" />
+    <Resource Include="appData\reportePersonal.png" />
+    <Resource Include="appData\reporteGeneral.png" />
+    <Resource Include="appData\reporteDiario.png" />
+    <Resource Include="appData\registrar.png" />
+    <Resource Include="appData\asistencia.png" />
+    <Resource Include="appData\comedor.png" />
+    <Content Include="Comedor.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

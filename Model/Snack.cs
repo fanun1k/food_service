@@ -14,9 +14,9 @@ namespace Model
         private int item;
         private DateTime fecha;
         private DateTime hora;
-        private double precio;
+        private decimal precio;
         private int cantidad;
-        private double total;
+        private decimal total;
         private string tipo;
         private string estado;
         private int order;
@@ -51,7 +51,7 @@ namespace Model
         }
 
 
-        public double Total
+        public decimal Total
         {
             get { return total; }
             set { total = value; }
@@ -65,7 +65,7 @@ namespace Model
         }
 
 
-        public double Precio
+        public decimal Precio
         {
             get { return precio; }
             set { precio = value; }
@@ -120,7 +120,7 @@ namespace Model
 
         }
 
-        public Snack(int id, int usuario, int cliente, int item, DateTime fecha, DateTime hora, double precio, int cantidad, double total, string tipo, string estado, int order, int contado)
+        public Snack(int id, int usuario, int cliente, int item, DateTime fecha, DateTime hora, decimal precio, int cantidad, decimal total, string tipo, string estado, int order, int contado)
         {
             this.id = id;
             this.usuario = usuario;
@@ -135,6 +135,26 @@ namespace Model
             this.estado = estado;
             this.order = order;
             this.contado = contado;
+        }
+
+        public Snack( int cliente, int item, decimal precio, int cantidad, decimal total)
+        {
+         
+            this.cliente = cliente;
+            this.item = item;           
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.total = total;
+        }
+        public Snack(int cliente, int item, decimal precio, int cantidad, decimal total, DateTime fecha, DateTime hora)
+        {
+            this.fecha = fecha;
+            this.hora = hora;
+            this.cliente = cliente;
+            this.item = item;
+            this.precio = precio;
+            this.cantidad = cantidad;
+            this.total = total;
         }
     }
 }

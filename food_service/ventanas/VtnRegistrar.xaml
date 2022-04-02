@@ -1,0 +1,79 @@
+﻿<Window x:Class="food_service.ventanas.VtnRegistrar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:food_service.ventanas"
+        mc:Ignorable="d"
+        Title="VtnRegistrar" Height="1000" Width="1200" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="#696969" WindowState="Maximized">
+    <Grid>
+        <Grid Width="700" Height="700" Background="#b2b2b2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="600"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Grid.ColumnSpan="4" Margin="10" BorderBrush="Black" BorderThickness="1">
+                    <TextBlock x:Name="tbCodigo" Background="#b5ab88" FontFamily="Calibri" FontWeight="Bold" FontSize="100" TextAlignment="Right" VerticalAlignment="Center" Text="{Binding Codigo, Mode=OneWay}"/>
+                </Border>
+                <Button Name="btn7" Grid.Row="1" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn7_Click">7</Button>
+                <Button Name="btn8" Grid.Row="1" Grid.Column="1" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn8_Click">8</Button>
+                <Button Name="btn9" Grid.Row="1" Grid.Column="2" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn9_Click">9</Button>
+                <Button Name="btnLimpiar" Grid.Row="1" Grid.Column="3" Style="{StaticResource ResourceKey=BotonRegistrar}" FontSize="21" Click="btnLimpiar_Click">LIMPIAR</Button>
+                <Button Name="btn4" Grid.Row="2" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn4_Click">4</Button>
+                <Button Name="btn5" Grid.Row="2" Grid.Column="1" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn5_Click">5</Button>
+                <Button Name="btn6" Grid.Row="2" Grid.Column="2" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn6_Click">6</Button>
+                <Button Name="btn1" Grid.Row="3" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn1_Click">1</Button>
+                <Button Name="btn2" Grid.Row="3" Grid.Column="1" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn2_Click">2</Button>
+                <Button Name="btn3" Grid.Row="3" Grid.Column="2" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn3_Click">3</Button>
+                <Button Name="btn0" Grid.Row="4" Style="{StaticResource ResourceKey=BotonRegistrar}" Click="btn0_Click">0</Button>
+                <Button Name="btnAceptar" Grid.ColumnSpan="2" Grid.Row="4" Grid.Column="1" Style="{StaticResource ResourceKey=BotonRegistrar}" FontSize="30" Click="btnAceptar_Click">ACEPTAR</Button>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel>
+                    <Viewbox>
+                        <Calendar x:Name="calendario"/>
+                    </Viewbox>
+                    <Button Name="bntLunch" Style="{StaticResource ResourceKey=BotonTipo}" Click="bntLunch_Click">LUNCH</Button>
+                    <Button Name="btnAlmuerzo" Style="{StaticResource ResourceKey=BotonTipo}" HorizontalAlignment="Left" Margin="5,5,0,5" Width="190" Click="btnAlmuerzo_Click">ALMUERZO</Button>
+                    <Button Name="btnCena" Style="{StaticResource ResourceKey=BotonTipo}" Click="btnCena_Click">CENA</Button>
+
+                    <Border x:Name="borderLonches" BorderBrush="Black" BorderThickness="1" Height="150" Margin="0 40 5 0" Visibility="Hidden">
+                        <StackPanel HorizontalAlignment="Center">
+                            <TextBlock Text="Precios del Lunch" FontSize="18" FontWeight="Bold"/>
+                            <ComboBox Name="cbLonches" Margin="0 20 0 0 "/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel> 
+            </Grid>
+            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="Black" BorderThickness="0 1 0 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="500"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="tbNombre" Background="#b5ab88" FontFamily="Calibri" FontWeight="Bold" FontSize="40" TextAlignment="Right" VerticalAlignment="Center" Margin="10"/>
+                    <Button Name="btnSalir" Grid.Column="1" Margin="10 20" Style="{StaticResource ResourceKey=BotonTipo}" Click="btnSalir_Click">SALIR</Button>
+                </Grid>         
+            </Border>
+        </Grid> 
+    </Grid>
+</Window>
