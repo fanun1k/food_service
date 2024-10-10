@@ -110,9 +110,9 @@ namespace Implementation
 
         public DataTable GetTableCliente(int codigo)
         {
-            string query = @"SELECT *
-                              FROM cliente
-                              WHERE codigo=@codigo";
+            string query = @"SELECT id,ISNULL(nombre,'') As nombre,ISNULL(materno,'') AS materno,ISNULL(paterno,'') AS paterno,documento,fecha_ingreso,codigo
+                            FROM cliente
+                             WHERE codigo=@codigo";
             SqlCommand cmd;
             try
             {

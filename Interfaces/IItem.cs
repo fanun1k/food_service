@@ -13,5 +13,6 @@ namespace Interfaces
         DataTable SelectLunch();
         Item SelectItem(int id);
         DataTable SelectDataTableItem(int id);
+        DataTable SelectItemsVentaSnack(int idOrden);
     }
 }
