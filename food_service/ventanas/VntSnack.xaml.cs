@@ -122,7 +122,7 @@ namespace food_service.ventanas
                     snackImpl = new SnackImpl();
                     clienteImpl = new ClienteImpl();
                     var codigoCliente = clienteImpl.SelectIdPorCodigo(int.Parse(codigoClienteBase)).Id;
-                    snackImpl.Insert(new Orden(total, codigoCliente), convertirAListaSnacks(lista)); ;
+                    snackImpl.Insert(new Orden(total, codigoCliente), convertirAListaSnacks(lista),"TOUCH"); ;
                     MessageBox.Show("Pedido insertado con exito");
                  //   MainWindow.itemsVenta = new ObservableCollection<Item>();
                     this.Close();

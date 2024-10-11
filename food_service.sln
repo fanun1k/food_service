@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Implementation", "Implement
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{984D264B-C304-4E82-A4CF-9AE83D5D3F37}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "FoodService2_Installer", "FoodService2_Installer\FoodService2_Installer.vdproj", "{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ELPAD Food Service", "ELPAD Food Service\ELPAD Food Service.vdproj", "{7E031AB3-01DC-4CF9-A6D1-2DF67C638B36}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,11 +53,10 @@ Global
 		{984D264B-C304-4E82-A4CF-9AE83D5D3F37}.Release|Any CPU.Build.0 = Release|Any CPU
 		{984D264B-C304-4E82-A4CF-9AE83D5D3F37}.Release|x64.ActiveCfg = Release|Any CPU
 		{984D264B-C304-4E82-A4CF-9AE83D5D3F37}.Release|x64.Build.0 = Release|Any CPU
-		{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}.Debug|Any CPU.ActiveCfg = Release
-		{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}.Debug|Any CPU.Build.0 = Release
-		{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}.Debug|x64.ActiveCfg = Debug
-		{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}.Release|Any CPU.ActiveCfg = Release
-		{EDC75EF5-5DF6-4121-BBCD-2C38082860D0}.Release|x64.ActiveCfg = Release
+		{7E031AB3-01DC-4CF9-A6D1-2DF67C638B36}.Debug|Any CPU.ActiveCfg = Debug
+		{7E031AB3-01DC-4CF9-A6D1-2DF67C638B36}.Debug|x64.ActiveCfg = Debug
+		{7E031AB3-01DC-4CF9-A6D1-2DF67C638B36}.Release|Any CPU.ActiveCfg = Release
+		{7E031AB3-01DC-4CF9-A6D1-2DF67C638B36}.Release|x64.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

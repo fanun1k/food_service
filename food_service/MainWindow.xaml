@@ -9,11 +9,11 @@
         mc:Ignorable="d"
         Title="food service 2" Height="1000" Width="1200"
         WindowStartupLocation="CenterScreen" WindowState="Maximized"
-        x:Name="vntPrincipal">
+        x:Name="vntPrincipal" TextInput="vntPrincipal_TextInput" KeyDown="vntPrincipal_KeyDown">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="6*"/>
+            <RowDefinition Height="130"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid >
             <TabControl x:Name="tabControl" Style="{DynamicResource TabControlStyle}">
@@ -139,6 +139,13 @@
                                 <TextBlock Text="Dia" FontFamily="Arial" FontWeight="Bold" TextAlignment="Center"/>
                             </StackPanel>
                         </Button>
+                        <Button x:Name="btnVentaProductosDia" Margin="1" Width="65" Background="#ffe089" Click="btnVentaProductosDia_Click">
+                            <StackPanel>
+                                <Image Source="appData/reporteDiario.png" Margin="5 0 5 0" IsEnabled="False"/>
+                                <TextBlock Text="Productos Vendidos" FontFamily="Arial" FontWeight="Bold" TextAlignment="Center" TextWrapping="Wrap"/>
+                            </StackPanel>
+                        </Button>
+
                     </StackPanel>
                 </TabItem>
             </TabControl>
@@ -147,7 +154,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="230"/>
                 <ColumnDefinition Width="4*"/>
-                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Border BorderBrush="Black" BorderThickness="1" Margin="1">
                 <Grid>
@@ -216,13 +223,15 @@
                 </Grid>
             </Border>
             <Grid x:Name="gridItems" Grid.Column="1" >
-                <ListView x:Name="lbItems" Background="Transparent" Margin="0,2,0.2,2" >
-                    <ListView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Width="900"/>
-                        </ItemsPanelTemplate>
-                    </ListView.ItemsPanel>
-                </ListView>
+                <ScrollViewer>
+                    <ItemsControl x:Name="lbItems" Background="Transparent" Margin="5 10 5 10" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
             </Grid>
             <StackPanel Grid.Column="2" Margin="5">
                 <TextBlock x:Name="lblFecha" TextDecorations="UnderLine" FontWeight="Bold" FontSize="15" HorizontalAlignment="Center"></TextBlock>

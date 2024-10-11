@@ -11,8 +11,8 @@ namespace Interfaces
 {
     public interface ISnack:IDao<Snack>
     {
-        void Insert(Orden orden, List<Snack> listSnack);
+        void Insert(Orden orden, List<Snack> listSnack,string tipo);
         int GetIdSnack();
-        DataTable GetTableSnack(int id);
+        DataTable GetTableSnackWhitOrderID(int id);
     }
 }

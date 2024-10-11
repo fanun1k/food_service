@@ -136,7 +136,7 @@ namespace food_service.ventanas
                             case 10:
                                 // en caso sea la hora en el servidor 8:00 9:00 o 10:00 se vendera Lunch
                                 btnEnter.IsEnabled = false;
-                                RealizarVentaLunch();
+                                RealizarVentaLunch("QR CODE");
                                 numeroFicha.Clear();
                                 break;
 
@@ -310,7 +310,7 @@ namespace food_service.ventanas
                     case 10:
                         // en caso sea la hora en el servidor 8:00 9:00 o 10:00 se vendera Lunch
                         btnEnter.IsEnabled = false;
-                        RealizarVentaLunch();                        
+                        RealizarVentaLunch("TOUCH");                        
                         numeroFicha.Clear();
                         break;
                         
@@ -487,7 +487,7 @@ namespace food_service.ventanas
             }
         }
 
-        void RealizarVentaLunch()
+        void RealizarVentaLunch(string tipo)
         {          
             try
             {
@@ -509,7 +509,7 @@ namespace food_service.ventanas
                     Total=item.Precio                   
                 };
                 listSnack.Add(snack);
-                snackImpl.Insert(orden, listSnack);
+                snackImpl.Insert(orden, listSnack,tipo);
                 ImprimirTicketLunch(snackImpl.GetIdSnack(),int.Parse(cliente.Codigo));
                 
                                 
@@ -540,21 +540,13 @@ namespace food_service.ventanas
                 dtCliente = new DataTable();
 
 
-                dtRegistro = registroImpl.GetTableRegistro(id);
-              
+                dtRegistro = registroImpl.GetTableRegistro(id);             
                 dtCliente = clienteImpl.GetTableCliente(codigo);
-                //MessageBox.Show(dtCliente.Rows[0][1].ToString());
-                //MessageBox.Show(dtCliente.Rows[0][2].ToString());
-                //MessageBox.Show(dtCliente.Rows[0][3].ToString());
-
-
 
                 tiketImprimir = new Tickets.TicketsComedor();
 
                 tiketImprimir.Database.Tables["registro"].SetDataSource(dtRegistro);
-               
                 tiketImprimir.Database.Tables["cliente"].SetDataSource(dtCliente);
-
 
                 tiketImprimir.PrintToPrinter(1, true, 0, 0);
 

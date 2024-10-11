@@ -8,6 +8,7 @@ using food_service.ventanas;
 using System.ComponentModel;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace food_service
 {
@@ -18,25 +19,37 @@ namespace food_service
 
     {
         ItemImpl itemImpl;
-        Cliente cliente=null;
+        Cliente cliente = null;
         ClienteImpl clienteImpl;
         Orden orden;
         SnackImpl snackImpl;
         Snack snack;
+        Ticket ticket;
         ObservableCollection<UserControls.ItemSnack> itemsParaMostrar;
+        string textoQR = "";
 
-
-        UserControls.ItemSnack itemSnack;        
-        private string codigo="";
+        UserControls.ItemSnack itemSnack;
+        private string codigo = "";
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        private decimal total=0;
+        private decimal total = 0;
+        private double tamanioGrid;
+
+        public double TamanioGrid
+        {
+            get { return tamanioGrid; }
+            set { tamanioGrid = value;
+                OnPropertyChanged("TamanioGrid");
+            }
+        }
 
         public decimal Total
         {
             get { return total; }
-            set { total = value;
+            set
+            {
+                total = value;
                 OnPropertyChanged("Total");
             }
         }
@@ -51,13 +64,16 @@ namespace food_service
         public string Codigo
         {
             get { return codigo; }
-            set { codigo = value;
+            set
+            {
+                codigo = value;
                 OnPropertyChanged("Codigo");
             }
         }
         public MainWindow()
         {
             InitializeComponent();
+            
             itemsParaMostrar = new ObservableCollection<UserControls.ItemSnack>();
             cargarItemsBDDALista();
             lbItemsVenta.ItemsSource = ItemsVenta.items;
@@ -68,12 +84,13 @@ namespace food_service
             ItemsVenta.pasarTotal += MostrarTotal;
 
             lbItems.ItemsSource = itemsParaMostrar;
+            TamanioGrid = gridItems.Width;
         }
         private void cargarItemsBDDALista()
         {
             try
             {
-                
+
                 byte[] fotografia = new byte[0];
                 itemImpl = new ItemImpl();
                 DataTable dt = itemImpl.Select();
@@ -96,7 +113,7 @@ namespace food_service
                         bmi = new BitmapImage(uri);
                     }
                     itemSnack = new UserControls.ItemSnack();
-                    itemSnack.ItemMostrar=(new Item()
+                    itemSnack.ItemMostrar = (new Item()
                     {
                         Id = int.Parse(dataRow["id"].ToString()),
                         Nombre = dataRow["nombre"].ToString(),
@@ -109,13 +126,13 @@ namespace food_service
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-               
+
             }
 
         }
         private void btnFinalizar_Click(object sender, RoutedEventArgs e)
         {
-            if (ItemsVenta.GetTotal()>0 )
+            if (ItemsVenta.GetTotal() > 0)
             {
                 GridIngresarCodigoVenta.Visibility = Visibility.Visible;
             }
@@ -197,9 +214,9 @@ namespace food_service
         }
         private void btnBorrar_Click(object sender, RoutedEventArgs e)
         {
-            if (Codigo.Length>1)
+            if (Codigo.Length > 1)
             {
-                Codigo = Codigo.Substring(0,Codigo.Length-1);
+                Codigo = Codigo.Substring(0, Codigo.Length - 1);
                 btnEnter.IsEnabled = false;
             }
             else
@@ -215,7 +232,7 @@ namespace food_service
         {
             try
             {
-                RealizarVentaSnack();
+                RealizarVentaSnack("TOUCH");
                 TerminarVenta();
                 mostrarUltimoReporte();
             }
@@ -256,7 +273,7 @@ namespace food_service
             {
                 clienteImpl = new ClienteImpl();
                 cliente = clienteImpl.Select(int.Parse(codigo));
-                if (cliente!=null)
+                if (cliente != null)
                 {
                     if (cliente.Fotografia != null)
                     {
@@ -299,7 +316,7 @@ namespace food_service
             tbNombre.Text = "INGRESE SU CODIGO O TARJETA";
             btnEnter.IsEnabled = false;
         }
-        void RealizarVentaSnack()
+        void RealizarVentaSnack(string tipo)
         {
 
             try
@@ -325,12 +342,13 @@ namespace food_service
                     lista.Add(snack);
                 }
 
-                snackImpl.Insert(orden, lista);
-                //ticket = new Ticket();
-                //ticket.ImprimirTicketSnack(snackImpl.GetIdSnack(), int.Parse(cliente.Codigo));
+                snackImpl.Insert(orden, lista,tipo);
+                ticket = new Ticket();
+                int a = snackImpl.IdAuxOrden;
+                ticket.ImprimirTicketSnack(snackImpl.IdAuxOrden, int.Parse(Codigo));
                 LimpiarPantalla();
                 GridIngresarCodigoVenta.Visibility = Visibility.Hidden;
-                
+
             }
             catch (Exception ex)
             {
@@ -340,18 +358,26 @@ namespace food_service
 
         private void mostrarUltimoReporte()
         {
-            snackImpl = new SnackImpl();
-            var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
-            lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
-            lbNombres.Text = ultimaVenta.Rows[0][0].ToString();
-            lbItemsUltimaVenta.Text = "";
-            decimal total = 0;
-            foreach (DataRow venta in ultimaVenta.Rows)
+            try
             {
-                lbItemsUltimaVenta.Text += venta[4].ToString() + "  " + venta[2].ToString() + "\n";
-                total += decimal.Parse(venta[5].ToString());
+                snackImpl = new SnackImpl();
+                var ultimaVenta = snackImpl.SelectUltimaVentaSnack();
+                lblFecha.Text = DateTime.Parse(ultimaVenta.Rows[0][1].ToString()).ToString("dd-MM-yyyy");
+                lbNombres.Text = ultimaVenta.Rows[0][0].ToString();
+                lbItemsUltimaVenta.Text = "";
+                decimal total = 0;
+                foreach (DataRow venta in ultimaVenta.Rows)
+                {
+                    lbItemsUltimaVenta.Text += venta[4].ToString() + "  " + venta[2].ToString() + "\n";
+                    total += decimal.Parse(venta[5].ToString());
+                }
+                tbTotalUltimaVenta.Text = total.ToString();
             }
-            tbTotalUltimaVenta.Text = total.ToString();
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
         }
         void MostrarTotal(decimal v)
         {
@@ -361,12 +387,86 @@ namespace food_service
         {
             foreach (var item in itemsParaMostrar)
             {
-                if (item.borderCantidad.Visibility==Visibility.Visible)
+                if (item.borderCantidad.Visibility == Visibility.Visible)
                 {
                     item.Deseleccionar();
                 }
             }
             ItemsVenta.ClearItems();
         }
+        void RecuperarTamañoGrid()
+        {
+            TamanioGrid = gridItems.Width;
+            MessageBox.Show(TamanioGrid+"");
+        }
+        private void btnVentaProductosDia_Click(object sender, RoutedEventArgs e)
+        {
+            VntProductosVendidosDia v = new VntProductosVendidosDia();
+            v.Show();
+        }
+        #region Codigo_para_el_QR
+        private int ValidarCadenaQr(string lecturaQr)
+        {
+            int codigo = 0;
+            try
+            {
+                string[] cadenaValidar = lecturaQr.Split('Ñ');
+                if (cadenaValidar[0] == "CODIGO")
+                {
+                    if (cadenaValidar[1].Length > 4)
+                    {
+                        int distanciaParaCortar = cadenaValidar[1].Trim().Length - 6;
+                        codigo = int.Parse(cadenaValidar[1].Trim().Substring(0, distanciaParaCortar));
+                    }
+                    else
+                    {
+                        codigo = int.Parse(cadenaValidar[1].Trim());
+                    }
+
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            return codigo;
+
+        } 
+        private void vntPrincipal_TextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            textoQR = textoQR + e.Text;
+        }
+        private void vntPrincipal_KeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Return && GridIngresarCodigoVenta.Visibility==Visibility.Visible)
+                {
+                    int codigoLeido = ValidarCadenaQr(textoQR.Trim());
+                    if (codigoLeido > 0)
+                    {
+                        Codigo = codigoLeido.ToString();
+                        MostrarDatos(Codigo);
+                        RealizarVentaSnack("QR CODE");
+                        TerminarVenta();
+                        mostrarUltimoReporte();
+                    }
+                    textoQR = "";
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
+
+        #endregion
+
     }
 }
